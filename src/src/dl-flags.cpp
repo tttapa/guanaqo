@@ -1,0 +1,20 @@
+#include <guanaqo/dl-flags.hpp>
+
+#if !_WIN32
+#include <dlfcn.h>
+#endif
+
+namespace guanaqo {
+
+DynamicLoadFlags::operator int() const {
+#if _WIN32
+    return 0;
+#else
+    return (global ? RTLD_GLOBAL : RTLD_LOCAL) | //
+           (lazy ? RTLD_LAZY : RTLD_NOW) |       //
+           (nodelete ? RTLD_NODELETE : 0) |      //
+           (deepbind ? RTLD_DEEPBIND : 0);
+#endif
+}
+
+} // namespace guanaqo

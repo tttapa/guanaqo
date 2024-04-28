@@ -1,0 +1,3 @@
+#include <guanaqo-version.h>
+const char *const guanaqo_build_time = "@GUANAQO_BUILD_TIME@";
+const char *const guanaqo_commit_hash = "@GUANAQO_COMMIT_HASH@";

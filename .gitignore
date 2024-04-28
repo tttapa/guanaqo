@@ -1,0 +1,62 @@
+# Local files
+CMakeUserPresets.json
+py-build-cmake.local.toml
+
+# Temporary build and cache folders
+build
+.*cache
+__pycache__
+/build-local
+
+# Virtual environments
+.venv*
+
+# Python distribution and building
+dist
+dist-debug
+wheelhouse
+*.py-build-cmake.config.toml
+/install
+/staging
+/package
+/toolchains
+
+# Compiled or generated files
+*.mod
+*.o
+*.a
+*.so
+a.out
+
+# Profiling
+perf.data*
+profile
+*.prof
+gmon.out
+callgrind.out.*
+heaptrack.*
+r[0-9][0-9][0-9]hs
+test.*.er
+
+# LaTeX
+*.aux
+*.auctex-auto
+*.auxlock
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.run.xml
+*.snm
+*.toc
+*.bcf
+*.pdf
+*.pdfpc
+
+# Media files
+*.mp4

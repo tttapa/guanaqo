@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.21)
+project(guanaqo-test CXX)
+enable_testing()
+include(GoogleTest)
+
+# Dependencies
+find_package(GTest REQUIRED)
+if (NOT TARGET guanaqo::guanaqo)
+    find_package(guanaqo REQUIRED)
+endif()
+
+add_executable(tests
+    "test-duration-parse.cpp"
+    "test-print.cpp"
+    "test-set-intersection.cpp"
+    "test-string-util.cpp"
+    "test-type-erasure.cpp"
+    "io/test-csv.cpp"
+)
+target_include_directories(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(tests PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_link_libraries(tests PRIVATE guanaqo::guanaqo guanaqo::warnings
+                                    GTest::gtest_main GTest::gmock)
+if (GUANAQO_WITH_CXX_23 AND "cxx_std_23" IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+    target_compile_features(tests PRIVATE cxx_std_23)
+    target_compile_definitions(tests PRIVATE GUANAQO_WITH_CXX23_TESTS)
+endif()
+if (MSVC)
+    target_compile_definitions(tests PRIVATE __PRETTY_FUNCTION__=__FUNCSIG__)
+endif()
+
+option(GUANAQO_FORCE_TEST_DISCOVERY
+    "Query the test executable even when cross-compiling" Off)
+if (NOT CMAKE_CROSSCOMPILING OR GUANAQO_FORCE_TEST_DISCOVERY)
+    gtest_discover_tests(tests DISCOVERY_TIMEOUT 60)
+endif()
+add_executable(guanaqo::tests ALIAS tests)
+
+if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.21) 
+    # Copy DLLs for test executable
+    add_custom_command(TARGET tests PRE_LINK COMMAND
+        COMMAND ${CMAKE_COMMAND} -E 
+            $<IF:$<BOOL:$<TARGET_RUNTIME_DLLS:tests>>,copy,true>
+            $<TARGET_RUNTIME_DLLS:tests> $<TARGET_FILE_DIR:tests>
+        COMMAND_EXPAND_LISTS)
+endif()
