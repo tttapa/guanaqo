@@ -51,72 +51,99 @@ class GUANAQO_EXPORT bad_type_erased_constness : public std::logic_error {
                            "that references a const object"} {}
 };
 
-/// Struct that stores the size of a polymorphic object, as well as pointers to
-/// functions to copy, move or destroy the object.
-/// Inherit from this struct to add useful functions.
-struct BasicVTable {
+namespace detail {
 
-    template <class>
-    struct required_function; // undefined
-    template <class R, class... Args>
-    struct required_function<R(Args...)> {
-        using type = R (*)(void *self, Args...);
-    };
-    template <class R, class... Args>
-    struct required_function<R(Args...) const> {
-        using type = R (*)(const void *self, Args...);
-    };
-    template <class, class VTable = BasicVTable>
-    struct optional_function; // undefined
-    template <class R, class... Args, class VTable>
-    struct optional_function<R(Args...), VTable> {
-        using type = R (*)(void *self, Args..., const VTable &);
-    };
-    template <class R, class... Args, class VTable>
-    struct optional_function<R(Args...) const, VTable> {
-        using type = R (*)(const void *self, Args..., const VTable &);
-    };
-    /// A required function includes a void pointer to self, in addition to the
-    /// arguments of @p F.
-    template <class F>
-    using required_function_t = typename required_function<F>::type;
-    /// An optional function includes a void pointer to self, the arguments of
-    /// @p F, and an additional reference to the VTable, so that it can be
-    /// implemented in terms of other functions.
-    template <class F, class VTable = BasicVTable>
-    using optional_function_t = typename optional_function<F, VTable>::type;
+template <class>
+struct required_function; // undefined
+template <class R, class... Args>
+struct required_function<R(Args...)> {
+    using type = R (*)(void *self, Args...);
+};
+template <class R, class... Args>
+struct required_function<R(Args...) const> {
+    using type = R (*)(const void *self, Args...);
+};
+template <class, class VTable>
+struct optional_function; // undefined
+template <class R, class... Args, class VTable>
+struct optional_function<R(Args...), VTable> {
+    using type = R (*)(void *self, Args..., const VTable &);
+};
+template <class R, class... Args, class VTable>
+struct optional_function<R(Args...) const, VTable> {
+    using type = R (*)(const void *self, Args..., const VTable &);
+};
 
+} // namespace detail
+
+/// A required function includes a void pointer to self, in addition to the
+/// arguments of @p F.
+template <class F>
+using required_function_t = typename detail::required_function<F>::type;
+/// An optional function includes a void pointer to self, the arguments of
+/// @p F, and an additional reference to the VTable, so that it can be
+/// implemented in terms of other functions.
+template <class F, class VTable>
+using optional_function_t = typename detail::optional_function<F, VTable>::type;
+
+struct CopyMoveDestroyVTable {
     /// Copy-construct a new instance into storage.
-    required_function_t<void(void *storage) const> copy = nullptr;
+    required_function_t<void(void *storage) const> copy;
     /// Move-construct a new instance into storage.
-    required_function_t<void(void *storage)> move = nullptr;
+    required_function_t<void(void *storage)> move;
     /// Destruct the given instance.
-    required_function_t<void()> destroy = nullptr;
-    /// The original type of the stored object.
-    const std::type_info *type = &typeid(void);
+    required_function_t<void()> destroy;
+};
 
-    BasicVTable() = default;
-
-    template <class T>
-    BasicVTable(std::in_place_t, T &) noexcept {
-        copy = [](const void *self, void *storage) {
+template <class T>
+constexpr CopyMoveDestroyVTable copy_move_destroy_vtable = {
+    .copy =
+        [](const void *self, void *storage) {
             new (storage) T(*std::launder(reinterpret_cast<const T *>(self)));
-        };
-        // TODO: require that move constructor is noexcept?
-        move = [](void *self, void *storage) noexcept {
+        },
+    .move =
+        [](void *self, void *storage) noexcept {
+            // TODO: require that move constructor is noexcept?
             if constexpr (std::is_const_v<T>)
                 std::terminate();
             else
                 new (storage)
                     T(std::move(*std::launder(reinterpret_cast<T *>(self))));
-        };
-        destroy = [](void *self) {
+        },
+    .destroy =
+        [](void *self) {
             if constexpr (std::is_const_v<T>)
                 std::terminate();
             else
                 std::launder(reinterpret_cast<T *>(self))->~T();
-        };
-        type = &typeid(T);
+        },
+};
+
+/// Struct that stores pointers to functions to copy, move or destroy a
+/// polymorphic object.
+/// Inherit from this struct to add useful functions.
+struct BasicVTable {
+    /// The original type of the stored object.
+    const std::type_info *type = &typeid(void);
+    /// Function pointers for copying, moving and destroying the stored object.
+    const CopyMoveDestroyVTable *copy_move_destroy_functions = nullptr;
+
+    BasicVTable() = default;
+
+    template <class T>
+    BasicVTable(std::in_place_t, T &) noexcept {
+        type                        = &typeid(T);
+        copy_move_destroy_functions = &copy_move_destroy_vtable<T>;
+    }
+
+    void copy(const void *self, void *storage) const {
+        return copy_move_destroy_functions->copy(self, storage);
+    }
+    void move(void *self, void *storage) const {
+        return copy_move_destroy_functions->move(self, storage);
+    }
+    void destroy(void *self) const {
+        return copy_move_destroy_functions->destroy(self);
     }
 };
 
