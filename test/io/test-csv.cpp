@@ -148,7 +148,7 @@ TEST(csv, readShort) {
 }
 
 constexpr auto inf = std::numeric_limits<double>::infinity();
-constexpr auto nan = std::numeric_limits<double>::quiet_NaN();
+constexpr auto NaN = std::numeric_limits<double>::quiet_NaN();
 
 TEST(csv, readNaNInf) {
     std::istringstream is{"inf,"
@@ -158,7 +158,7 @@ TEST(csv, readNaNInf) {
                           "-nan"};
     std::vector<double> v(5);
     guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
-    std::vector<double> expected{inf, +inf, -inf, nan, -nan};
+    std::vector<double> expected{inf, +inf, -inf, NaN, -NaN};
     EXPECT_EQ(std::memcmp(v.data(), expected.data(), 5 * sizeof(*v.data())), 0);
 }
 
@@ -307,7 +307,7 @@ TEST(csv, stdvecReadNaNInf) {
                           "nan,"
                           "-nan"};
     auto v = guanaqo::io::csv_read_row_std_vector<double>(is);
-    std::vector<double> expected{inf, -inf, nan, -nan};
+    std::vector<double> expected{inf, -inf, NaN, -NaN};
     EXPECT_EQ(std::memcmp(v.data(), expected.data(), 4 * sizeof(*v.data())), 0);
 }
 

@@ -33,7 +33,7 @@ struct CSVReader {
         // Check separator
         if (ptr != bufend && *ptr != sep)
             throw csv_read_error("io::csv_read_row unexpected character '" +
-                             std::string{*ptr} + "'");
+                                 std::string{*ptr} + "'");
         // Shift the buffer over
         if (ptr != bufend) {
             std::copy(ptr + 1, static_cast<const char *>(bufend), s.data());
@@ -54,9 +54,9 @@ struct CSVReader {
             return;
         if (!is.get(s.data() + bufidx, bufmaxsize - bufidx + 1, end))
             throw csv_read_error("io::csv_read_row extraction failed: " +
-                             std::to_string(is.bad()) + " " +
-                             std::to_string(is.fail()) + " " +
-                             std::to_string(is.eof()));
+                                 std::to_string(is.bad()) + " " +
+                                 std::to_string(is.fail()) + " " +
+                                 std::to_string(is.eof()));
         bufidx += is.gcount();
         keep_reading = is.peek() != end && !is.eof();
         assert(bufidx <= bufmaxsize);
@@ -88,8 +88,8 @@ struct CSVReader {
         const auto bufvw     = std::string_view(bufbegin, bufend);
         if (ec != std::errc{})
             throw csv_read_error("io::csv_read_row conversion failed '" +
-                             std::string(bufvw) +
-                             "': " + std::make_error_code(ec).message());
+                                 std::string(bufvw) +
+                                 "': " + std::make_error_code(ec).message());
         return ptr;
     }
 #else
@@ -117,9 +117,9 @@ struct CSVReader {
         errno = 0;
         strtod_ovl(bufbegin, &ptr, v);
         if (errno || ptr == bufbegin)
-            throw read_error("io::csv_read_row conversion failed '" +
-                             std::string(bufbegin) +
-                             "': " + std::to_string(errno));
+            throw csv_read_error("io::csv_read_row conversion failed '" +
+                                 std::string(bufbegin) +
+                                 "': " + std::to_string(errno));
         return ptr;
     }
 #endif
