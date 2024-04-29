@@ -1,3 +1,7 @@
+include(GenerateExportHeader)
+
+# Sets the default visibility to "hidden", and prevents exporting symbols from
+# static libraries into shared libraries on Linux.
 function(guanaqo_configure_visibility target)
     set_target_properties(${target} PROPERTIES CXX_VISIBILITY_PRESET "hidden"
                                                C_VISIBILITY_PRESET "hidden"
@@ -8,6 +12,39 @@ function(guanaqo_configure_visibility target)
     endif()
 endfunction()
 
+# Configure the given library target with some sensible default options:
+# Takes care of configuring DLL export headers, visibility flags, warning flags,
+# SO version, C++ standard version, warning flags, and creation of an alias.
+function(guanaqo_configure_library tgt)
+    cmake_parse_arguments(GUANAQO_CFG_LIB "" "EXPORT_PREFIX" "" ${ARGN})
+    cmake_path(SET export_path "")
+    set(name_prefix "")
+    if (DEFINED GUANAQO_CFG_LIB_EXPORT_PREFIX)
+        cmake_path(APPEND export_path ${GUANAQO_CFG_LIB_EXPORT_PREFIX})
+        set(name_prefix "${GUANAQO_CFG_LIB_EXPORT_PREFIX}-")
+    endif()
+    set_property(TARGET ${tgt} PROPERTY OUTPUT_NAME "${name_prefix}${tgt}")
+    generate_export_header(${tgt} BASE_NAME "${name_prefix}${tgt}"
+        EXPORT_FILE_NAME export/${export_path}/${tgt}/export.h)
+    target_sources(${tgt} PUBLIC FILE_SET headers TYPE HEADERS
+        BASE_DIRS   ${CMAKE_CURRENT_BINARY_DIR}/export
+        FILES       ${CMAKE_CURRENT_BINARY_DIR}/export/${export_path}/${tgt}/export.h)
+    set_target_properties(${tgt} PROPERTIES SOVERSION ${PROJECT_VERSION})
+    guanaqo_configure_visibility(${tgt})
+    target_compile_features(${tgt} PUBLIC cxx_std_20)
+    if (GUANAQO_WITH_CXX_23)
+        # Use C++23 to build everything, but don't require C++23 for installed
+        # versions of the library (see cmake/CoreConfig.cmake.in)
+        target_compile_features(${tgt} PUBLIC $<BUILD_INTERFACE:cxx_std_23>)
+    endif()
+    if (MSVC)
+        target_compile_options(${tgt} PUBLIC "/utf-8")
+    endif()
+    target_link_libraries(${tgt} PRIVATE guanaqo::warnings)
+    add_library(guanaqo::${tgt} ALIAS ${tgt})
+endfunction()
+
+# Main library
 add_library(guanaqo
     "src/demangled-typename.cpp"
     "src/dl.cpp"
@@ -48,35 +85,14 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/quadmath/quadmath-print.hpp"
           "include/guanaqo/quadmath/quadmath.hpp"
 )
-
-target_compile_features(guanaqo PUBLIC cxx_std_20)
-if (GUANAQO_WITH_CXX_23)
-# Use C++23 to build everything, but don't require C++23 for installed
-# versions of the library (see cmake/CoreConfig.cmake.in)
-target_compile_features(guanaqo PUBLIC $<BUILD_INTERFACE:cxx_std_23>)
-endif()
 target_link_libraries(guanaqo
-    PRIVATE
-        warnings
-        ${CMAKE_DL_LIBS}
-    PUBLIC
-        $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:quadmath>
+    PRIVATE ${CMAKE_DL_LIBS}
+    PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:quadmath>
 )
-target_compile_definitions(guanaqo PUBLIC
-    $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
+target_compile_definitions(guanaqo
+    PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
 )
-if (MSVC)
-    target_compile_options(guanaqo PUBLIC "/utf-8")
-endif()
-guanaqo_configure_visibility(guanaqo)
-set_target_properties(guanaqo PROPERTIES SOVERSION ${PROJECT_VERSION})
-add_library(guanaqo::guanaqo ALIAS guanaqo)
-
-# DLL import/export
-include(GenerateExportHeader)
-generate_export_header(guanaqo EXPORT_FILE_NAME export/guanaqo/export.h)
-target_include_directories(guanaqo PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/export>)
+guanaqo_configure_library(guanaqo)
 
 # Build time
 if (GUANAQO_WITH_ACCURATE_BUILD_TIME)
