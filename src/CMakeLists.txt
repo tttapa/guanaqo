@@ -95,6 +95,14 @@ target_compile_definitions(guanaqo
 )
 guanaqo_configure_library(guanaqo)
 
+# Save the project version to a generated file
+configure_file(cmake/guanaqo-version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/include/guanaqo-version.h @ONLY)
+target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
+    BASE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/include"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/include/guanaqo-version.h"
+)
+
 # Build time
 if (GUANAQO_WITH_ACCURATE_BUILD_TIME)
     set(GUANAQO_BUILD_TIME_CPP "${CMAKE_CURRENT_BINARY_DIR}/guanaqo-build-time.cpp")

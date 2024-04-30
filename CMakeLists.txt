@@ -83,11 +83,6 @@ if (DOXYGEN_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/doxygen)
 endif()
 
-# Save the project version to a generated file
-configure_file(cmake/guanaqo-version.h.in
-    ${PROJECT_BINARY_DIR}/include/guanaqo-version.h @ONLY)
-include_directories(${PROJECT_BINARY_DIR}/include)
-
 # Libraries
 add_subdirectory(src)
 
