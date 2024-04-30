@@ -4,19 +4,6 @@
 #include <span>
 #include <sstream>
 
-namespace guanaqo {
-template <class T>
-std::ostream &print_python(std::ostream &os, std::span<T> m) {
-    return detail::print_python_impl<T>(
-        os, {.data = m.data(), .rows = static_cast<ptrdiff_t>(m.size())});
-}
-template <class T>
-std::ostream &print_matlab(std::ostream &os, std::span<T> m) {
-    return detail::print_matlab_impl<T>(
-        os, {.data = m.data(), .rows = static_cast<ptrdiff_t>(m.size())});
-}
-} // namespace guanaqo
-
 TEST(Print, pythonVector) {
     std::ostringstream ss;
     std::vector<double> v{1, 2, 3, 4, 5, 0.1};

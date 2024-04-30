@@ -4,8 +4,10 @@
 #include <guanaqo/float.hpp>
 #include <guanaqo/mat-view.hpp>
 
+#include <cstdlib>
 #include <iosfwd>
 #include <limits>
+#include <span>
 #include <string>
 #include <string_view>
 
@@ -23,6 +25,11 @@ struct GUANAQO_EXPORT PrintOpts {
     bool column_vector_as_1d    = true;
     bool row_vector_as_1d       = true;
 };
+
+template <std::floating_point F>
+GUANAQO_EXPORT std::string_view
+float_to_str_vw(std::span<char> buf, F value,
+                int precision = std::numeric_limits<F>::max_digits10);
 
 template <std::floating_point F>
 GUANAQO_EXPORT std::string
@@ -45,5 +52,35 @@ print_python_impl(std::ostream &os, MatrixView<const T>,
                   std::string_view end = "\n", bool squeeze = true);
 
 } // namespace detail
+
+template <class T, std::size_t E>
+std::ostream &print_csv(std::ostream &os, std::span<T, E> x,
+                        PrintOpts opts = {}) {
+    return guanaqo::detail::print_csv_impl(
+        os,
+        MatrixView<const T>{.data = x.data(),
+                            .rows = static_cast<ptrdiff_t>(x.size())},
+        opts);
+}
+
+template <class T, std::size_t E>
+std::ostream &print_matlab(std::ostream &os, std::span<T, E> x,
+                           std::string_view end = ";\n") {
+    return guanaqo::detail::print_matlab_impl(
+        os,
+        MatrixView<const T>{.data = x.data(),
+                            .rows = static_cast<ptrdiff_t>(x.size())},
+        end);
+}
+
+template <class T, std::size_t E>
+std::ostream &print_python(std::ostream &os, std::span<T, E> x,
+                           std::string_view end = "\n", bool squeeze = true) {
+    return guanaqo::detail::print_python_impl(
+        os,
+        MatrixView<const T>{.data = x.data(),
+                            .rows = static_cast<ptrdiff_t>(x.size())},
+        end, squeeze);
+}
 
 } // namespace guanaqo
