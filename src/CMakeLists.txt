@@ -69,6 +69,7 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/iter-adapter.hpp"
           "include/guanaqo/lifetime.hpp"
           "include/guanaqo/max-history.hpp"
+          "include/guanaqo/mat-view.hpp"
           "include/guanaqo/noop-delete.hpp"
           "include/guanaqo/not-implemented.hpp"
           "include/guanaqo/possible-alias.hpp"
