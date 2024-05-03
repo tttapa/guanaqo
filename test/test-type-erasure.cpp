@@ -77,8 +77,7 @@ struct CustomTypeErased : guanaqo::TypeErased<CustomVTable, Alloc, 0> {
 };
 
 template <class Alloc = std::allocator<std::byte>>
-struct CustomTypeErasedBigBuf
-    : guanaqo::TypeErased<CustomVTable, Alloc, 256> {
+struct CustomTypeErasedBigBuf : guanaqo::TypeErased<CustomVTable, Alloc, 256> {
     using TypeErased = guanaqo::TypeErased<CustomVTable, Alloc, 256>;
     using TypeErased::self;
     using TypeErased::TypeErased;

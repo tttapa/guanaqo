@@ -1,7 +1,7 @@
 #pragma once
 
-#include <guanaqo/export.h>
 #include <guanaqo/dl-flags.hpp>
+#include <guanaqo/export.h>
 #include <filesystem>
 #include <memory>
 #include <stdexcept>

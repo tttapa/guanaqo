@@ -34,8 +34,7 @@ TEST(stringutil, splitSecond) {
 
 TEST(stringutil, splitSecond2) {
     using strvwtup = std::tuple<std::string_view, std::string_view>;
-    EXPECT_EQ(guanaqo::split_second("abc..e.", "."),
-              strvwtup("abc", ".e."));
+    EXPECT_EQ(guanaqo::split_second("abc..e.", "."), strvwtup("abc", ".e."));
 }
 
 TEST(stringutil, splitSecondEmpty) {
@@ -45,8 +44,7 @@ TEST(stringutil, splitSecondEmpty) {
 
 TEST(stringutil, splitSecondStringview) {
     using strvwtup = std::tuple<std::string_view, std::string_view>;
-    EXPECT_EQ(guanaqo::split_second("abcdefgh", "cde"),
-              strvwtup("ab", "fgh"));
+    EXPECT_EQ(guanaqo::split_second("abcdefgh", "cde"), strvwtup("ab", "fgh"));
 }
 
 // join
