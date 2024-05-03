@@ -58,8 +58,9 @@ set(GUANAQO_INSTALLED_TARGETS_MSG "\nSummary of guanaqo components and targets t
 
 # Install the guanaqo core libraries
 set(GUANAQO_CORE_TARGETS guanaqo)
+guanaqo_add_if_target_exists(GUANAQO_CORE_TARGETS linalg)
 if (GUANAQO_CORE_TARGETS)
-    install(TARGETS warnings ${GUANAQO_CORE_TARGETS}
+    install(TARGETS warnings common_options ${GUANAQO_CORE_TARGETS}
         EXPORT guanaqoCoreTargets
         RUNTIME DESTINATION "${GUANAQO_INSTALL_BINDIR}"
             COMPONENT lib

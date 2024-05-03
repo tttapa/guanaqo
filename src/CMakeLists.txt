@@ -12,6 +12,12 @@ function(guanaqo_configure_visibility target)
     endif()
 endfunction()
 
+add_library(common_options INTERFACE)
+if (MSVC)
+    target_compile_options(common_options INTERFACE "/utf-8")
+endif()
+add_library(guanaqo::common_options ALIAS common_options)
+
 # Configure the given library target with some sensible default options:
 # Takes care of configuring DLL export headers, visibility flags, warning flags,
 # SO version, C++ standard version, warning flags, and creation of an alias.
@@ -37,10 +43,21 @@ function(guanaqo_configure_library tgt)
         # versions of the library (see cmake/CoreConfig.cmake.in)
         target_compile_features(${tgt} PUBLIC $<BUILD_INTERFACE:cxx_std_23>)
     endif()
-    if (MSVC)
-        target_compile_options(${tgt} PUBLIC "/utf-8")
+    target_link_libraries(${tgt} PRIVATE guanaqo::warnings
+                                 PUBLIC guanaqo::common_options)
+    add_library(guanaqo::${tgt} ALIAS ${tgt})
+endfunction()
+
+# Configure the given interface library target with some sensible default
+# options: C++ standard version, platform-specific flags
+function(guanaqo_configure_interface_library tgt)
+    target_compile_features(${tgt} INTERFACE cxx_std_20)
+    if (GUANAQO_WITH_CXX_23)
+        # Use C++23 to build everything, but don't require C++23 for installed
+        # versions of the library (see cmake/CoreConfig.cmake.in)
+        target_compile_features(${tgt} INTERFACE $<BUILD_INTERFACE:cxx_std_23>)
     endif()
-    target_link_libraries(${tgt} PRIVATE guanaqo::warnings)
+    target_link_libraries(${tgt} INTERFACE guanaqo::common_options)
     add_library(guanaqo::${tgt} ALIAS ${tgt})
 endfunction()
 
@@ -94,6 +111,21 @@ target_compile_definitions(guanaqo
     PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
 )
 guanaqo_configure_library(guanaqo)
+
+if (GUANAQO_WITH_CXX_23)
+    # Linear algebra and sparse matrices
+    add_library(linalg INTERFACE)
+    target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
+        BASE_DIRS "include"
+        FILES "include/guanaqo/linalg/config.hpp"
+              "include/guanaqo/linalg/matrix-view.hpp"
+              "include/guanaqo/linalg/sparse-ops.hpp"
+              "include/guanaqo/linalg/sparsity-conversions.hpp"
+              "include/guanaqo/linalg/sparsity.hpp"
+    )
+    target_compile_features(linalg INTERFACE cxx_std_23)
+    guanaqo_configure_interface_library(linalg)
+endif()
 
 # Save the project version to a generated file
 configure_file(cmake/guanaqo-version.h.in

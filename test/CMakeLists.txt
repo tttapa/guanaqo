@@ -5,6 +5,7 @@ include(GoogleTest)
 
 # Dependencies
 find_package(GTest REQUIRED)
+find_package(Eigen3 REQUIRED)
 if (NOT TARGET guanaqo::guanaqo)
     find_package(guanaqo REQUIRED)
 endif()
@@ -19,11 +20,23 @@ add_executable(tests
 )
 target_include_directories(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_definitions(tests PRIVATE _CRT_SECURE_NO_WARNINGS)
-target_link_libraries(tests PRIVATE guanaqo::guanaqo guanaqo::warnings
-                                    GTest::gtest_main GTest::gmock)
+target_link_libraries(tests PRIVATE
+    guanaqo::guanaqo guanaqo::warnings
+    GTest::gtest_main GTest::gmock
+    Eigen3::Eigen)
 if (GUANAQO_WITH_CXX_23 AND "cxx_std_23" IN_LIST CMAKE_CXX_COMPILE_FEATURES)
-    target_compile_features(tests PRIVATE cxx_std_23)
-    target_compile_definitions(tests PRIVATE GUANAQO_WITH_CXX23_TESTS)
+    try_compile(GUANAQO_WITH_CXX_23_ZIP
+        SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/try_compile-zip.cpp" CXX_STANDARD 23)
+    if (GUANAQO_WITH_CXX_23_ZIP)
+        target_link_libraries(tests PRIVATE guanaqo::linalg)
+        target_compile_features(tests PRIVATE cxx_std_23)
+        target_sources(tests PRIVATE
+            "linalg/test-sparsity.hpp"
+            "linalg/test-sparsity-dense.cpp"
+            "linalg/test-sparsity-csc.cpp"
+            "linalg/test-sparsity-coo.cpp"
+        )
+    endif()
 endif()
 if (MSVC)
     target_compile_definitions(tests PRIVATE __PRETTY_FUNCTION__=__FUNCSIG__)
