@@ -12,8 +12,11 @@ DynamicLoadFlags::operator int() const {
 #else
     return (global ? RTLD_GLOBAL : RTLD_LOCAL) | //
            (lazy ? RTLD_LAZY : RTLD_NOW) |       //
-           (nodelete ? RTLD_NODELETE : 0) |      //
-           (deepbind ? RTLD_DEEPBIND : 0);
+           (nodelete ? RTLD_NODELETE : 0) |
+#ifdef RTLD_DEEPBIND
+           (deepbind ? RTLD_DEEPBIND : 0) |
+#endif
+           0;
 #endif
 }
 
