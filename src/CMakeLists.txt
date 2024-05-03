@@ -58,7 +58,7 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
     BASE_DIRS "include"
     FILES "include/guanaqo/any-ptr.hpp"
           "include/guanaqo/atomic-stop-signal.hpp"
-          "include/guanaqo/copyable_unique_ptr.hpp"
+          "include/guanaqo/copyable-unique_ptr.hpp"
           "include/guanaqo/demangled-typename.hpp"
           "include/guanaqo/dl-flags.hpp"
           "include/guanaqo/duration-parse.hpp"
