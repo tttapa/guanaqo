@@ -210,7 +210,7 @@ TYPED_TEST(SparsityCSCToCSCTest, convertCSCToCSCunsorted) {
 }
 
 /// @test   unsorted CSC to sorted CSC, requires sorting each column
-TYPED_TEST(SparsityCSCToCSCTest, convertCSCToCSCunsorted2sorted) {
+TYPED_TEST(SparsityCSCToCSCTest, convertCSCToCSCunsorted2sorted) try {
     using Result = std::tuple_element_t<1, TypeParam>;
     auto converter =
         this->get_converter_unsorted({.order = Result::SortedRows});
@@ -232,6 +232,8 @@ TYPED_TEST(SparsityCSCToCSCTest, convertCSCToCSCunsorted2sorted) {
     vec expected_v(result.nnz());
     expected_v << 2, 1, 4, 3, 6, 5, 7;
     EXPECT_THAT(egn(v), EigenEqual(expected_v));
+} catch (sp::unsupported_conversion &e) {
+    GTEST_SKIP() << e.what();
 }
 
 /// @test   sorted CSC to sorted CSC, should be no-op

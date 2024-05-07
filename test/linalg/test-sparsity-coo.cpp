@@ -199,7 +199,7 @@ using COOToCSCIndices = ::testing::Types<                                     //
 TYPED_TEST_SUITE(SparsityCOOToCSCTest, COOToCSCIndices);
 
 /// @test   unsorted COO to unsorted CSC, requires sorting columns
-TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted) {
+TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted) try {
     using Result       = std::tuple_element_t<1, TypeParam>;
     auto src           = this->get_source_unsorted();
     auto converter     = this->get_converter(src, {});
@@ -227,10 +227,12 @@ TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted) {
     a.setFromTriplets(a_trip.begin(), a_trip.end());
     b.setFromTriplets(b_trip.begin(), b_trip.end());
     EXPECT_THAT(a.toDense(), EigenEqual(b.toDense()));
+} catch (sp::unsupported_conversion &e) {
+    GTEST_SKIP() << e.what();
 }
 
 /// @test   COO which is sorted but reported as unsorted, to unsorted CSC
-TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2unsorted) {
+TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2unsorted) try {
     using Result       = std::tuple_element_t<1, TypeParam>;
     auto src           = this->get_source_silently_sorted();
     auto converter     = this->get_converter(src, {});
@@ -258,6 +260,8 @@ TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2unsorted) {
     a.setFromTriplets(a_trip.begin(), a_trip.end());
     b.setFromTriplets(b_trip.begin(), b_trip.end());
     EXPECT_THAT(a.toDense(), EigenEqual(b.toDense()));
+} catch (sp::unsupported_conversion &e) {
+    GTEST_SKIP() << e.what();
 }
 
 /// @test   COO which is sorted by columns only, to unsorted CSC,
@@ -293,7 +297,7 @@ TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsortedCols2unsorted) {
 }
 
 /// @test   COO which is sorted but reported as unsorted, to sorted CSC
-TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2sorted) {
+TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2sorted) try {
     using Result   = std::tuple_element_t<1, TypeParam>;
     auto src       = this->get_source_silently_sorted();
     auto converter = this->get_converter(src, {.order = Result::SortedRows});
@@ -313,10 +317,12 @@ TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCsilentlySorted2sorted) {
     m << 1, 2, 3, 4, 5, 6, 7;
     auto v = converter.convert_values_copy(spn(m));
     EXPECT_THAT(egn(v), EigenEqual(m));
+} catch (sp::unsupported_conversion &e) {
+    GTEST_SKIP() << e.what();
 }
 
 /// @test   unsorted COO to sorted CSC
-TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted2sorted) {
+TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted2sorted) try {
     using Result   = std::tuple_element_t<1, TypeParam>;
     auto src       = this->get_source_unsorted();
     auto converter = this->get_converter(src, {.order = Result::SortedRows});
@@ -338,6 +344,8 @@ TYPED_TEST(SparsityCOOToCSCTest, convertCOOToCSCunsorted2sorted) {
     vec expected_v(result.nnz());
     expected_v << 5, 2, 3, 6, 7, 4, 1;
     EXPECT_THAT(egn(v), EigenEqual(expected_v));
+} catch (sp::unsupported_conversion &e) {
+    GTEST_SKIP() << e.what();
 }
 
 /// @test sorted COO to sorted CSC, no sorting required

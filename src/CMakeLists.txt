@@ -126,6 +126,8 @@ if (GUANAQO_WITH_CXX_23)
     )
     target_compile_features(linalg INTERFACE cxx_std_23)
     guanaqo_configure_interface_library(linalg)
+else()
+    message(STATUS "Missing C++23 support. Disabling linalg target.")
 endif()
 
 # Save the project version to a generated file

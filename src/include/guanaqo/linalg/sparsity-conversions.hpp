@@ -1,5 +1,6 @@
 #pragma once
 
+#include <guanaqo/export.h>
 #include <guanaqo/linalg/config.hpp>
 #include <guanaqo/linalg/sparse-ops.hpp>
 #include <guanaqo/linalg/sparsity.hpp>
@@ -14,6 +15,10 @@
 #include <vector>
 
 namespace guanaqo::linalg::sparsity {
+
+struct GUANAQO_EXPORT unsupported_conversion : std::logic_error {
+    using std::logic_error::logic_error;
+};
 
 constexpr size_t cast_sz(auto i) {
     assert(i >= 0);
@@ -394,7 +399,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
                                    [[maybe_unused]] Request request) {
         // Optional copy of the indices (needed for sorting)
         std::vector<IndexFrom> row_indices, col_indices;
-        auto prepare_sort = [&] {
+        [[maybe_unused]] auto prepare_sort = [&] {
             row_indices.resize(cast_sz(from.nnz()));
             col_indices.resize(cast_sz(from.nnz()));
             permutation.resize(cast_sz(from.nnz()));
@@ -414,9 +419,15 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
                 case from_sparsity_t::SortedByColsOnly: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsAndCols: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsOnly:
+#if __cpp_lib_ranges_zip >= 202110L
                     prepare_sort();
                     sort_triplets(row_indices, col_indices, permutation);
                     break;
+#else
+                    throw unsupported_conversion(
+                        "Sorting is SparseCOO is not supported. Recompile with "
+                        "C++23-compliant compiler");
+#endif
                 default: throw std::invalid_argument("Invalid order");
             }
         } else {
@@ -432,10 +443,16 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
                 case from_sparsity_t::Unsorted: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsAndCols: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsOnly:
+#if __cpp_lib_ranges_zip >= 202110L
                     order = to_sparsity_t::Unsorted;
                     prepare_sort();
                     sort_triplets_col(row_indices, col_indices, permutation);
                     break;
+#else
+                    throw unsupported_conversion(
+                        "Sorting is SparseCOO is not supported. Recompile with "
+                        "C++23-compliant compiler");
+#endif
                 default: throw std::invalid_argument("Invalid order");
             }
         }
@@ -504,9 +521,15 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
             std::ranges::transform(from.outer_ptr, outer_ptr.begin(), cvt_out);
         };
         auto sort_indices = [&] {
+#if __cpp_lib_ranges_zip >= 202110L
             permutation.resize(from.inner_idx.size());
             std::iota(begin(permutation), end(permutation), StorageIndexTo{0});
             sort_rows_csc(outer_ptr, inner_idx, permutation);
+#else
+            throw unsupported_conversion(
+                "Sorting is SparseCSC is not supported. Recompile with "
+                "C++23-compliant compiler");
+#endif
         };
         using Order       = typename to_sparsity_t::Order;
         bool need_sorting = false;
