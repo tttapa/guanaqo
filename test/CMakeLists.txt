@@ -11,6 +11,7 @@ if (NOT TARGET guanaqo::guanaqo)
 endif()
 
 add_executable(tests
+    "test-callback-streambuf.cpp"
     "test-duration-parse.cpp"
     "test-print.cpp"
     "test-set-intersection.cpp"
