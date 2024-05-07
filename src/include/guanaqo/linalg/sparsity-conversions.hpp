@@ -718,6 +718,39 @@ struct SparsityConverter<Sparsity, To> {
         };
         return std::visit(visitor, converter);
     }
+    /// Call @p evaluator, then convert the values and write the result into
+    /// @p result, while minimizing the number of copies.
+    /// @return The allocated workspace that can be passed as the @p work
+    ///         argument during the next invocation (to minimize allocations).
+    /// @todo   Write tests.
+    template <class T, class E>
+    std::vector<T> convert_values_into(std::span<T> result, E &&evaluator,
+                                       std::vector<T> work = {}) const {
+        const auto eval_size = static_cast<size_t>(get_nnz(get_sparsity()));
+        // If the work size is zero, conversion can be done in-place, so
+        // evaluate directly into the result.
+        if (work_size() == 0 && result.size() >= eval_size) {
+            std::forward<E>(evaluator)(result.first(eval_size));
+            const auto visitor = [&](const auto &c) {
+                return c.template convert_values<T>(result, work);
+            };
+            [[maybe_unused]] auto r = std::visit(visitor, converter);
+            assert(r.data() == result.data());
+        }
+        // If the conversion cannot be done in-place, allocate a workspace
+        // vector, then evaluate into that vector, and then convert the values
+        // into the result.
+        else {
+            work.resize(eval_size);
+            std::forward<E>(evaluator)(std::span<T>{work});
+            const auto visitor = [&](const auto &c) {
+                return c.template convert_values<T>(work, result);
+            };
+            [[maybe_unused]] auto r = std::visit(visitor, converter);
+            assert(r.data() == result.data());
+        }
+        return std::move(work);
+    }
     template <class T>
     [[nodiscard]] std::vector<std::remove_const_t<T>>
     convert_values_copy(std::span<T> from_values) const {
