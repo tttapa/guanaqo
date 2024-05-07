@@ -86,7 +86,7 @@ struct SparsityConverter<SparseCSC<Index, StorageIndex>, Dense> {
                    std::span<std::remove_const_t<T>> work) const {
         assert(work.size() == work_size());
         std::ranges::fill(work, T{});
-        auto W = [&](index_t r, index_t c) -> T & {
+        auto W = [&](index_t r, index_t c) -> std::remove_const_t<T> & {
             return work[cast_sz(r) + cast_sz(c) * cast_sz(sparsity.rows)];
         };
         size_t l = 0;
@@ -152,7 +152,7 @@ struct SparsityConverter<SparseCOO<Index>, Dense> {
                    std::span<std::remove_const_t<T>> work) const {
         assert(work.size() == work_size());
         std::ranges::fill(work, T{});
-        auto W = [&](Index r, Index c) -> T & {
+        auto W = [&](Index r, Index c) -> std::remove_const_t<T> & {
             return work[cast_sz(r) + cast_sz(c) * cast_sz(sparsity.rows)];
         };
         for (size_t l = 0; l < cast_sz(from_sparsity.nnz()); ++l) {
@@ -722,7 +722,7 @@ struct SparsityConverter<Sparsity, To> {
     [[nodiscard]] std::vector<std::remove_const_t<T>>
     convert_values_copy(std::span<T> from_values) const {
         std::vector<T> work(work_size());
-        auto result = convert_values<std::remove_const_t<T>>(from_values, work);
+        auto result = convert_values<std::add_const_t<T>>(from_values, work);
         if (result.data() != work.data())
             work = {result.begin(), result.end()};
         return work;
