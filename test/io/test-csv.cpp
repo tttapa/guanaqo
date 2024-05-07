@@ -11,7 +11,7 @@ TEST(csv, read) {
                           "4.00000000000000000,"
                           "5.00000000000000000\n"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -23,7 +23,7 @@ TEST(csv, readMultiplePerBuffer) {
                           "4.00,"
                           "5.00000000000000000\n"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -35,7 +35,7 @@ TEST(csv, readCharsPastEnd) {
                           "4.00000000000000000,"
                           "5.00000000000000000\nfoobar"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -48,7 +48,7 @@ TEST(csv, readComment1) {
                           "4.00000000000000000,"
                           "5.00000000000000000\nfoobar"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -62,7 +62,7 @@ TEST(csv, readComment2) {
                           "4.00000000000000000,"
                           "5.00000000000000000\nfoobar"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -82,7 +82,7 @@ TEST(csv, readCommentLong) {
         "4.00000000000000000,"
         "5.00000000000000000\nfoobar"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -94,7 +94,7 @@ TEST(csv, readEOF) {
                           "4.00000000000000000,"
                           "5.00000000000000000"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, 2, 3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -106,7 +106,7 @@ TEST(csv, readEndWithSep) {
                           "4.00000000000000000,"
                           "5.00000000000000000,\n"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, 2, 3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -118,7 +118,7 @@ TEST(csv, readEndWithSepEOF) {
                           "4.00000000000000000,"
                           "5.00000000000000000,"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, 2, 3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -130,7 +130,7 @@ TEST(csv, readLong) {
                           "4.000000000000000000000000000000000000000000000000,"
                           "5.000000000000000000000000000000000000000000000000"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, 2, 3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -142,7 +142,7 @@ TEST(csv, readShort) {
                           "4.0,"
                           "5.0"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, 2, 3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -157,7 +157,7 @@ TEST(csv, readNaNInf) {
                           "nan,"
                           "-nan"};
     std::vector<double> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{inf, +inf, -inf, NaN, -NaN};
     EXPECT_EQ(std::memcmp(v.data(), expected.data(), 5 * sizeof(*v.data())), 0);
 }
@@ -165,7 +165,7 @@ TEST(csv, readNaNInf) {
 TEST(csv, readEmpty) {
     std::istringstream is{"\n"};
     std::vector<double> v;
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected;
     EXPECT_EQ(v, expected);
 }
@@ -173,7 +173,7 @@ TEST(csv, readEmpty) {
 TEST(csv, readEmptyEOF) {
     std::istringstream is{""};
     std::vector<double> v;
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected;
     EXPECT_EQ(v, expected);
 }
@@ -186,7 +186,7 @@ TEST(csv, readTooMany) {
                           "5.0,"
                           "6.0"};
     std::vector<double> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }
 
@@ -197,7 +197,7 @@ TEST(csv, readInvalidCharPrefix) {
                           "4.0,"
                           "5.0"};
     std::vector<double> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }
 
@@ -208,7 +208,7 @@ TEST(csv, readInvalidCharInfix) {
                           "4.0,"
                           "5.0"};
     std::vector<double> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }
 
@@ -219,7 +219,7 @@ TEST(csv, readInvalidCharSuffix) {
                           "4.0,"
                           "5.0"};
     std::vector<double> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }
 
@@ -229,7 +229,7 @@ TEST(csv, readTooFew) {
                           "3.0,"
                           "4.0"};
     std::vector<double> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }
 
@@ -362,7 +362,7 @@ TEST(csv, readIndex) {
                           "4,"
                           "5\n"};
     std::vector<ptrdiff_t> v(5);
-    guanaqo::io::detail::csv_read_row_impl(is, std::span{v});
+    guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<ptrdiff_t> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
@@ -374,6 +374,6 @@ TEST(csv, readIndexInvalid) {
                           "4,"
                           "5\n"};
     std::vector<ptrdiff_t> v(5);
-    EXPECT_THROW(guanaqo::io::detail::csv_read_row_impl(is, std::span{v}),
+    EXPECT_THROW(guanaqo::io::csv_read_row(is, std::span{v}),
                  guanaqo::io::csv_read_error);
 }

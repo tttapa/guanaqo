@@ -4,20 +4,18 @@
 namespace guanaqo::io {
 
 // clang-format off
-namespace detail {
 template void GUANAQO_EXPORT
-csv_read_row_impl(std::istream &, std::span<ptrdiff_t>, char);
+csv_read_row(std::istream &, std::span<ptrdiff_t>, char);
 template void GUANAQO_EXPORT
-csv_read_row_impl(std::istream &, std::span<float>, char);
+csv_read_row(std::istream &, std::span<float>, char);
 template void GUANAQO_EXPORT
-csv_read_row_impl(std::istream &, std::span<double>, char);
+csv_read_row(std::istream &, std::span<double>, char);
 template void GUANAQO_EXPORT
-csv_read_row_impl(std::istream &, std::span<long double>, char);
+csv_read_row(std::istream &, std::span<long double>, char);
 #ifdef GUANAQO_WITH_QUAD_PRECISION
 template void GUANAQO_EXPORT
-csv_read_row_impl(std::istream &, std::span<__float128>, char);
+csv_read_row(std::istream &, std::span<__float128>, char);
 #endif
-} // namespace detail
 
 template std::vector<ptrdiff_t> GUANAQO_EXPORT
 csv_read_row_std_vector(std::istream &, char);

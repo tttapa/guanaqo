@@ -147,19 +147,15 @@ const char *CSVReader<__float128>::read_single(const char *bufbegin,
 }
 #endif
 
-namespace detail {
-
 template <class F>
     requires(std::floating_point<F> || std::integral<F>)
-void csv_read_row_impl(std::istream &is, std::span<F> v, char sep) {
+void csv_read_row(std::istream &is, std::span<F> v, char sep) {
     CSVReader<F> reader;
     reader.skip_comments(is);
     for (auto &vv : v)
         vv = reader.read(is, sep);
     reader.next_line(is);
 }
-
-} // namespace detail
 
 template <class F>
     requires(std::floating_point<F> || std::integral<F>)
