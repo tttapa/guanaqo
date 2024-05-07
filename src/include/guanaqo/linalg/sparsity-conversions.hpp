@@ -275,8 +275,10 @@ struct SparsityConverter<Dense, SparseCOO<Index>> {
             for (index_t c = 0; c < sparsity.cols; ++c)
                 std::ranges::copy_backward(f_col_above_diag(c), t += c + 1);
             return work;
+        } else {
+            throw std::logic_error("SparsityConverter<Dense, "
+                                   "SparseCOO<Index>>: Unsupported symmetry");
         }
-        std::unreachable();
     }
 };
 

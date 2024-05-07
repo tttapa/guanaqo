@@ -31,6 +31,8 @@ void convert_triplets_to_ccs(const auto &rows, const auto &cols,
     }
 }
 
+#if __cpp_lib_ranges_zip >= 202110L
+
 namespace detail {
 template <auto cmp, class... Ts>
 void sort_triplets_impl(Ts &&...triplets) {
@@ -89,6 +91,8 @@ bool check_uniqueness_triplets(Ts &&...triplets) {
     return std::ranges::adjacent_find(indices, std::equal_to<>{}) ==
            std::ranges::end(indices);
 }
+
+#endif // __cpp_lib_ranges_zip
 
 /// Check that no two entries with the same row and column index exist in
 /// the given sparse compressed-column storage matrix. Assumes sorted indices.

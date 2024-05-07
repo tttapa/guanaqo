@@ -18,23 +18,17 @@ add_executable(tests
     "test-string-util.cpp"
     "test-type-erasure.cpp"
     "io/test-csv.cpp"
+    "linalg/test-sparsity.hpp"
+    "linalg/test-sparsity-dense.cpp"
+    "linalg/test-sparsity-csc.cpp"
+    "linalg/test-sparsity-coo.cpp"
 )
 target_include_directories(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_definitions(tests PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(tests PRIVATE
-    guanaqo::guanaqo guanaqo::warnings
+    guanaqo::guanaqo guanaqo::warnings guanaqo::linalg
     GTest::gtest_main GTest::gmock
     Eigen3::Eigen)
-if (GUANAQO_WITH_CXX_23 AND "cxx_std_23" IN_LIST CMAKE_CXX_COMPILE_FEATURES)
-    target_link_libraries(tests PRIVATE guanaqo::linalg)
-    target_compile_features(tests PRIVATE cxx_std_23)
-    target_sources(tests PRIVATE
-        "linalg/test-sparsity.hpp"
-        "linalg/test-sparsity-dense.cpp"
-        "linalg/test-sparsity-csc.cpp"
-        "linalg/test-sparsity-coo.cpp"
-    )
-endif()
 if (MSVC)
     target_compile_definitions(tests PRIVATE __PRETTY_FUNCTION__=__FUNCSIG__)
 endif()

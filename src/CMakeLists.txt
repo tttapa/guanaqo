@@ -113,22 +113,17 @@ target_compile_definitions(guanaqo
 )
 guanaqo_configure_library(guanaqo)
 
-if (GUANAQO_WITH_CXX_23)
-    # Linear algebra and sparse matrices
-    add_library(linalg INTERFACE)
-    target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
-        BASE_DIRS "include"
-        FILES "include/guanaqo/linalg/config.hpp"
-              "include/guanaqo/linalg/matrix-view.hpp"
-              "include/guanaqo/linalg/sparse-ops.hpp"
-              "include/guanaqo/linalg/sparsity-conversions.hpp"
-              "include/guanaqo/linalg/sparsity.hpp"
-    )
-    target_compile_features(linalg INTERFACE cxx_std_23)
-    guanaqo_configure_interface_library(linalg)
-else()
-    message(STATUS "Missing C++23 support. Disabling linalg target.")
-endif()
+# Linear algebra and sparse matrices
+add_library(linalg INTERFACE)
+target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
+    BASE_DIRS "include"
+    FILES "include/guanaqo/linalg/config.hpp"
+            "include/guanaqo/linalg/matrix-view.hpp"
+            "include/guanaqo/linalg/sparse-ops.hpp"
+            "include/guanaqo/linalg/sparsity-conversions.hpp"
+            "include/guanaqo/linalg/sparsity.hpp"
+)
+guanaqo_configure_interface_library(linalg)
 
 # Save the project version to a generated file
 configure_file(cmake/guanaqo-version.h.in
