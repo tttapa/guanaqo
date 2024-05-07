@@ -133,7 +133,9 @@ struct SparsityConverter<SparseCOO<Index>, Dense> {
     using to_sparsity_t   = Dense;
     using Request         = SparsityConversionRequest<to_sparsity_t>;
     to_sparsity_t convert_sparsity(from_sparsity_t from, Request) {
+#if __cpp_lib_ranges_zip >= 202110L
         assert(check_uniqueness_triplets(from.row_indices, from.col_indices));
+#endif
         if (from.symmetry != Symmetry::Unsymmetric && from.rows != from.cols)
             throw std::invalid_argument("Nonsquare matrix cannot be symmetric");
         return {
@@ -319,8 +321,10 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     }
     SparsityConverter(from_sparsity_t from, Request request = {})
         : sparsity(convert_sparsity(from, request)) {
+#if __cpp_lib_ranges_zip >= 202110L
         assert(check_uniqueness_triplets(sparsity.row_indices,
                                          sparsity.col_indices));
+#endif
     }
     std::vector<IndexTo> row_indices, col_indices;
     to_sparsity_t sparsity;
@@ -368,8 +372,10 @@ struct SparsityConverter<SparseCOO<IndexFrom>, SparseCOO<IndexTo>> {
     }
     SparsityConverter(from_sparsity_t from, Request request = {})
         : sparsity(convert_sparsity(from, request)) {
+#if __cpp_lib_ranges_zip >= 202110L
         assert(check_uniqueness_triplets(sparsity.row_indices,
                                          sparsity.col_indices));
+#endif
     }
     std::vector<IndexTo> row_indices, col_indices;
     to_sparsity_t sparsity;
