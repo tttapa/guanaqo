@@ -41,8 +41,10 @@ function(add_warnings_target tgt_name warnings_as_errors)
         -Wsuggest-override
         -Wno-error=attributes
         -ftemplate-backtrace-limit=99
-        -fconcepts-diagnostics-depth=99
     )
+    if (NOT CMAKE_CXX_CLANG_TIDY)
+        list(APPEND GCC_WARNINGS_CXX -fconcepts-diagnostics-depth=99)
+    endif()
     # Clang, AppleClang
     set(CLANG_WARNINGS_CXX
         -Wno-error=unknown-warning-option

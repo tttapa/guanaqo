@@ -93,13 +93,13 @@ struct set_intersection_iterable
     }
 
   public:
-    auto begin() const -> std::input_or_output_iterator auto {
+    [[nodiscard]] auto begin() const -> std::input_or_output_iterator auto {
         auto it = iter(std::ranges::begin(range1), std::ranges::end(range1),
                        std::ranges::begin(range2), std::ranges::end(range2));
         it.advance();
         return it;
     }
-    auto end() const
+    [[nodiscard]] auto end() const
     // -> std::sentinel_for< decltype(std::declval<set_intersection_iterable>().begin())> auto
     {
         return sentinel_t{};

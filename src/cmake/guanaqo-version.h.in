@@ -1,5 +1,6 @@
 #pragma once
 
+// NOLINTBEGIN(*-macro-to-enum)
 #define GUANAQO_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
 #define GUANAQO_VERSION_MINOR @PROJECT_VERSION_MINOR@
 #define GUANAQO_VERSION_PATCH @PROJECT_VERSION_PATCH@
@@ -8,6 +9,7 @@
 #define GUANAQO_VERSION_FULL "@PROJECT_VERSION@@PY_VERSION_SUFFIX@"
 #define GUANAQO_BUILD_TIME guanaqo_build_time
 #define GUANAQO_COMMIT_HASH guanaqo_commit_hash
+// NOLINTEND(*-macro-to-enum)
 
 #include <guanaqo/export.h>
 #ifdef __cplusplus

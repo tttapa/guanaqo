@@ -45,18 +45,19 @@ struct CSVReader {
     }
 
     void read_chunk(std::istream &is) {
+        using namespace std::string_literals;
         if (!is)
-            throw csv_read_error(
-                "io::csv_read_row invalid stream: " + std::to_string(is.bad()) +
-                " " + std::to_string(is.fail()) + " " +
-                std::to_string(is.eof()));
+            throw csv_read_error("io::csv_read_row invalid stream:"s +
+                                 (is.bad() ? " bad" : "") +   //
+                                 (is.fail() ? " fail" : "") + //
+                                 (is.eof() ? " eof" : ""));
         if (bufmaxsize == bufidx)
             return;
         if (!is.get(s.data() + bufidx, bufmaxsize - bufidx + 1, end))
-            throw csv_read_error("io::csv_read_row extraction failed: " +
-                                 std::to_string(is.bad()) + " " +
-                                 std::to_string(is.fail()) + " " +
-                                 std::to_string(is.eof()));
+            throw csv_read_error("io::csv_read_row extraction failed:"s +
+                                 (is.bad() ? " bad" : "") +   //
+                                 (is.fail() ? " fail" : "") + //
+                                 (is.eof() ? " eof" : ""));
         bufidx += is.gcount();
         keep_reading = is.peek() != end && !is.eof();
         assert(bufidx <= bufmaxsize);

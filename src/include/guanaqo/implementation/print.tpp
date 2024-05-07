@@ -35,7 +35,7 @@ void print_elem(std::span<char> buf, std::complex<F> value, std::ostream &os) {
 
 namespace detail {
 
-template <class T>
+template <class T> // NOLINTNEXTLINE(*-cognitive-complexity)
 std::ostream &print_csv_impl(std::ostream &os, MatrixView<const T> M,
                              PrintOpts opts) {
     using index_t = decltype(M)::index_t;

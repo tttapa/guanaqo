@@ -15,16 +15,20 @@ Checks: |
     -modernize-raw-string-literal,
     -modernize-use-bool-literals,
     -modernize-use-trailing-return-type,
+    -readability-avoid-nested-conditional-operator,
     -readability-braces-around-statements,
+    -readability-convert-member-functions-to-static,
     -readability-else-after-return,
     -readability-identifier-length,
     -readability-isolate-declaration,
     -readability-magic-numbers,
     -readability-named-parameter,
     -readability-redundant-access-specifiers,
+    -readability-redundant-member-init,
     -readability-static-accessed-through-instance,
     -readability-uppercase-literal-suffix,
     -bugprone-easily-swappable-parameters,
+    -performance-avoid-endl,
 
 CheckOptions:
     - key: readability-implicit-bool-conversion.AllowIntegerConditions

@@ -80,6 +80,7 @@ std::string_view float_to_str_vw(std::span<char> buf, F value, int precision) {
 
 #ifndef DOXYGEN
 // clang-format off
+// NOLINTBEGIN(*-parentheses)
 #define GUANAQO_PRINT_INSTANTIATE_F(type) \
     template GUANAQO_EXPORT std::string_view float_to_str_vw(std::span<char>, type value, int precision); \
     template GUANAQO_EXPORT std::string float_to_str(type value, int precision); \
@@ -89,6 +90,7 @@ std::string_view float_to_str_vw(std::span<char> buf, F value, int precision) {
     template GUANAQO_EXPORT std::ostream &detail::print_csv_impl(std::ostream &os, MatrixView<const std::complex<type>>, PrintOpts); \
     template GUANAQO_EXPORT std::ostream &detail::print_matlab_impl(std::ostream &os, MatrixView<const std::complex<type>>, std::string_view); \
     template GUANAQO_EXPORT std::ostream &detail::print_python_impl(std::ostream &os, MatrixView<const std::complex<type>>, std::string_view, bool)
+// NOLINTEND(*-parentheses)
 // clang-format on
 
 GUANAQO_PRINT_INSTANTIATE_F(float);

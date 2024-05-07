@@ -159,6 +159,7 @@ TEST(csv, readNaNInf) {
     std::vector<double> v(5);
     guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{inf, +inf, -inf, NaN, -NaN};
+    // NOLINTNEXTLINE(*-suspicious-memory-comparison)
     EXPECT_EQ(std::memcmp(v.data(), expected.data(), 5 * sizeof(*v.data())), 0);
 }
 
@@ -308,6 +309,7 @@ TEST(csv, stdvecReadNaNInf) {
                           "-nan"};
     auto v = guanaqo::io::csv_read_row_std_vector<double>(is);
     std::vector<double> expected{inf, -inf, NaN, -NaN};
+    // NOLINTNEXTLINE(*-suspicious-memory-comparison)
     EXPECT_EQ(std::memcmp(v.data(), expected.data(), 4 * sizeof(*v.data())), 0);
 }
 

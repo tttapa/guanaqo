@@ -3,13 +3,14 @@
 #include <guanaqo/linalg/config.hpp>
 
 #include <cassert>
+#include <cstdint>
 #include <span>
 #include <variant>
 
 namespace guanaqo::linalg::sparsity {
 
 /// Describes the symmetry of matrices.
-enum class Symmetry {
+enum class Symmetry : uint8_t {
     Unsymmetric = 0, ///< No symmetry.
     Upper       = 1, ///< Symmetric, upper-triangular part is stored.
     Lower       = 2, ///< Symmetric, lower-triangular part is stored.
@@ -40,7 +41,7 @@ struct SparseCSC {
     Symmetry symmetry = Symmetry::Unsymmetric;
     std::span<const index_t> inner_idx{};
     std::span<const storage_index_t> outer_ptr{};
-    enum Order {
+    enum Order : uint8_t {
         /// The row indices are not sorted.
         Unsorted = 0,
         /// Within each column, all row indices are sorted in ascending order.
@@ -65,7 +66,7 @@ struct SparseCOO {
     Symmetry symmetry = Symmetry::Unsymmetric;
     std::span<const index_t> row_indices{};
     std::span<const index_t> col_indices{};
-    enum Order {
+    enum Order : uint8_t {
         /// The indices are not sorted.
         Unsorted = 0,
         /// The indices are sorted by column first, and within each column, the

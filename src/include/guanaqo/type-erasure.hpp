@@ -137,13 +137,13 @@ struct BasicVTable {
     }
 
     void copy(const void *self, void *storage) const {
-        return copy_move_destroy_functions->copy(self, storage);
+        copy_move_destroy_functions->copy(self, storage);
     }
     void move(void *self, void *storage) const {
-        return copy_move_destroy_functions->move(self, storage);
+        copy_move_destroy_functions->move(self, storage);
     }
     void destroy(void *self) const {
-        return copy_move_destroy_functions->destroy(self);
+        copy_move_destroy_functions->destroy(self);
     }
 };
 
@@ -194,7 +194,7 @@ template <class Class, auto Method, class... ExtraArgs>
 }
 
 template <class VTable, class Allocator>
-inline constexpr size_t default_te_buffer_size() {
+constexpr size_t default_te_buffer_size() {
     struct S {
         [[no_unique_address]] Allocator allocator;
         void *self = nullptr;
@@ -205,8 +205,8 @@ inline constexpr size_t default_te_buffer_size() {
 }
 
 template <class... Types>
-inline constexpr size_t required_te_buffer_size_for() {
-    constexpr size_t sizes[] = {sizeof(Types)...};
+constexpr size_t required_te_buffer_size_for() {
+    constexpr size_t sizes[] = {sizeof(Types)...}; // NOLINT(*-avoid-c-arrays)
     return *std::max_element(std::begin(sizes), std::end(sizes));
 }
 

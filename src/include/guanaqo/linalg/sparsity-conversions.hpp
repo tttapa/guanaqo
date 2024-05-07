@@ -493,12 +493,12 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
         assert(work.size() == work_size());
-        if (permutation.size() > 0) {
+        if (permutation.empty()) {
+            return from_values;
+        } else {
             for (size_t i = 0; i < permutation.size(); ++i)
                 work[i] = from_values[cast_sz(permutation[i])];
             return work;
-        } else {
-            return from_values;
         }
     }
 };
@@ -600,12 +600,12 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
         assert(work.size() == work_size());
-        if (permutation.size() > 0) {
+        if (permutation.empty()) {
+            return from_values;
+        } else {
             for (size_t i = 0; i < permutation.size(); ++i)
                 work[i] = from_values[cast_sz(permutation[i])];
             return work;
-        } else {
-            return from_values;
         }
     }
 };
