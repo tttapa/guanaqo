@@ -1,5 +1,6 @@
 #include <guanaqo/io/csv.hpp>
 #include <gtest/gtest.h>
+#include <array>
 #include <cstring>
 #include <limits>
 #include <sstream>
@@ -13,6 +14,18 @@ TEST(csv, read) {
     std::vector<double> v(5);
     guanaqo::io::csv_read_row(is, std::span{v});
     std::vector<double> expected{1, +2, -3, 4, 5};
+    EXPECT_EQ(v, expected);
+}
+
+TEST(csv, readStaticExtent) {
+    std::istringstream is{"1.00000000000000000,"
+                          "+2.00000000000000000,"
+                          "-3.00000000000000000,"
+                          "4.00000000000000000,"
+                          "5.00000000000000000\n"};
+    std::array<double, 5> v;
+    guanaqo::io::csv_read_row(is, std::span{v});
+    std::array<double, 5> expected{1, +2, -3, 4, 5};
     EXPECT_EQ(v, expected);
 }
 
