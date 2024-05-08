@@ -53,10 +53,14 @@ struct SparsityConverter<Dense, Dense> {
     [[nodiscard]] operator const to_sparsity_t &() const & { return sparsity; }
     [[nodiscard]] const to_sparsity_t &get_sparsity() const { return *this; }
     [[nodiscard]] size_t work_size() const { return 0; }
+    [[nodiscard]] length_t nnz_from() const {
+        return sparsity.rows * sparsity.cols;
+    }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>>) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         return from_values;
     }
 };
@@ -85,10 +89,12 @@ struct SparsityConverter<SparseCSC<Index, StorageIndex>, Dense> {
     [[nodiscard]] size_t work_size() const {
         return cast_sz(sparsity.rows) * cast_sz(sparsity.cols);
     }
+    [[nodiscard]] length_t nnz_from() const { return from_sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         std::ranges::fill(work, T{});
         auto W = [&](index_t r, index_t c) -> std::remove_const_t<T> & {
@@ -153,10 +159,12 @@ struct SparsityConverter<SparseCOO<Index>, Dense> {
     [[nodiscard]] size_t work_size() const {
         return cast_sz(sparsity.rows) * cast_sz(sparsity.cols);
     }
+    [[nodiscard]] length_t nnz_from() const { return from_sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         std::ranges::fill(work, T{});
         auto W = [&](Index r, Index c) -> std::remove_const_t<T> & {
@@ -261,10 +269,14 @@ struct SparsityConverter<Dense, SparseCOO<Index>> {
             return 0;
         return cast_sz(sparsity.nnz());
     }
+    [[nodiscard]] length_t nnz_from() const {
+        return sparsity.rows * sparsity.cols;
+    }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         if (sparsity.symmetry == Symmetry::Unsymmetric) {
             return from_values;
@@ -331,10 +343,12 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     [[nodiscard]] operator const to_sparsity_t &() const & { return sparsity; }
     [[nodiscard]] const to_sparsity_t &get_sparsity() const { return *this; }
     [[nodiscard]] size_t work_size() const { return 0; }
+    [[nodiscard]] length_t nnz_from() const { return sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>>) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         return from_values;
     }
 };
@@ -382,10 +396,12 @@ struct SparsityConverter<SparseCOO<IndexFrom>, SparseCOO<IndexTo>> {
     [[nodiscard]] operator const to_sparsity_t &() const & { return sparsity; }
     [[nodiscard]] const to_sparsity_t &get_sparsity() const { return *this; }
     [[nodiscard]] size_t work_size() const { return 0; }
+    [[nodiscard]] length_t nnz_from() const { return sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>>) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         return from_values;
     }
 };
@@ -494,10 +510,12 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
     [[nodiscard]] operator const to_sparsity_t &() const & { return sparsity; }
     [[nodiscard]] const to_sparsity_t &get_sparsity() const { return *this; }
     [[nodiscard]] size_t work_size() const { return permutation.size(); }
+    [[nodiscard]] length_t nnz_from() const { return sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         if (permutation.empty()) {
             return from_values;
@@ -601,10 +619,12 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     [[nodiscard]] operator const to_sparsity_t &() const & { return sparsity; }
     [[nodiscard]] const to_sparsity_t &get_sparsity() const { return *this; }
     [[nodiscard]] size_t work_size() const { return permutation.size(); }
+    [[nodiscard]] length_t nnz_from() const { return sparsity.nnz(); }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         if (permutation.empty()) {
             return from_values;
@@ -683,10 +703,14 @@ struct SparsityConverter<Dense, SparseCSC<Index, StorageIndex>> {
             return 0;
         return cast_sz(sparsity.nnz());
     }
+    [[nodiscard]] length_t nnz_from() const {
+        return sparsity.rows * sparsity.cols;
+    }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
                    std::span<std::remove_const_t<T>> work) const {
+        assert(from_values.size() == cast_sz(nnz_from()));
         assert(work.size() == work_size());
         if (sparsity.symmetry == Symmetry::Unsymmetric) {
             return from_values;
@@ -740,6 +764,10 @@ struct SparsityConverter<Sparsity, To> {
         return std::visit([](const auto &c) { return c.work_size(); },
                           converter);
     }
+    [[nodiscard]] length_t nnz_from() const {
+        return std::visit([](const auto &c) { return c.nnz_from(); },
+                          converter);
+    }
     template <class T>
     [[nodiscard]] std::span<T>
     convert_values(std::span<T> from_values,
@@ -757,7 +785,7 @@ struct SparsityConverter<Sparsity, To> {
     template <class T, class E>
     std::vector<T> convert_values_into(std::span<T> result, E &&evaluator,
                                        std::vector<T> work = {}) const {
-        const auto eval_size = static_cast<size_t>(get_nnz(get_sparsity()));
+        const auto eval_size = cast_sz(nnz_from());
         // If the work size is zero, conversion can be done in-place, so
         // evaluate directly into the result.
         if (work_size() == 0 && result.size() >= eval_size) {
