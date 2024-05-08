@@ -4,7 +4,7 @@ html {
     --body-background-color: #DDD;
     --title-background-color: #FFF;
     --header-separator-color: #C8D0E2;
-    --nav-background-color: #DDE;
+    --nav-background-color: rgb(197, 209, 223);
     --code-background-color: #F4F4FF;
     --lineno-link-background-color: #F4F4F4;
     --lineno-text-color: #626670;
@@ -23,7 +23,7 @@ html.dark-mode {
     --title-background-color: #141414;
     --page-foreground-color: white;
     --memdef-doc-background-color: #121214;
-    --nav-background-color: rgb(24, 24, 54);
+    --nav-background-color: rgb(24, 37, 54);
     --nav-text-normal-color: #BAC5DB;
     --nav-text-normal-shadow: 0px 1px 1px black;
     --code-background-color: #282828;
