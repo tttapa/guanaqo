@@ -63,8 +63,10 @@ img.inline {
     vertical-align: text-bottom;
     max-width: 100%;
 }
-div.image img {
+div.image img, div.image object {
+    margin: 0 auto;
     max-width: 100%;
+    display: block;
 }
 div.image {
     text-align: initial;
@@ -381,25 +383,25 @@ span.keywordtype {
 span.keyword {
     color: var(--keyword-color);
 }
-div.line a.code.hl_function,
-div.line a.code.hl_interface {
+div.line a.code.hl_function, div.line a.code.hl_functionRef,
+div.line a.code.hl_interface, div.line a.code.hl_interfaceRef {
     color: var(--function-color);
 }
-div.line a.code.hl_define {
+div.line a.code.hl_define, div.line a.code.hl_defineRef {
     color: var(--macro-color);
 }
-div.line a.code.hl_class,
-div.line a.code.hl_union,
-div.line a.code.hl_struct,
-div.line a.code.hl_typedef,
-div.line a.code.hl_enumeration,
-div.line a.code.hl_exception {
+div.line a.code.hl_class, div.line a.code.hl_classRef,
+div.line a.code.hl_union, div.line a.code.hl_unionRef,
+div.line a.code.hl_struct, div.line a.code.hl_structRef,
+div.line a.code.hl_typedef, div.line a.code.hl_typedefRef,
+div.line a.code.hl_enumeration, div.line a.code.hl_enumerationRef,
+div.line a.code.hl_exception, div.line a.code.hl_exceptionRef {
     color: var(--type-color);
 }
-div.line a.code.hl_enumvalue {
+div.line a.code.hl_enumvalue, div.line a.code.hl_enumvalueRef {
     color: var(--enum-value-color);
 }
-div.line a.code.hl_concept {
+div.line a.code.hl_concept, div.line a.code.hl_conceptRef {
     color: var(--concept-color);
 }
 span.preprocessor a,
@@ -407,10 +409,10 @@ span.preprocessor a.code {
     color: var(--preprocessor-color);
     text-decoration: underline;
 }
-div.line a.code.hl_namespace {
+div.line a.code.hl_namespace, div.line a.code.hl_namespaceRef {
     color: var(--namespace-color);
 }
-div.line a.code.hl_variable {
+div.line a.code.hl_variable, div.line a.code.hl_variableRef {
     color: var(--variable-color);
 }
 div.line a.code:hover {
@@ -504,10 +506,10 @@ blockquote.doxtable > p:last-child {
     div.textblock,
     table.memberdecls,
     div.memitem,
-    div.contents p:not([class]) *,
-    div.dyncontent *,
-    table.memberdecls *,
-    div.memitem * {
+    div.contents p:not([class]),
+    div.dyncontent,
+    table.memberdecls,
+    div.memitem {
         font-size: 12px;
         line-height: 1.5;
     }
@@ -565,3 +567,17 @@ iframe#MSearchResults {
 }
 
 /* ---- End search box ---- */
+
+/* ---- Start print ---- */
+
+@media print {
+    address.footer {
+        display: none;
+    }
+    th {
+        break-after: avoid;
+    }
+    html {
+        --body-background-color: #FFF;
+    }
+}
