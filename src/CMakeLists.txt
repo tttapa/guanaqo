@@ -103,6 +103,8 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/io/csv.hpp"
           "include/guanaqo/quadmath/quadmath-print.hpp"
           "include/guanaqo/quadmath/quadmath.hpp"
+          "include/guanaqo/eigen/span.hpp"
+          "include/guanaqo/eigen/view.hpp"
 )
 target_link_libraries(guanaqo
     PRIVATE ${CMAKE_DL_LIBS}
