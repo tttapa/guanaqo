@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <span>
 
 namespace guanaqo {
 
@@ -24,6 +25,47 @@ struct MatrixView {
     }
 #endif
     [[nodiscard]] bool empty() const { return rows == 0 || cols == 0; }
+
+    MatrixView top_rows(index_t n) const {
+        return {
+            .data   = data,
+            .rows   = n,
+            .cols   = cols,
+            .stride = stride,
+        };
+    }
+    MatrixView left_cols(index_t n) const {
+        return {
+            .data   = data,
+            .rows   = rows,
+            .cols   = n,
+            .stride = stride,
+        };
+    }
+    MatrixView bottom_rows(index_t n) const {
+        return {
+            .data   = data + rows - n,
+            .rows   = n,
+            .cols   = cols,
+            .stride = stride,
+        };
+    }
+    MatrixView right_cols(index_t n) const {
+        return {
+            .data   = data + stride * (cols - n),
+            .rows   = rows,
+            .cols   = n,
+            .stride = stride,
+        };
+    }
+
+    static MatrixView as_column(std::span<T> v) {
+        return {
+            .data = v.data(),
+            .rows = static_cast<index_t>(v.size()),
+            .cols = 1,
+        };
+    }
 };
 
 } // namespace guanaqo
