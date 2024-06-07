@@ -25,6 +25,8 @@ struct MatrixView {
 
     value_t &operator()(index_t r, index_t c) { return data[r + c * stride]; }
     const value_t &operator()(index_t r, index_t c) const {
+        assert(0 <= r && r < rows);
+        assert(0 <= c && c < cols);
         return data[r + c * stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
@@ -75,7 +77,7 @@ struct MatrixView {
         return bottom_rows(rows - r).top_rows(n);
     }
     MatrixView middle_cols(index_t c, index_t n) const {
-        return right_cols(rows - c).left_cols(n);
+        return right_cols(cols - c).left_cols(n);
     }
     MatrixView top_left(index_t nr, index_t nc) const {
         return top_rows(nr).left_cols(nc);
