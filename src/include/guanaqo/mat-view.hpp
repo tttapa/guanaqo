@@ -2,8 +2,10 @@
 
 #include <algorithm>
 #include <cassert>
+#include <concepts>
 #include <cstddef>
 #include <span>
+#include <type_traits>
 
 namespace guanaqo {
 
@@ -23,17 +25,13 @@ struct MatrixView {
     index_t cols   = 1;
     index_t stride = rows;
 
-    value_t &operator()(index_t r, index_t c) { return data[r + c * stride]; }
-    const value_t &operator()(index_t r, index_t c) const {
+    value_t &operator()(index_t r, index_t c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
         return data[r + c * stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
-    value_t &operator[](index_t r, index_t c) { return operator()(r, c); }
-    const value_t &operator[](index_t r, index_t c) const {
-        return operator()(r, c);
-    }
+    value_t &operator[](index_t r, index_t c) const { return operator()(r, c); }
 #endif
     [[nodiscard]] bool empty() const { return rows == 0 || cols == 0; }
 
@@ -140,6 +138,29 @@ struct MatrixView {
             *p = t;
             p += stride + 1;
         }
+    }
+    template <class U, class J>
+        requires(!std::is_const_v<T> &&
+                 std::convertible_to<U, std::remove_cv_t<T>> &&
+                 std::equality_comparable_with<I, J>)
+    MatrixView &operator=(MatrixView<U, J> other) {
+        assert(other.rows == this->rows);
+        assert(other.cols == this->cols);
+        const auto *src = other.data;
+        auto *dst       = this->data;
+        for (index_t c = 0; c < this->cols; ++c) {
+            std::copy_n(src, this->rows, dst);
+            src += other.stride;
+            dst += this->stride;
+        }
+        return *this;
+    }
+    MatrixView &reassign(MatrixView other) {
+        this->rows   = other.rows;
+        this->cols   = other.cols;
+        this->stride = other.stride;
+        this->data   = other.data;
+        return *this;
     }
 };
 
