@@ -17,12 +17,12 @@ enum class Triangular {
 };
 
 template <class S>
-struct unit_stride {
+struct default_stride {
     static constexpr S value{1};
 };
 
 template <class I, I V>
-struct unit_stride<std::integral_constant<I, V>> {
+struct default_stride<std::integral_constant<I, V>> {
     static constexpr std::integral_constant<I, V> value{};
 };
 
@@ -34,14 +34,14 @@ struct MatrixView {
     value_t *data        = nullptr;
     index_t rows         = 0;
     index_t cols         = 1;
-    index_t stride       = rows;
     [[no_unique_address]] inner_stride_t inner_stride =
-        unit_stride<inner_stride_t>::value;
+        default_stride<inner_stride_t>::value;
+    index_t outer_stride = inner_stride * rows;
 
     value_t &operator()(index_t r, index_t c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
-        return data[r * inner_stride + c * stride];
+        return data[r * inner_stride + c * outer_stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
     value_t &operator[](index_t r, index_t c) const { return operator()(r, c); }
@@ -54,8 +54,8 @@ struct MatrixView {
             .data         = data,
             .rows         = n,
             .cols         = cols,
-            .stride       = stride,
             .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
         };
     }
     MatrixView left_cols(index_t n) const {
@@ -64,8 +64,8 @@ struct MatrixView {
             .data         = data,
             .rows         = rows,
             .cols         = n,
-            .stride       = stride,
             .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
         };
     }
     MatrixView bottom_rows(index_t n) const {
@@ -74,18 +74,18 @@ struct MatrixView {
             .data         = data + inner_stride * (rows - n),
             .rows         = n,
             .cols         = cols,
-            .stride       = stride,
             .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
         };
     }
     MatrixView right_cols(index_t n) const {
         assert(0 <= n && n <= cols);
         return {
-            .data         = data + stride * (cols - n),
+            .data         = data + outer_stride * (cols - n),
             .rows         = rows,
             .cols         = n,
-            .stride       = stride,
             .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
         };
     }
     MatrixView middle_rows(index_t r, index_t n) const {
@@ -123,15 +123,15 @@ struct MatrixView {
             .data         = data,
             .rows         = rows,
             .cols         = cols,
-            .stride       = stride,
             .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
         };
     }
 
     void set_constant(const value_t &t) {
         if (inner_stride == 1)
             for (index_t c = 0; c < cols; ++c)
-                std::fill_n(data + c * stride, rows, t);
+                std::fill_n(data + c * outer_stride, rows, t);
         else
             for (index_t c = 0; c < cols; ++c)
                 for (index_t r = 0; r < rows; ++r)
@@ -144,19 +144,20 @@ struct MatrixView {
         switch (tr) {
             case Triangular::Lower:
                 for (index_t c = 0; c < n; ++c)
-                    std::fill_n(data + c + c * stride, rows - c, t);
+                    std::fill_n(data + c + c * outer_stride, rows - c, t);
                 break;
             case Triangular::StrictlyLower:
                 for (index_t c = 0; c < n - 1; ++c)
-                    std::fill_n(data + c + 1 + c * stride, rows - c - 1, t);
+                    std::fill_n(data + c + 1 + c * outer_stride, rows - c - 1,
+                                t);
                 break;
             case Triangular::Upper:
                 for (index_t c = 0; c < n; ++c)
-                    std::fill_n(data + c * stride, 1 + c, t);
+                    std::fill_n(data + c * outer_stride, 1 + c, t);
                 break;
             case Triangular::StrictlyUpper:
                 for (index_t c = 1; c < n; ++c)
-                    std::fill_n(data + c * stride, c, t);
+                    std::fill_n(data + c * outer_stride, c, t);
                 break;
             default: assert(!"Unexpected value for guanaqo::Triangular");
         }
@@ -166,7 +167,7 @@ struct MatrixView {
         auto n  = std::max(rows, cols);
         for (index_t i = 0; i < n; ++i) {
             *p = t;
-            p += stride + inner_stride;
+            p += outer_stride + inner_stride;
         }
     }
     template <class U, class J, class R>
@@ -190,8 +191,8 @@ struct MatrixView {
                     dst_ += this->inner_stride;
                 }
             }
-            src += other.stride;
-            dst += this->stride;
+            src += other.outer_stride;
+            dst += this->outer_stride;
         }
         return *this;
     }
@@ -199,8 +200,8 @@ struct MatrixView {
         this->data         = other.data;
         this->rows         = other.rows;
         this->cols         = other.cols;
-        this->stride       = other.stride;
         this->inner_stride = other.inner_stride;
+        this->outer_stride = other.outer_stride;
         return *this;
     }
 };
