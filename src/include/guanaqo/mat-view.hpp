@@ -16,19 +16,32 @@ enum class Triangular {
     StrictlyUpper,
 };
 
-template <class T, class I = ptrdiff_t>
+template <class S>
+struct unit_stride {
+    static constexpr S value{1};
+};
+
+template <class I, I V>
+struct unit_stride<std::integral_constant<I, V>> {
+    static constexpr std::integral_constant<I, V> value{};
+};
+
+template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
 struct MatrixView {
-    using value_t  = T;
-    using index_t  = I;
-    value_t *data  = nullptr;
-    index_t rows   = 0;
-    index_t cols   = 1;
-    index_t stride = rows;
+    using value_t        = T;
+    using index_t        = I;
+    using inner_stride_t = S;
+    value_t *data        = nullptr;
+    index_t rows         = 0;
+    index_t cols         = 1;
+    index_t stride       = rows;
+    [[no_unique_address]] inner_stride_t inner_stride =
+        unit_stride<inner_stride_t>::value;
 
     value_t &operator()(index_t r, index_t c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
-        return data[r + c * stride];
+        return data[r * inner_stride + c * stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
     value_t &operator[](index_t r, index_t c) const { return operator()(r, c); }
@@ -38,37 +51,41 @@ struct MatrixView {
     MatrixView top_rows(index_t n) const {
         assert(0 <= n && n <= rows);
         return {
-            .data   = data,
-            .rows   = n,
-            .cols   = cols,
-            .stride = stride,
+            .data         = data,
+            .rows         = n,
+            .cols         = cols,
+            .stride       = stride,
+            .inner_stride = inner_stride,
         };
     }
     MatrixView left_cols(index_t n) const {
         assert(0 <= n && n <= cols);
         return {
-            .data   = data,
-            .rows   = rows,
-            .cols   = n,
-            .stride = stride,
+            .data         = data,
+            .rows         = rows,
+            .cols         = n,
+            .stride       = stride,
+            .inner_stride = inner_stride,
         };
     }
     MatrixView bottom_rows(index_t n) const {
         assert(0 <= n && n <= rows);
         return {
-            .data   = data + rows - n,
-            .rows   = n,
-            .cols   = cols,
-            .stride = stride,
+            .data         = data + inner_stride * (rows - n),
+            .rows         = n,
+            .cols         = cols,
+            .stride       = stride,
+            .inner_stride = inner_stride,
         };
     }
     MatrixView right_cols(index_t n) const {
         assert(0 <= n && n <= cols);
         return {
-            .data   = data + stride * (cols - n),
-            .rows   = rows,
-            .cols   = n,
-            .stride = stride,
+            .data         = data + stride * (cols - n),
+            .rows         = rows,
+            .cols         = n,
+            .stride       = stride,
+            .inner_stride = inner_stride,
         };
     }
     MatrixView middle_rows(index_t r, index_t n) const {
@@ -102,14 +119,27 @@ struct MatrixView {
     }
 
     operator MatrixView<const T, I>() const {
-        return {.data = data, .rows = rows, .cols = cols, .stride = stride};
+        return {
+            .data         = data,
+            .rows         = rows,
+            .cols         = cols,
+            .stride       = stride,
+            .inner_stride = inner_stride,
+        };
     }
 
     void set_constant(const value_t &t) {
-        for (index_t c = 0; c < cols; ++c)
-            std::fill_n(data + c * stride, rows, t);
+        if (inner_stride == 1)
+            for (index_t c = 0; c < cols; ++c)
+                std::fill_n(data + c * stride, rows, t);
+        else
+            for (index_t c = 0; c < cols; ++c)
+                for (index_t r = 0; r < rows; ++r)
+                    (*this)(r, c) = t;
     }
-    void set_constant(const value_t &t, Triangular tr) {
+    void set_constant(const value_t &t, Triangular tr)
+        requires(inner_stride_t::value == 1)
+    {
         auto n = std::max(rows, cols);
         switch (tr) {
             case Triangular::Lower:
@@ -136,30 +166,41 @@ struct MatrixView {
         auto n  = std::max(rows, cols);
         for (index_t i = 0; i < n; ++i) {
             *p = t;
-            p += stride + 1;
+            p += stride + inner_stride;
         }
     }
-    template <class U, class J>
+    template <class U, class J, class R>
         requires(!std::is_const_v<T> &&
                  std::convertible_to<U, std::remove_cv_t<T>> &&
                  std::equality_comparable_with<I, J>)
-    MatrixView &operator=(MatrixView<U, J> other) {
+    MatrixView &operator=(MatrixView<U, J, R> other) {
         assert(other.rows == this->rows);
         assert(other.cols == this->cols);
         const auto *src = other.data;
         auto *dst       = this->data;
         for (index_t c = 0; c < this->cols; ++c) {
-            std::copy_n(src, this->rows, dst);
+            if (other.inner_stride == 1 && this->inner_stride == 1)
+                std::copy_n(src, this->rows, dst);
+            else {
+                const auto *src_ = src;
+                auto *dst_       = dst;
+                for (index_t r = 0; r < rows; ++r) {
+                    *dst_ = *src_;
+                    src_ += other.inner_stride;
+                    dst_ += this->inner_stride;
+                }
+            }
             src += other.stride;
             dst += this->stride;
         }
         return *this;
     }
     MatrixView &reassign(MatrixView other) {
-        this->rows   = other.rows;
-        this->cols   = other.cols;
-        this->stride = other.stride;
-        this->data   = other.data;
+        this->data         = other.data;
+        this->rows         = other.rows;
+        this->cols         = other.cols;
+        this->stride       = other.stride;
+        this->inner_stride = other.inner_stride;
         return *this;
     }
 };
