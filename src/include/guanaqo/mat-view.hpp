@@ -17,13 +17,17 @@ enum class Triangular {
 };
 
 template <class S>
-struct default_stride {
+struct default_stride;
+
+template <std::integral S>
+struct default_stride<S> {
     static constexpr S value{1};
 };
 
-template <class I, I V>
-struct default_stride<std::integral_constant<I, V>> {
-    static constexpr std::integral_constant<I, V> value{};
+template <class S>
+    requires(std::default_initializable<S> && !std::constructible_from<S, int>)
+struct default_stride<S> {
+    static constexpr S value{};
 };
 
 template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
@@ -31,12 +35,26 @@ struct MatrixView {
     using value_t        = T;
     using index_t        = I;
     using inner_stride_t = S;
-    value_t *data        = nullptr;
-    index_t rows         = 0;
-    index_t cols         = 1;
-    [[no_unique_address]] inner_stride_t inner_stride =
-        default_stride<inner_stride_t>::value;
-    index_t outer_stride = inner_stride * rows;
+
+    value_t *data;
+    index_t rows;
+    index_t cols;
+    [[no_unique_address]] inner_stride_t inner_stride;
+    index_t outer_stride;
+
+    /// POD type for designated initializers
+    struct PlainMatrixView {
+        value_t *data = nullptr;
+        index_t rows  = 0;
+        index_t cols  = 1;
+        [[no_unique_address]] inner_stride_t inner_stride =
+            default_stride<inner_stride_t>::value;
+        index_t outer_stride = inner_stride * rows;
+    };
+
+    MatrixView(PlainMatrixView p)
+        : data{p.data}, rows{p.rows}, cols{p.cols},
+          inner_stride{p.inner_stride}, outer_stride{p.outer_stride} {}
 
     value_t &operator()(index_t r, index_t c) const {
         assert(0 <= r && r < rows);
@@ -50,43 +68,43 @@ struct MatrixView {
 
     MatrixView top_rows(index_t n) const {
         assert(0 <= n && n <= rows);
-        return {
+        return {{
             .data         = data,
             .rows         = n,
             .cols         = cols,
             .inner_stride = inner_stride,
             .outer_stride = outer_stride,
-        };
+        }};
     }
     MatrixView left_cols(index_t n) const {
         assert(0 <= n && n <= cols);
-        return {
+        return {{
             .data         = data,
             .rows         = rows,
             .cols         = n,
             .inner_stride = inner_stride,
             .outer_stride = outer_stride,
-        };
+        }};
     }
     MatrixView bottom_rows(index_t n) const {
         assert(0 <= n && n <= rows);
-        return {
+        return {{
             .data         = data + inner_stride * (rows - n),
             .rows         = n,
             .cols         = cols,
             .inner_stride = inner_stride,
             .outer_stride = outer_stride,
-        };
+        }};
     }
     MatrixView right_cols(index_t n) const {
         assert(0 <= n && n <= cols);
-        return {
+        return {{
             .data         = data + outer_stride * (cols - n),
             .rows         = rows,
             .cols         = n,
             .inner_stride = inner_stride,
             .outer_stride = outer_stride,
-        };
+        }};
     }
     MatrixView middle_rows(index_t r, index_t n) const {
         return bottom_rows(rows - r).top_rows(n);
@@ -111,21 +129,21 @@ struct MatrixView {
     }
 
     static MatrixView as_column(std::span<T> v) {
-        return {
+        return {{
             .data = v.data(),
             .rows = static_cast<index_t>(v.size()),
             .cols = 1,
-        };
+        }};
     }
 
-    operator MatrixView<const T, I>() const {
-        return {
+    operator MatrixView<const T, I, S>() const {
+        return {{
             .data         = data,
             .rows         = rows,
             .cols         = cols,
             .inner_stride = inner_stride,
             .outer_stride = outer_stride,
-        };
+        }};
     }
 
     void set_constant(const value_t &t) {
@@ -170,11 +188,7 @@ struct MatrixView {
             p += outer_stride + inner_stride;
         }
     }
-    template <class U, class J, class R>
-        requires(!std::is_const_v<T> &&
-                 std::convertible_to<U, std::remove_cv_t<T>> &&
-                 std::equality_comparable_with<I, J>)
-    MatrixView &operator=(MatrixView<U, J, R> other) {
+    void copy_values(auto &other) {
         assert(other.rows == this->rows);
         assert(other.cols == this->cols);
         const auto *src = other.data;
@@ -194,7 +208,49 @@ struct MatrixView {
             src += other.outer_stride;
             dst += this->outer_stride;
         }
+    }
+    MatrixView(const MatrixView &) = default;
+    MatrixView &operator=(const MatrixView &other) {
+        if (this != &other)
+            copy_values(other);
         return *this;
+    }
+    template <class U, class J, class R>
+        requires(!std::is_const_v<T> &&
+                 std::convertible_to<U, std::remove_cv_t<T>> &&
+                 std::equality_comparable_with<I, J>)
+    MatrixView &operator=(MatrixView<U, J, R> other) {
+        copy_values(other);
+        return *this;
+    }
+    // TODO: abstract logic into generic function (and check performance)
+    template <class U, class J, class R>
+        requires(!std::is_const_v<T> &&
+                 std::convertible_to<U, std::remove_cv_t<T>> &&
+                 std::equality_comparable_with<I, J>)
+    MatrixView &operator+=(MatrixView<U, J, R> other) {
+        assert(other.rows == this->rows);
+        assert(other.cols == this->cols);
+        const auto *src = other.data;
+        auto *dst       = this->data;
+        for (index_t c = 0; c < this->cols; ++c) {
+            const auto *src_ = src;
+            auto *dst_       = dst;
+            for (index_t r = 0; r < rows; ++r) {
+                *dst_ += *src_;
+                src_ += other.inner_stride;
+                dst_ += this->inner_stride;
+            }
+            src += other.outer_stride;
+            dst += this->outer_stride;
+        }
+        return *this;
+    }
+    template <class Generator>
+    void generate(Generator gen) {
+        for (index_t c = 0; c < cols; ++c)
+            for (index_t r = 0; r < rows; ++r)
+                (*this)(r, c) = gen();
     }
     MatrixView &reassign(MatrixView other) {
         this->data         = other.data;

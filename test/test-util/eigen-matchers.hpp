@@ -15,12 +15,12 @@ template <class T>
 void print(std::ostream &os, const T &arg) {
     using Scalar = typename T::Scalar;
     Eigen::MatrixX<Scalar> M{arg};
-    guanaqo::detail::print_python_impl(os, guanaqo::MatrixView<const Scalar>{
-                                               .data   = M.data(),
-                                               .rows   = M.rows(),
-                                               .cols   = M.cols(),
-                                               .stride = M.outerStride(),
-                                           });
+    guanaqo::detail::print_python_impl(os, guanaqo::MatrixView<const Scalar>{{
+                                               .data         = M.data(),
+                                               .rows         = M.rows(),
+                                               .cols         = M.cols(),
+                                               .outer_stride = M.outerStride(),
+                                           }});
 }
 } // namespace guanaqo_test
 
