@@ -68,6 +68,7 @@ add_library(guanaqo
     "src/dl-flags.cpp"
     "src/print.cpp"
     "src/type-erasure.cpp"
+    "src/timed-cpu.cpp"
     "src/io/csv.cpp"
     "src/quadmath/quadmath-print.cpp"
 )
@@ -98,6 +99,7 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/string-util.hpp"
           "include/guanaqo/tag-invoke.hpp"
           "include/guanaqo/timed.hpp"
+          "include/guanaqo/timed-cpu.hpp"
           "include/guanaqo/type-erasure.hpp"
           "include/guanaqo/type-traits.hpp"
           "include/guanaqo/io/csv.hpp"
