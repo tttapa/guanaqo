@@ -38,7 +38,7 @@ namespace detail {
 template <class T> // NOLINTNEXTLINE(*-cognitive-complexity)
 std::ostream &print_csv_impl(std::ostream &os, MatrixView<const T> M,
                              PrintOpts opts) {
-    using index_t = decltype(M)::index_t;
+    using index_t = decltype(M)::index_type;
     auto indent   = std::string(opts.indent, opts.indent_char);
     std::array<char, 64> buf;
     if ((M.cols == 1 && opts.column_vector_as_1d) ||

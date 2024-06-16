@@ -1,7 +1,9 @@
 #pragma once
 
 #include <guanaqo/export.h>
+#include <guanaqo/mat-view.hpp>
 #include <concepts>
+#include <cstddef>
 #include <iosfwd>
 #include <span>
 #include <stdexcept>
@@ -23,6 +25,25 @@ template <class F, size_t E>
 void GUANAQO_EXPORT csv_read_row(std::istream &is, std::span<F, E> v,
                                  char sep = ',') {
     csv_read_row(is, std::span<F, std::dynamic_extent>{v}, sep);
+}
+
+template <class F>
+void GUANAQO_EXPORT csv_read(std::istream &is,
+                             MatrixView<F, ptrdiff_t, ptrdiff_t> M,
+                             char sep = ',');
+
+template <class F, class I, class S>
+    requires(!std::same_as<I, ptrdiff_t> || !std::same_as<S, ptrdiff_t>)
+void GUANAQO_EXPORT csv_read(std::istream &is, MatrixView<F, I, S> M,
+                             char sep = ',') {
+    csv_read(is,
+             MatrixView<F, ptrdiff_t, ptrdiff_t>{
+                 {.data         = M.data,
+                  .rows         = static_cast<ptrdiff_t>(M.rows),
+                  .cols         = static_cast<ptrdiff_t>(M.cols),
+                  .inner_stride = static_cast<ptrdiff_t>(M.inner_stride),
+                  .outer_stride = static_cast<ptrdiff_t>(M.outer_stride)}},
+             sep);
 }
 
 template <class F>

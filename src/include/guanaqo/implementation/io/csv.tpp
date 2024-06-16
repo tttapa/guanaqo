@@ -160,6 +160,19 @@ void csv_read_row(std::istream &is, std::span<F> v, char sep) {
 
 template <class F>
     requires(std::floating_point<F> || std::integral<F>)
+void csv_read(std::istream &is, MatrixView<F, ptrdiff_t, ptrdiff_t> v,
+              char sep) {
+    CSVReader<F> reader;
+    for (ptrdiff_t r = 0; r < v.rows; ++r) {
+        reader.skip_comments(is);
+        for (ptrdiff_t c = 0; c < v.cols; ++c)
+            v(r, c) = reader.read(is, sep);
+        reader.next_line(is);
+    }
+}
+
+template <class F>
+    requires(std::floating_point<F> || std::integral<F>)
 std::vector<F> csv_read_row_std_vector(std::istream &is, char sep) {
     CSVReader<F> reader;
     std::vector<F> v;

@@ -32,41 +32,43 @@ struct default_stride<S> {
 
 template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
 struct MatrixView {
-    using value_t        = T;
-    using index_t        = I;
-    using inner_stride_t = S;
+    using value_type        = T;
+    using index_type        = I;
+    using inner_stride_type = S;
 
-    value_t *data;
-    index_t rows;
-    index_t cols;
-    [[no_unique_address]] inner_stride_t inner_stride;
-    index_t outer_stride;
+    value_type *data;
+    index_type rows;
+    index_type cols;
+    [[no_unique_address]] inner_stride_type inner_stride;
+    index_type outer_stride;
 
     /// POD type for designated initializers
     struct PlainMatrixView {
-        value_t *data = nullptr;
-        index_t rows  = 0;
-        index_t cols  = 1;
-        [[no_unique_address]] inner_stride_t inner_stride =
-            default_stride<inner_stride_t>::value;
-        index_t outer_stride = inner_stride * rows;
+        value_type *data = nullptr;
+        index_type rows  = 0;
+        index_type cols  = 1;
+        [[no_unique_address]] inner_stride_type inner_stride =
+            default_stride<inner_stride_type>::value;
+        index_type outer_stride = inner_stride * rows;
     };
 
     MatrixView(PlainMatrixView p)
         : data{p.data}, rows{p.rows}, cols{p.cols},
           inner_stride{p.inner_stride}, outer_stride{p.outer_stride} {}
 
-    value_t &operator()(index_t r, index_t c) const {
+    value_type &operator()(index_type r, index_type c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
         return data[r * inner_stride + c * outer_stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
-    value_t &operator[](index_t r, index_t c) const { return operator()(r, c); }
+    value_type &operator[](index_type r, index_type c) const {
+        return operator()(r, c);
+    }
 #endif
     [[nodiscard]] bool empty() const { return rows == 0 || cols == 0; }
 
-    MatrixView top_rows(index_t n) const {
+    MatrixView top_rows(index_type n) const {
         assert(0 <= n && n <= rows);
         return {{
             .data         = data,
@@ -76,7 +78,7 @@ struct MatrixView {
             .outer_stride = outer_stride,
         }};
     }
-    MatrixView left_cols(index_t n) const {
+    MatrixView left_cols(index_type n) const {
         assert(0 <= n && n <= cols);
         return {{
             .data         = data,
@@ -86,7 +88,7 @@ struct MatrixView {
             .outer_stride = outer_stride,
         }};
     }
-    MatrixView bottom_rows(index_t n) const {
+    MatrixView bottom_rows(index_type n) const {
         assert(0 <= n && n <= rows);
         return {{
             .data         = data + inner_stride * (rows - n),
@@ -96,7 +98,7 @@ struct MatrixView {
             .outer_stride = outer_stride,
         }};
     }
-    MatrixView right_cols(index_t n) const {
+    MatrixView right_cols(index_type n) const {
         assert(0 <= n && n <= cols);
         return {{
             .data         = data + outer_stride * (cols - n),
@@ -106,32 +108,33 @@ struct MatrixView {
             .outer_stride = outer_stride,
         }};
     }
-    MatrixView middle_rows(index_t r, index_t n) const {
+    MatrixView middle_rows(index_type r, index_type n) const {
         return bottom_rows(rows - r).top_rows(n);
     }
-    MatrixView middle_cols(index_t c, index_t n) const {
+    MatrixView middle_cols(index_type c, index_type n) const {
         return right_cols(cols - c).left_cols(n);
     }
-    MatrixView top_left(index_t nr, index_t nc) const {
+    MatrixView top_left(index_type nr, index_type nc) const {
         return top_rows(nr).left_cols(nc);
     }
-    MatrixView top_right(index_t nr, index_t nc) const {
+    MatrixView top_right(index_type nr, index_type nc) const {
         return top_rows(nr).right_cols(nc);
     }
-    MatrixView bottom_left(index_t nr, index_t nc) const {
+    MatrixView bottom_left(index_type nr, index_type nc) const {
         return bottom_rows(nr).left_cols(nc);
     }
-    MatrixView bottom_right(index_t nr, index_t nc) const {
+    MatrixView bottom_right(index_type nr, index_type nc) const {
         return bottom_rows(nr).right_cols(nc);
     }
-    MatrixView block(index_t r, index_t c, index_t nr, index_t nc) const {
+    MatrixView block(index_type r, index_type c, index_type nr,
+                     index_type nc) const {
         return middle_rows(r, nr).middle_cols(c, nc);
     }
 
     static MatrixView as_column(std::span<T> v) {
         return {{
             .data = v.data(),
-            .rows = static_cast<index_t>(v.size()),
+            .rows = static_cast<index_type>(v.size()),
             .cols = 1,
         }};
     }
@@ -146,45 +149,62 @@ struct MatrixView {
         }};
     }
 
-    void set_constant(const value_t &t) {
+    void set_constant(const value_type &t) {
         if (inner_stride == 1)
-            for (index_t c = 0; c < cols; ++c)
+            for (index_type c = 0; c < cols; ++c)
                 std::fill_n(data + c * outer_stride, rows, t);
         else
-            for (index_t c = 0; c < cols; ++c)
-                for (index_t r = 0; r < rows; ++r)
+            for (index_type c = 0; c < cols; ++c)
+                for (index_type r = 0; r < rows; ++r)
                     (*this)(r, c) = t;
     }
-    void set_constant(const value_t &t, Triangular tr)
-        requires(inner_stride_t::value == 1)
+    void set_constant(const value_type &t, Triangular tr)
+        requires(inner_stride_type::value == 1)
     {
         auto n = std::max(rows, cols);
         switch (tr) {
             case Triangular::Lower:
-                for (index_t c = 0; c < n; ++c)
+                for (index_type c = 0; c < n; ++c)
                     std::fill_n(data + c + c * outer_stride, rows - c, t);
                 break;
             case Triangular::StrictlyLower:
-                for (index_t c = 0; c < n - 1; ++c)
+                for (index_type c = 0; c < n - 1; ++c)
                     std::fill_n(data + c + 1 + c * outer_stride, rows - c - 1,
                                 t);
                 break;
             case Triangular::Upper:
-                for (index_t c = 0; c < n; ++c)
+                for (index_type c = 0; c < n; ++c)
                     std::fill_n(data + c * outer_stride, 1 + c, t);
                 break;
             case Triangular::StrictlyUpper:
-                for (index_t c = 1; c < n; ++c)
+                for (index_type c = 1; c < n; ++c)
                     std::fill_n(data + c * outer_stride, c, t);
                 break;
             default: assert(!"Unexpected value for guanaqo::Triangular");
         }
     }
-    void set_diagonal(const value_t &t) {
+    MatrixView<T, I, I> diagonal() {
+        auto n = std::max(rows, cols);
+        return {{
+            .data         = data,
+            .rows         = n,
+            .cols         = 1,
+            .inner_stride = outer_stride + inner_stride,
+        }};
+    }
+    void set_diagonal(const value_type &t) {
         auto *p = data;
         auto n  = std::max(rows, cols);
-        for (index_t i = 0; i < n; ++i) {
+        for (index_type i = 0; i < n; ++i) {
             *p = t;
+            p += outer_stride + inner_stride;
+        }
+    }
+    void add_to_diagonal(const value_type &t) {
+        auto *p = data;
+        auto n  = std::max(rows, cols);
+        for (index_type i = 0; i < n; ++i) {
+            *p += t;
             p += outer_stride + inner_stride;
         }
     }
@@ -193,13 +213,13 @@ struct MatrixView {
         assert(other.cols == this->cols);
         const auto *src = other.data;
         auto *dst       = this->data;
-        for (index_t c = 0; c < this->cols; ++c) {
+        for (index_type c = 0; c < this->cols; ++c) {
             if (other.inner_stride == 1 && this->inner_stride == 1)
                 std::copy_n(src, this->rows, dst);
             else {
                 const auto *src_ = src;
                 auto *dst_       = dst;
-                for (index_t r = 0; r < rows; ++r) {
+                for (index_type r = 0; r < rows; ++r) {
                     *dst_ = *src_;
                     src_ += other.inner_stride;
                     dst_ += this->inner_stride;
@@ -233,10 +253,10 @@ struct MatrixView {
         assert(other.cols == this->cols);
         const auto *src = other.data;
         auto *dst       = this->data;
-        for (index_t c = 0; c < this->cols; ++c) {
+        for (index_type c = 0; c < this->cols; ++c) {
             const auto *src_ = src;
             auto *dst_       = dst;
-            for (index_t r = 0; r < rows; ++r) {
+            for (index_type r = 0; r < rows; ++r) {
                 *dst_ += *src_;
                 src_ += other.inner_stride;
                 dst_ += this->inner_stride;
@@ -248,8 +268,8 @@ struct MatrixView {
     }
     template <class Generator>
     void generate(Generator gen) {
-        for (index_t c = 0; c < cols; ++c)
-            for (index_t r = 0; r < rows; ++r)
+        for (index_type c = 0; c < cols; ++c)
+            for (index_type r = 0; r < rows; ++r)
                 (*this)(r, c) = gen();
     }
     MatrixView &reassign(MatrixView other) {

@@ -47,6 +47,7 @@ auto as_span(const Eigen::DenseBase<Derived> &v) {
 }
 
 /// Convert a `std::span` to an Eigen::Vector view.
+/// @todo   Rename to as_eigen?
 template <class T, size_t E>
 auto as_vec(std::span<T, E> s) {
     constexpr auto R = detail::to_eigen_extent<E>;
