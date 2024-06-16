@@ -2,6 +2,7 @@
 
 #include <guanaqo/export.h>
 #include <guanaqo/timed.hpp>
+#include <iosfwd>
 
 namespace guanaqo {
 
@@ -12,6 +13,8 @@ struct GUANAQO_EXPORT TimingsCPU {
     std::chrono::nanoseconds wall_time{};
     std::chrono::nanoseconds cpu_time{};
 };
+
+GUANAQO_EXPORT std::ostream &operator<<(std::ostream &, TimingsCPU);
 
 /// RAII class for measuring wall and CPU time.
 template <>

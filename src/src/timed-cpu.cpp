@@ -1,4 +1,5 @@
 #include <guanaqo/timed-cpu.hpp>
+#include <iomanip>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -26,6 +27,19 @@ int64_t getProcessCpuTime() {
 } // namespace
 
 namespace guanaqo {
+
+std::ostream &operator<<(std::ostream &os, TimingsCPU t) {
+    using millis_f64 = std::chrono::duration<double, std::milli>;
+    auto wall_ms     = millis_f64(t.wall_time).count();
+    auto cpu_ms      = millis_f64(t.cpu_time).count();
+    auto cpu_pct     = 100 * cpu_ms / wall_ms;
+    auto prec        = os.precision(6);
+    os << std::setw(8) << wall_ms << " ms (wall) ─ " //
+       << std::setw(8) << cpu_ms << " ms (CPU) ─ "   //
+       << std::setprecision(5) << std::setw(7) << cpu_pct << "%";
+    os.precision(prec);
+    return os;
+}
 
 Timed<TimingsCPU>::Timed(TimingsCPU &time) : time(time) {
     wall_start_time = clock::now();
