@@ -266,6 +266,20 @@ struct MatrixView {
         }
         return *this;
     }
+    // TODO: abstract logic into generic function (and check performance)
+    template <class U>
+    MatrixView &operator+=(const U &u) {
+        auto *dst = this->data;
+        for (index_type c = 0; c < this->cols; ++c) {
+            auto *dst_ = dst;
+            for (index_type r = 0; r < rows; ++r) {
+                *dst_ += u;
+                dst_ += this->inner_stride;
+            }
+            dst += this->outer_stride;
+        }
+        return *this;
+    }
     template <class Generator>
     void generate(Generator gen) {
         for (index_type c = 0; c < cols; ++c)
