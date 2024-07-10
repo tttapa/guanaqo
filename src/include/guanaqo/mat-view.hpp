@@ -55,13 +55,18 @@ struct MatrixView {
     MatrixView(PlainMatrixView p)
         : data{p.data}, rows{p.rows}, cols{p.cols},
           inner_stride{p.inner_stride}, outer_stride{p.outer_stride} {}
-
+#ifdef NDEBUG
+    [[gnu::always_inline]]
+#endif
     value_type &operator()(index_type r, index_type c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
         return data[r * inner_stride + c * outer_stride];
     }
 #if __cpp_multidimensional_subscript >= 202110L
+#ifdef NDEBUG
+    [[gnu::always_inline]]
+#endif
     value_type &operator[](index_type r, index_type c) const {
         return operator()(r, c);
     }
