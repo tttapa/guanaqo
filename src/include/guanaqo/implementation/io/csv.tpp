@@ -1,6 +1,7 @@
 #include <guanaqo/io/csv.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <charconv>
 #include <ios>

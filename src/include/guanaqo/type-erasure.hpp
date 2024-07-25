@@ -6,6 +6,7 @@
 #include <guanaqo/type-traits.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <cstddef>
 #include <exception>
@@ -115,7 +116,7 @@ constexpr CopyMoveDestroyVTable copy_move_destroy_vtable = {
             if constexpr (std::is_const_v<T>)
                 std::terminate();
             else
-                std::launder(reinterpret_cast<T *>(self))->~T();
+                std::destroy_at(std::launder(reinterpret_cast<T *>(self)));
         },
 };
 
