@@ -3,6 +3,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <guanaqo/eigen/view.hpp>
 #include <guanaqo/print.hpp>
 
 #include <Eigen/Core>
@@ -15,12 +16,7 @@ template <class T>
 void print(std::ostream &os, const T &arg) {
     using Scalar = typename T::Scalar;
     Eigen::MatrixX<Scalar> M{arg};
-    guanaqo::detail::print_python_impl(os, guanaqo::MatrixView<const Scalar>{{
-                                               .data         = M.data(),
-                                               .rows         = M.rows(),
-                                               .cols         = M.cols(),
-                                               .outer_stride = M.outerStride(),
-                                           }});
+    guanaqo::print_python(os, guanaqo::as_view(M));
 }
 } // namespace guanaqo_test
 

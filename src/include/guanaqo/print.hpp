@@ -13,6 +13,9 @@
 
 namespace guanaqo {
 
+template <class T>
+using PrintMatrixView = MatrixView<const T, ptrdiff_t, ptrdiff_t>;
+
 struct GUANAQO_EXPORT PrintOpts {
     int precision               = 0;
     std::string_view delimiter  = ",";
@@ -39,16 +42,16 @@ namespace detail {
 
 template <class T>
 GUANAQO_EXPORT std::ostream &
-print_csv_impl(std::ostream &os, MatrixView<const T> M, PrintOpts opts = {});
+print_csv_impl(std::ostream &os, PrintMatrixView<T> M, PrintOpts opts = {});
 
 template <class T>
 GUANAQO_EXPORT std::ostream &print_matlab_impl(std::ostream &os,
-                                               MatrixView<const T>,
+                                               PrintMatrixView<T>,
                                                std::string_view end = ";\n");
 
 template <class T>
 GUANAQO_EXPORT std::ostream &
-print_python_impl(std::ostream &os, MatrixView<const T>,
+print_python_impl(std::ostream &os, PrintMatrixView<T>,
                   std::string_view end = "\n", bool squeeze = true);
 
 } // namespace detail
@@ -58,22 +61,23 @@ std::ostream &print_csv(std::ostream &os, std::span<T, E> x,
                         PrintOpts opts = {}) {
     return guanaqo::detail::print_csv_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data = x.data(),
             .rows = static_cast<ptrdiff_t>(x.size()),
         }},
         opts);
 }
 
-template <class T, class I>
-std::ostream &print_csv(std::ostream &os, MatrixView<T, I> X,
+template <class T, class I, class S>
+std::ostream &print_csv(std::ostream &os, MatrixView<T, I, S> X,
                         PrintOpts opts = {}) {
     return guanaqo::detail::print_csv_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data         = X.data,
             .rows         = static_cast<ptrdiff_t>(X.rows),
             .cols         = static_cast<ptrdiff_t>(X.cols),
+            .inner_stride = static_cast<ptrdiff_t>(X.inner_stride),
             .outer_stride = static_cast<ptrdiff_t>(X.outer_stride),
         }},
         opts);
@@ -84,22 +88,23 @@ std::ostream &print_matlab(std::ostream &os, std::span<T, E> x,
                            std::string_view end = ";\n") {
     return guanaqo::detail::print_matlab_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data = x.data(),
             .rows = static_cast<ptrdiff_t>(x.size()),
         }},
         end);
 }
 
-template <class T, class I>
-std::ostream &print_matlab(std::ostream &os, MatrixView<T, I> X,
+template <class T, class I, class S>
+std::ostream &print_matlab(std::ostream &os, MatrixView<T, I, S> X,
                            std::string_view end = ";\n") {
     return guanaqo::detail::print_matlab_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data         = X.data,
             .rows         = static_cast<ptrdiff_t>(X.rows),
             .cols         = static_cast<ptrdiff_t>(X.cols),
+            .inner_stride = static_cast<ptrdiff_t>(X.inner_stride),
             .outer_stride = static_cast<ptrdiff_t>(X.outer_stride),
         }},
         end);
@@ -110,22 +115,23 @@ std::ostream &print_python(std::ostream &os, std::span<T, E> x,
                            std::string_view end = "\n", bool squeeze = true) {
     return guanaqo::detail::print_python_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data = x.data(),
             .rows = static_cast<ptrdiff_t>(x.size()),
         }},
         end, squeeze);
 }
 
-template <class T, class I>
-std::ostream &print_python(std::ostream &os, MatrixView<T, I> X,
+template <class T, class I, class S>
+std::ostream &print_python(std::ostream &os, MatrixView<T, I, S> X,
                            std::string_view end = "\n", bool squeeze = true) {
     return guanaqo::detail::print_python_impl(
         os,
-        MatrixView<const T>{{
+        PrintMatrixView<T>{{
             .data         = X.data,
             .rows         = static_cast<ptrdiff_t>(X.rows),
             .cols         = static_cast<ptrdiff_t>(X.cols),
+            .inner_stride = static_cast<ptrdiff_t>(X.inner_stride),
             .outer_stride = static_cast<ptrdiff_t>(X.outer_stride),
         }},
         end, squeeze);

@@ -36,7 +36,7 @@ void print_elem(std::span<char> buf, std::complex<F> value, std::ostream &os) {
 namespace detail {
 
 template <class T> // NOLINTNEXTLINE(*-cognitive-complexity)
-std::ostream &print_csv_impl(std::ostream &os, MatrixView<const T> M,
+std::ostream &print_csv_impl(std::ostream &os, PrintMatrixView<T> M,
                              PrintOpts opts) {
     using index_t = decltype(M)::index_type;
     auto indent   = std::string(opts.indent, opts.indent_char);
@@ -68,7 +68,7 @@ std::ostream &print_csv_impl(std::ostream &os, MatrixView<const T> M,
 }
 
 template <class T>
-std::ostream &print_matlab_impl(std::ostream &os, MatrixView<const T> M,
+std::ostream &print_matlab_impl(std::ostream &os, PrintMatrixView<T> M,
                                 std::string_view end) {
     auto opts = [&] {
         if (M.cols == 1)
@@ -90,7 +90,7 @@ std::ostream &print_matlab_impl(std::ostream &os, MatrixView<const T> M,
 }
 
 template <class T>
-std::ostream &print_python_impl(std::ostream &os, MatrixView<const T> M,
+std::ostream &print_python_impl(std::ostream &os, PrintMatrixView<T> M,
                                 std::string_view end, bool squeeze) {
     auto opts = [&] {
         if ((M.cols == 1 && squeeze) || (M.rows == 1 && squeeze))
