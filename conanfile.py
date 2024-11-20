@@ -7,7 +7,7 @@ from conan.tools.build import can_run
 
 class GuanaqoRecipe(ConanFile):
     name = "guanaqo"
-    version = "1.0.0-alpha.2"
+    version = "1.0.0-alpha.3"
 
     # Optional metadata
     license = "LGPLv3"
@@ -44,7 +44,7 @@ class GuanaqoRecipe(ConanFile):
     generators = ("CMakeDeps",)
 
     def requirements(self):
-        self.test_requires("gtest/1.14.0")
+        self.test_requires("gtest/1.15.0")
         self.test_requires("eigen/3.4.0")
 
     def config_options(self):
