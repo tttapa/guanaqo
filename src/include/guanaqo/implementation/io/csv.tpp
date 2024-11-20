@@ -113,6 +113,9 @@ struct CSVReader {
     static void strtod_ovl(const char *str, char **str_end, int &v) {
         v = static_cast<int>(std::strtol(str, str_end, 10));
     }
+    static void strtod_ovl(const char *str, char **str_end, short &v) {
+        v = static_cast<short>(std::strtol(str, str_end, 10));
+    }
     static const char *read_single(const char *bufbegin, char *bufend, F &v) {
         *bufend = '\0';
         char *ptr;
