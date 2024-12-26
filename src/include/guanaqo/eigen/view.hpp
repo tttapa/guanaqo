@@ -16,6 +16,8 @@ constexpr with_index_type_t<I> with_index_type;
 template <class Derived, class I = typename Derived::Index>
 auto as_view(Eigen::DenseBase<Derived> &M,
              with_index_type_t<I> = with_index_type<typename Derived::Index>) {
+    static_assert(M.InnerStrideAtCompileTime == 1,
+                  "Only unit inner stride is supported");
     using T = std::remove_pointer_t<decltype(M.derived().data())>;
     return MatrixView<T, I>{{
         .data         = M.derived().data(),
@@ -30,6 +32,8 @@ template <class Derived, class I = typename Derived::Index>
 auto as_view(Eigen::DenseBase<Derived> &&M,
              with_index_type_t<I> = with_index_type<typename Derived::Index>) {
     using PlainObjectBase = Eigen::PlainObjectBase<std::decay_t<Derived>>;
+    static_assert(M.InnerStrideAtCompileTime == 1,
+                  "Only unit inner stride is supported");
     static_assert(!std::is_base_of_v<PlainObjectBase, std::decay_t<Derived>>,
                   "Refusing to return a view to a temporary Eigen matrix with "
                   "its own storage");
@@ -46,6 +50,8 @@ auto as_view(Eigen::DenseBase<Derived> &&M,
 template <class Derived, class I = typename Derived::Index>
 auto as_view(const Eigen::DenseBase<Derived> &M,
              with_index_type_t<I> = with_index_type<typename Derived::Index>) {
+    static_assert(M.InnerStrideAtCompileTime == 1,
+                  "Only unit inner stride is supported");
     using T = std::remove_pointer_t<decltype(M.derived().data())>;
     return MatrixView<T, I>{{
         .data         = M.derived().data(),
@@ -58,15 +64,15 @@ auto as_view(const Eigen::DenseBase<Derived> &M,
 /// Convert a guanaqo::MatrixView to an Eigen::Matrix view.
 template <class T, class I>
 auto as_eigen(MatrixView<T, I> M) {
-    using S   = std::remove_const_t<T>;
-    using V   = Eigen::MatrixX<S>;
-    using CV  = std::conditional_t<std::is_const_v<T>, const V, V>;
-    using Map = Eigen::Map<CV, 0, Eigen::OuterStride<>>;
+    using Scalar = std::remove_const_t<T>;
+    using Mat    = Eigen::MatrixX<Scalar>;
+    using CMat   = std::conditional_t<std::is_const_v<T>, const Mat, Mat>;
+    using Map    = Eigen::Map<CMat, 0, Eigen::OuterStride<>>;
     return Map{
         M.data,
-        static_cast<typename V::Index>(M.rows),
-        static_cast<typename V::Index>(M.cols),
-        {static_cast<typename V::Index>(M.outer_stride)},
+        static_cast<typename Mat::Index>(M.rows),
+        static_cast<typename Mat::Index>(M.cols),
+        {static_cast<typename Mat::Index>(M.outer_stride)},
     };
 }
 
