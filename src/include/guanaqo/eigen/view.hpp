@@ -14,8 +14,7 @@ constexpr with_index_type_t<I> with_index_type;
 
 /// Convert an Eigen matrix view to a guanaqo::MatrixView.
 template <class Derived, class I = typename Derived::Index>
-auto as_view(Eigen::DenseBase<Derived> &M,
-             with_index_type_t<I> = with_index_type<typename Derived::Index>) {
+auto as_view(Eigen::DenseBase<Derived> &M, with_index_type_t<I> = {}) {
     static_assert(M.InnerStrideAtCompileTime == 1,
                   "Only unit inner stride is supported");
     using T = std::remove_pointer_t<decltype(M.derived().data())>;
@@ -29,8 +28,7 @@ auto as_view(Eigen::DenseBase<Derived> &M,
 
 /// Convert an Eigen matrix view to a guanaqo::MatrixView.
 template <class Derived, class I = typename Derived::Index>
-auto as_view(Eigen::DenseBase<Derived> &&M,
-             with_index_type_t<I> = with_index_type<typename Derived::Index>) {
+auto as_view(Eigen::DenseBase<Derived> &&M, with_index_type_t<I> = {}) {
     using PlainObjectBase = Eigen::PlainObjectBase<std::decay_t<Derived>>;
     static_assert(M.InnerStrideAtCompileTime == 1,
                   "Only unit inner stride is supported");
@@ -48,8 +46,7 @@ auto as_view(Eigen::DenseBase<Derived> &&M,
 
 /// Convert an Eigen matrix view to a guanaqo::MatrixView.
 template <class Derived, class I = typename Derived::Index>
-auto as_view(const Eigen::DenseBase<Derived> &M,
-             with_index_type_t<I> = with_index_type<typename Derived::Index>) {
+auto as_view(const Eigen::DenseBase<Derived> &M, with_index_type_t<I> = {}) {
     static_assert(M.InnerStrideAtCompileTime == 1,
                   "Only unit inner stride is supported");
     using T = std::remove_pointer_t<decltype(M.derived().data())>;
