@@ -17,7 +17,8 @@ constexpr auto to_eigen_extent =
 
 /// Convert an Eigen vector view to a `std::span`.
 template <class Derived>
-    requires(Derived::ColsAtCompileTime == 1)
+    requires(Derived::ColsAtCompileTime == 1 &&
+             Derived::InnerStrideAtCompileTime == 1)
 auto as_span(Eigen::DenseBase<Derived> &v) {
     constexpr auto E = detail::to_std_extent<Derived::RowsAtCompileTime>;
     using T          = std::remove_pointer_t<decltype(v.derived().data())>;
@@ -26,7 +27,8 @@ auto as_span(Eigen::DenseBase<Derived> &v) {
 
 /// Convert an Eigen vector view to a `std::span`.
 template <class Derived>
-    requires(Derived::ColsAtCompileTime == 1)
+    requires(Derived::ColsAtCompileTime == 1 &&
+             Derived::InnerStrideAtCompileTime == 1)
 auto as_span(Eigen::DenseBase<Derived> &&v) {
     using PlainObjectBase = Eigen::PlainObjectBase<std::decay_t<Derived>>;
     static_assert(!std::is_base_of_v<PlainObjectBase, std::decay_t<Derived>>,
@@ -39,7 +41,8 @@ auto as_span(Eigen::DenseBase<Derived> &&v) {
 
 /// Convert an Eigen vector view to a `std::span`.
 template <class Derived>
-    requires(Derived::ColsAtCompileTime == 1)
+    requires(Derived::ColsAtCompileTime == 1 &&
+             Derived::InnerStrideAtCompileTime == 1)
 auto as_span(const Eigen::DenseBase<Derived> &v) {
     constexpr auto E = detail::to_std_extent<Derived::RowsAtCompileTime>;
     using T          = std::remove_pointer_t<decltype(v.derived().data())>;
@@ -49,7 +52,7 @@ auto as_span(const Eigen::DenseBase<Derived> &v) {
 /// Convert a `std::span` to an Eigen::Vector view.
 /// @todo   Rename to as_eigen?
 template <class T, size_t E>
-auto as_vec(std::span<T, E> s) {
+auto as_eigen(std::span<T, E> s) {
     constexpr auto R = detail::to_eigen_extent<E>;
     using S          = std::remove_const_t<T>;
     using V          = Eigen::Vector<S, R>;
@@ -58,6 +61,11 @@ auto as_vec(std::span<T, E> s) {
         return Map{s.data(), static_cast<Eigen::Index>(s.size())};
     else
         return Map{s.data()};
+}
+
+template <class T, size_t E>
+[[deprecated("use as_eigen instead")]] auto as_vec(std::span<T, E> s) {
+    return as_eigen(s);
 }
 
 } // namespace guanaqo
