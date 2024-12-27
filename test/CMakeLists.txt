@@ -13,6 +13,7 @@ endif()
 add_executable(tests
     "test-callback-streambuf.cpp"
     "test-duration-parse.cpp"
+    "test-mat-view.cpp"
     "test-print.cpp"
     "test-set-intersection.cpp"
     "test-string-util.cpp"
