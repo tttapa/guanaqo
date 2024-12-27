@@ -45,6 +45,8 @@ auto as_view_impl(auto &M) {
 
 } // namespace detail
 
+// Conversions from Eigen expressions to MatrixView
+
 // We need overloads for const and non-const references because some Eigen types
 // have deep constness (i.e. if the matrix itself is const, the .data() function
 // returns a pointer to const).
@@ -68,22 +70,28 @@ auto as_view(const Eigen::DenseBase<Derived> &M, with_index_type_t<I> = {}) {
 /// Convert an Eigen matrix view to a guanaqo::MatrixView.
 template <class Derived, class I = typename Derived::Index>
 auto as_view(Eigen::DenseBase<Derived> &&M, with_index_type_t<I> = {}) {
-    using PlainObjectBase = Eigen::PlainObjectBase<std::decay_t<Derived>>;
-    static_assert(!std::is_base_of_v<PlainObjectBase, std::decay_t<Derived>>,
-                  "Refusing to return a view to a temporary Eigen matrix with "
-                  "its own storage");
     return detail::as_view_impl<Derived, I>(M);
 }
 
 /// Convert an Eigen matrix view to a guanaqo::MatrixView.
 template <class Derived, class I = typename Derived::Index>
 auto as_view(const Eigen::DenseBase<Derived> &&M, with_index_type_t<I> = {}) {
-    using PlainObjectBase = Eigen::PlainObjectBase<std::decay_t<Derived>>;
-    static_assert(!std::is_base_of_v<PlainObjectBase, std::decay_t<Derived>>,
-                  "Refusing to return a view to a temporary Eigen matrix with "
-                  "its own storage");
     return detail::as_view_impl<Derived, I>(M);
 }
+
+template <class Derived, class I = typename Derived::Index>
+    requires(std::is_base_of_v<Eigen::PlainObjectBase<std::decay_t<Derived>>,
+                               std::decay_t<Derived>>)
+auto as_view( // Refusing to return a view to a temporary Eigen matrix with its own storage
+    Eigen::DenseBase<Derived> &&M, with_index_type_t<I> = {}) = delete;
+
+template <class Derived, class I = typename Derived::Index>
+    requires(std::is_base_of_v<Eigen::PlainObjectBase<std::decay_t<Derived>>,
+                               std::decay_t<Derived>>)
+auto as_view( // Refusing to return a view to a temporary Eigen matrix with its own storage
+    const Eigen::DenseBase<Derived> &&M, with_index_type_t<I> = {}) = delete;
+
+// Conversions from MatrixView to Eigen::Map
 
 /// Convert a guanaqo::MatrixView to an Eigen::Matrix view.
 template <class T, class I, class S>

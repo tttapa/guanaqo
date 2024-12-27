@@ -194,10 +194,14 @@ TEST(MatrixView, asViewTemporaryRef) {
     std::ignore = guanaqo::as_view(Eigen::Ref<const Eigen::MatrixXd>(matrix));
 }
 
-#if 0
-// Should fail to compile:
-// Refusing to return a view to a temporary Eigen matrix with its own storage
 TEST(MatrixView, asViewTemporaryMatrix) {
-    guanaqo::as_view(Eigen::MatrixXd::Zero(7, 5).eval());
+    // Refuse to return a view to a temporary Eigen matrix with its own storage
+    []<class T = Eigen::MatrixXd>() {
+        static_assert(!requires {
+            guanaqo::as_view(T(7, 5)); // should fail
+        });
+        static_assert(!requires {
+            guanaqo::as_view(T::Zero(7, 5).eval()); // should fail
+        });
+    }();
 }
-#endif
