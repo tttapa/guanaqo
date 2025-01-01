@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  push: {tags-ignore: ['**'], branches: ['**']}
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Conan
+        uses: ./.github/workflows/setup-conan
+        with:
+          python-version: '3.12'
+          cache-key: build-and-test
+
+      - name: Install dependencies
+        run: conan install . --build=missing -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+
+      - name: Configure
+        run: cmake --preset conan-default
+        env:
+          CMAKE_CXX_COMPILER_LAUNCHER: sccache
+
+      - name: Build
+        run: cmake --build --preset conan-release
+
+      - name: Test
+        run: ./build/test/Release/tests
+
+      - run: conan cache clean
