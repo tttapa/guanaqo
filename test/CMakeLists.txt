@@ -19,6 +19,7 @@ add_executable(tests
     "test-string-util.cpp"
     "test-type-erasure.cpp"
     "io/test-csv.cpp"
+    "linalg/test-eigen.cpp"
     "linalg/test-sparsity.hpp"
     "linalg/test-sparsity-dense.cpp"
     "linalg/test-sparsity-csc.cpp"

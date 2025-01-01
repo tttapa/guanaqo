@@ -127,6 +127,7 @@ target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
             "include/guanaqo/linalg/sparse-ops.hpp"
             "include/guanaqo/linalg/sparsity-conversions.hpp"
             "include/guanaqo/linalg/sparsity.hpp"
+            "include/guanaqo/linalg/eigen/sparse.hpp"
 )
 guanaqo_configure_interface_library(linalg)
 
