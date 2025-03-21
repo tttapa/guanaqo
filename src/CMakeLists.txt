@@ -1,5 +1,13 @@
 include(GenerateExportHeader)
 
+# Locate dependencies
+if (GUANAQO_WITH_ITT)
+    find_package(ittapi REQUIRED)
+    if (TARGET ittapi::ittapi AND NOT TARGET ittapi::ittnotify)
+        add_library(ittapi::ittnotify ALIAS ittapi::ittapi)
+    endif()
+endif()
+
 # Sets the default visibility to "hidden", and prevents exporting symbols from
 # static libraries into shared libraries on Linux.
 function(guanaqo_configure_visibility target)
@@ -75,6 +83,7 @@ add_library(guanaqo
 target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
     BASE_DIRS "include"
     FILES "include/guanaqo/any-ptr.hpp"
+          "include/guanaqo/assume.hpp"
           "include/guanaqo/atomic-stop-signal.hpp"
           "include/guanaqo/callback-streambuf.hpp"
           "include/guanaqo/copyable-unique_ptr.hpp"
@@ -93,13 +102,16 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/noop-delete.hpp"
           "include/guanaqo/not-implemented.hpp"
           "include/guanaqo/possible-alias.hpp"
+          "include/guanaqo/preprocessor.h"
           "include/guanaqo/print.hpp"
           "include/guanaqo/required-method.hpp"
           "include/guanaqo/ringbuffer.hpp"
           "include/guanaqo/set-intersection.hpp"
           "include/guanaqo/string-util.hpp"
+          "include/guanaqo/stringify.h"
           "include/guanaqo/tag-invoke.hpp"
           "include/guanaqo/timed.hpp"
+          "include/guanaqo/trace.hpp"
           "include/guanaqo/timed-cpu.hpp"
           "include/guanaqo/type-erasure.hpp"
           "include/guanaqo/type-traits.hpp"
@@ -113,21 +125,28 @@ target_link_libraries(guanaqo
     PRIVATE ${CMAKE_DL_LIBS}
     PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:quadmath>
 )
-target_compile_definitions(guanaqo
-    PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
+target_compile_definitions(guanaqo PUBLIC
+    $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
+    $<$<BOOL:${GUANAQO_WITH_ITT}>:GUANAQO_WITH_ITT>
 )
 guanaqo_configure_library(guanaqo)
+if (GUANAQO_WITH_ITT)
+    target_link_libraries(guanaqo PUBLIC ittapi::ittnotify)
+endif()
+if (GUANAQO_WITH_TRACING OR GUANAQO_WITH_ITT)
+    target_sources(guanaqo PRIVATE "src/trace.cpp")
+endif()
 
 # Linear algebra and sparse matrices
 add_library(linalg INTERFACE)
 target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
     BASE_DIRS "include"
     FILES "include/guanaqo/linalg/config.hpp"
-            "include/guanaqo/linalg/matrix-view.hpp"
-            "include/guanaqo/linalg/sparse-ops.hpp"
-            "include/guanaqo/linalg/sparsity-conversions.hpp"
-            "include/guanaqo/linalg/sparsity.hpp"
-            "include/guanaqo/linalg/eigen/sparse.hpp"
+          "include/guanaqo/linalg/matrix-view.hpp"
+          "include/guanaqo/linalg/sparse-ops.hpp"
+          "include/guanaqo/linalg/sparsity-conversions.hpp"
+          "include/guanaqo/linalg/sparsity.hpp"
+          "include/guanaqo/linalg/eigen/sparse.hpp"
 )
 guanaqo_configure_interface_library(linalg)
 

@@ -2,6 +2,13 @@
 
 include(CMakeFindDependencyMacro)
 
+if (@GUANAQO_WITH_ITT@)
+    find_dependency(ittapi)
+    if (TARGET ittapi::ittapi AND NOT TARGET ittapi::ittnotify)
+        add_library(ittapi::ittnotify ALIAS ittapi::ittapi)
+    endif()
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/guanaqoCoreTargets.cmake")
 
 # The following features may have been enabled in the $<BUILD_INTERFACE>, but
