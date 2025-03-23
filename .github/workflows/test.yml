@@ -8,6 +8,9 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        blas: ['True', 'False']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,7 +22,10 @@ jobs:
           cache-key: build-and-test
 
       - name: Install dependencies
-        run: conan install . --build=missing -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+        run: >
+          conan install . --build=missing
+          -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+          -o \&:with_blas=${{ matrix.blas }}
 
       - name: Configure
         run: cmake --preset conan-default

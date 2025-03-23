@@ -23,14 +23,19 @@ class GuanaqoRecipe(ConanFile):
         "with_quad_precision": False,
         "with_itt": False,
         "with_tracing": False,
+        "with_openmp": False,
+        "with_blas": False,
+        "with_mkl": False,
     }
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
+        "blas_index_type": ["int", "long", "long long"],
     } | {k: [True, False] for k in bool_guanaqo_options}
     default_options = {
         "shared": False,
         "fPIC": True,
+        "blas_index_type": "long long",
     } | bool_guanaqo_options
 
     # Sources are located in the same place as this recipe, copy them to the recipe
@@ -48,12 +53,22 @@ class GuanaqoRecipe(ConanFile):
     def requirements(self):
         if self.options.with_itt:
             self.requires("ittapi/3.24.4", transitive_headers=True)
+        if self.options.with_blas and not self.options.with_mkl:
+            self.requires("openblas/0.3.27", transitive_headers=True)
         self.test_requires("gtest/1.15.0")
         self.test_requires("eigen/3.4.0")
 
     def config_options(self):
         if self.settings.get_safe("os") == "Windows":
             self.options.rm_safe("fPIC")
+
+    def configure(self):
+        if self.options.with_blas:
+            if not self.options.with_mkl:
+                # OpenBLAS does not allow configuring the index type
+                self.options.rm_safe("blas_index_type")
+        else:
+            self.options.rm_safe("with_mkl")
 
     def layout(self):
         cmake_layout(self)
@@ -64,6 +79,11 @@ class GuanaqoRecipe(ConanFile):
             value = getattr(self.options, k, None)
             if value is not None and value.value is not None:
                 tc.variables["GUANAQO_" + k.upper()] = bool(value)
+        if self.options.with_blas and not self.options.with_mkl:
+            tc.variables["GUANAQO_WITH_OPENBLAS"] = True
+            tc.variables["GUANAQO_BLAS_INDEX_TYPE"] = self.options.get_safe(
+                "blas_index_type", default="int"
+            )
         if can_run(self):
             tc.variables["GUANAQO_FORCE_TEST_DISCOVERY"] = True
         tc.generate()

@@ -1,0 +1,19 @@
+#pragma once
+
+#include <cstdint>
+
+namespace guanaqo::blas {
+
+using index_t = @GUANAQO_BLAS_INDEX_TYPE@;
+
+} // namespace guanaqo::blas
+
+#ifndef GUANAQO_WITH_BLAS
+#cmakedefine01 GUANAQO_WITH_MKL
+#endif
+#ifndef GUANAQO_WITH_MKL
+#cmakedefine01 GUANAQO_WITH_MKL
+#endif
+#ifndef GUANAQO_WITH_OPENMP
+#cmakedefine01 GUANAQO_WITH_OPENMP
+#endif

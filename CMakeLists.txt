@@ -19,6 +19,16 @@ option(GUANAQO_WITH_CXX_23
 # Enable/disable optional components
 option(GUANAQO_WITH_TESTS
     "Build the tests" ${BUILD_TESTING})
+option(GUANAQO_WITH_BLAS
+    "Build the BLAS interface" Off)
+option(GUANAQO_WITH_MKL
+    "Use the Intel MKL" Off)
+option(GUANAQO_WITH_OPENBLAS
+    "Use the OpenBLAS library" Off)
+option(GUANAQO_WITH_OPENMP
+    "Enable parallelization using OpenMP" Off)
+set(GUANAQO_BLAS_INDEX_TYPE "long long" CACHE STRING
+    "The main integer type for indices and sizes")
 # Enable/disable floating point types
 option(GUANAQO_WITH_QUAD_PRECISION
     "Support quad-precision floating point types" Off)

@@ -69,7 +69,7 @@ if (GUANAQO_CORE_TARGETS)
             NAMELINK_COMPONENT dev
         ARCHIVE DESTINATION "${GUANAQO_INSTALL_LIBDIR}"
             COMPONENT dev
-        FILE_SET headers DESTINATION "${GUANAQO_INSTALL_INCLUDEDIR}"
+        FILE_SET HEADERS DESTINATION "${GUANAQO_INSTALL_INCLUDEDIR}"
             COMPONENT dev)
     guanaqo_install_config(Core dev)
     list(JOIN GUANAQO_CORE_TARGETS ", " TGTS)
@@ -77,8 +77,29 @@ if (GUANAQO_CORE_TARGETS)
     list(APPEND GUANAQO_INSTALL_TARGETS ${GUANAQO_CORE_TARGETS})
 endif()
 
+# Install the guanaqo BLAS libraries
+set(GUANAQO_BLAS_TARGETS)
+guanaqo_add_if_target_exists(GUANAQO_BLAS_TARGETS blas)
+if (GUANAQO_BLAS_TARGETS)
+    install(TARGETS blas-lapack-lib ${GUANAQO_BLAS_TARGETS}
+        EXPORT guanaqoBLASTargets
+        RUNTIME DESTINATION "${GUANAQO_INSTALL_BINDIR}"
+            COMPONENT lib
+        LIBRARY DESTINATION "${GUANAQO_INSTALL_LIBDIR}"
+            COMPONENT lib
+            NAMELINK_COMPONENT dev
+        ARCHIVE DESTINATION "${GUANAQO_INSTALL_LIBDIR}"
+            COMPONENT dev
+        FILE_SET HEADERS DESTINATION "${GUANAQO_INSTALL_INCLUDEDIR}"
+            COMPONENT dev)
+    guanaqo_install_config(BLAS dev)
+    list(JOIN GUANAQO_BLAS_TARGETS ", " TGTS)
+    string(APPEND GUANAQO_INSTALLED_TARGETS_MSG " * BLAS:  ${TGTS}\n")
+    list(APPEND GUANAQO_INSTALL_TARGETS ${GUANAQO_BLAS_TARGETS})
+endif()
+
 # Install the debug files
-foreach(target IN LISTS GUANAQO_CORE_TARGETS)
+foreach(target IN LISTS GUANAQO_CORE_TARGETS GUANAQO_BLAS_TARGETS)
     get_target_property(target_type ${target} TYPE)
     if (${target_type} STREQUAL "SHARED_LIBRARY")
         guanaqo_install_debug_syms(${target} debug

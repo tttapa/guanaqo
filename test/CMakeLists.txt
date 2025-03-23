@@ -7,7 +7,7 @@ include(GoogleTest)
 find_package(GTest REQUIRED)
 find_package(Eigen3 REQUIRED)
 if (NOT TARGET guanaqo::guanaqo)
-    find_package(guanaqo REQUIRED)
+    find_package(guanaqo REQUIRED OPTIONAL_COMPONENTS BLAS)
 endif()
 
 add_executable(tests
@@ -34,6 +34,11 @@ target_link_libraries(tests PRIVATE
     Eigen3::Eigen)
 if (MSVC)
     target_compile_definitions(tests PRIVATE __PRETTY_FUNCTION__=__FUNCSIG__)
+endif()
+
+if (TARGET guanaqo::blas)
+    target_sources(tests PRIVATE "blas/test-hl-blas-interface.cpp")
+    target_link_libraries(tests PRIVATE guanaqo::blas)
 endif()
 
 option(GUANAQO_FORCE_TEST_DISCOVERY

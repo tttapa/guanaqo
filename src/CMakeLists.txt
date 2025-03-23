@@ -40,7 +40,7 @@ function(guanaqo_configure_library tgt)
     set_property(TARGET ${tgt} PROPERTY OUTPUT_NAME "${name_prefix}${tgt}")
     generate_export_header(${tgt} BASE_NAME "${name_prefix}${tgt}"
         EXPORT_FILE_NAME export/${export_path}/${tgt}/export.h)
-    target_sources(${tgt} PUBLIC FILE_SET headers TYPE HEADERS
+    target_sources(${tgt} PUBLIC FILE_SET HEADERS
         BASE_DIRS   ${CMAKE_CURRENT_BINARY_DIR}/export
         FILES       ${CMAKE_CURRENT_BINARY_DIR}/export/${export_path}/${tgt}/export.h)
     set_target_properties(${tgt} PROPERTIES SOVERSION ${PROJECT_VERSION})
@@ -80,7 +80,7 @@ add_library(guanaqo
     "src/io/csv.cpp"
     "src/quadmath/quadmath-print.cpp"
 )
-target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
+target_sources(guanaqo PUBLIC FILE_SET HEADERS
     BASE_DIRS "include"
     FILES "include/guanaqo/any-ptr.hpp"
           "include/guanaqo/assume.hpp"
@@ -101,6 +101,7 @@ target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
           "include/guanaqo/mat-view.hpp"
           "include/guanaqo/noop-delete.hpp"
           "include/guanaqo/not-implemented.hpp"
+          "include/guanaqo/openmp.h"
           "include/guanaqo/possible-alias.hpp"
           "include/guanaqo/preprocessor.h"
           "include/guanaqo/print.hpp"
@@ -127,6 +128,7 @@ target_link_libraries(guanaqo
 )
 target_compile_definitions(guanaqo PUBLIC
     $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
+    $<$<BOOL:${GUANAQO_WITH_OPENMP}>:GUANAQO_WITH_OPENMP>
     $<$<BOOL:${GUANAQO_WITH_ITT}>:GUANAQO_WITH_ITT>
 )
 guanaqo_configure_library(guanaqo)
@@ -139,7 +141,7 @@ endif()
 
 # Linear algebra and sparse matrices
 add_library(linalg INTERFACE)
-target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
+target_sources(linalg INTERFACE FILE_SET HEADERS
     BASE_DIRS "include"
     FILES "include/guanaqo/linalg/config.hpp"
           "include/guanaqo/linalg/matrix-view.hpp"
@@ -150,10 +152,34 @@ target_sources(linalg INTERFACE FILE_SET headers TYPE HEADERS
 )
 guanaqo_configure_interface_library(linalg)
 
+# BLAS and LAPACK interface
+if (GUANAQO_WITH_BLAS)
+    include("cmake/BLAS.cmake")
+    add_library(blas
+        "blas/src/blas-interface.cpp"
+    )
+    set_property(TARGET blas PROPERTY OUTPUT_NAME guanaqo-blas)
+    configure_file("blas/config.hpp.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/blas/include/guanaqo/blas/config.hpp" @ONLY)
+        target_sources(blas PUBLIC FILE_SET HEADERS
+        BASE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/blas/include"
+        FILES "${CMAKE_CURRENT_BINARY_DIR}/blas/include/guanaqo/blas/config.hpp"
+    )
+    target_sources(blas PUBLIC FILE_SET HEADERS
+        BASE_DIRS "blas/include"
+        FILES "blas/include/guanaqo/blas/blas.hpp"
+              "blas/include/guanaqo/blas/lapack.hpp"
+              "blas/include/guanaqo/blas/blas-interface.hpp"
+              "blas/include/guanaqo/blas/hl-blas-interface.hpp"
+    )
+    target_link_libraries(blas PUBLIC guanaqo blas-lapack-lib PRIVATE warnings)
+    guanaqo_configure_library(blas EXPORT_PREFIX guanaqo)
+endif()
+
 # Save the project version to a generated file
 configure_file(cmake/guanaqo-version.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/include/guanaqo-version.h @ONLY)
-target_sources(guanaqo PUBLIC FILE_SET headers TYPE HEADERS
+target_sources(guanaqo PUBLIC FILE_SET HEADERS
     BASE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/include"
     FILES "${CMAKE_CURRENT_BINARY_DIR}/include/guanaqo-version.h"
 )
