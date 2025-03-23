@@ -2,7 +2,7 @@
 
 include(CMakeFindDependencyMacro)
 
-set(GUANAQO_AVAILABLE_COMPONENTS "Core")
+set(GUANAQO_AVAILABLE_COMPONENTS "Core" "BLAS")
 # Always require "Core"
 list(PREPEND guanaqo_FIND_COMPONENTS "Core")
 if (guanaqo_FIND_REQUIRED)
@@ -41,7 +41,7 @@ set(GUANAQO_WITH_CXX_23 @GUANAQO_WITH_CXX_23@ CACHE INTERNAL "")
 
 if (NOT _@PROJECT_NAME@_PRINTED AND guanaqo_Core_FOUND)
     get_target_property(GUANAQO_CONFIGS guanaqo::guanaqo IMPORTED_CONFIGURATIONS)
-    message(STATUS "Found @PROJECT_NAME@ @PROJECT_VERSION@: ${CMAKE_CURRENT_LIST_DIR} (available configs: ${GUANAQO_CONFIGS}, installed components: @GUANAQO_OPTIONAL_COMPONENTS@, installed targets: @GUANAQO_INSTALL_TARGETS@)")
+    message(STATUS "Found @PROJECT_NAME@ @PROJECT_VERSION@: ${CMAKE_CURRENT_LIST_DIR} (available configs: ${GUANAQO_CONFIGS}, valid components: @GUANAQO_OPTIONAL_COMPONENTS@, installed targets: @GUANAQO_INSTALL_TARGETS@)")
     set(_@PROJECT_NAME@_PRINTED On CACHE INTERNAL "")
 endif()
 
