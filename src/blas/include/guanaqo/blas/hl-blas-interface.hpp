@@ -207,6 +207,15 @@ void xtrsm_LLTN(T alpha, MatrixView<const T, I> A, MatrixView<T, I> B) {
 }
 
 template <class T, class I>
+void xtrsm_RLNN(T alpha, MatrixView<const T, I> A, MatrixView<T, I> B) {
+    GUANAQO_ASSUME(A.rows == A.cols);
+    GUANAQO_ASSUME(A.cols == B.cols);
+    xtrsm<T, I>(CblasColMajor, CblasRight, CblasLower, CblasNoTrans,
+                CblasNonUnit, B.rows, B.cols, alpha, A.data, A.outer_stride,
+                B.data, B.outer_stride);
+}
+
+template <class T, class I>
 void xtrsm_RLTN(T alpha, MatrixView<const T, I> A, MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.cols);
@@ -230,7 +239,7 @@ void xtrtrs(const char *uplo, const char *trans, const char *diag, const I *n,
 template <class T, class I>
 void xpotrf_L(MatrixView<T, I> A) {
     GUANAQO_ASSUME(A.rows == A.cols);
-    index_t info = 0;
+    I info = 0;
     xpotrf<T, I>("L", A.rows, A.data, A.outer_stride, &info);
     lapack_throw_on_err("xpotrf_L", info);
 }
@@ -239,7 +248,7 @@ void xpotrf_L(MatrixView<T, I> A) {
 template <class T, class I>
 void xtrtri_LN(MatrixView<T, I> A) {
     GUANAQO_ASSUME(A.rows == A.cols);
-    index_t info = 0;
+    I info = 0;
     xtrtri<T, I>("L", "N", A.rows, A.data, A.outer_stride, &info);
     lapack_throw_on_err("xtrtri_LN", info);
 }
