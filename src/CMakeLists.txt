@@ -138,6 +138,10 @@ endif()
 if (GUANAQO_WITH_TRACING OR GUANAQO_WITH_ITT)
     target_sources(guanaqo PRIVATE "src/trace.cpp")
 endif()
+if (GUANAQO_WITH_OPENMP)
+    find_package(OpenMP REQUIRED COMPONENTS CXX)
+    target_link_libraries(guanaqo PUBLIC OpenMP::OpenMP_CXX)
+endif()
 
 # Linear algebra and sparse matrices
 add_library(linalg INTERFACE)
