@@ -7,7 +7,7 @@ from conan.tools.build import can_run
 
 class GuanaqoRecipe(ConanFile):
     name = "guanaqo"
-    version = "1.0.0-alpha.9"
+    version = "1.0.0-alpha.10"
 
     # Optional metadata
     license = "LGPLv3"
