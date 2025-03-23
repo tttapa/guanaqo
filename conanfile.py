@@ -7,7 +7,7 @@ from conan.tools.build import can_run
 
 class GuanaqoRecipe(ConanFile):
     name = "guanaqo"
-    version = "1.0.0-alpha.8"
+    version = "1.0.0-alpha.9"
 
     # Optional metadata
     license = "LGPLv3"
@@ -76,7 +76,7 @@ class GuanaqoRecipe(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         for k in self.bool_guanaqo_options:
-            value = getattr(self.options, k, None)
+            value = self.options.get_safe(k)
             if value is not None and value.value is not None:
                 tc.variables["GUANAQO_" + k.upper()] = bool(value)
         if self.options.with_blas and not self.options.with_mkl:
