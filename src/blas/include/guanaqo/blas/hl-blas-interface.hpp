@@ -172,6 +172,26 @@ void xtrsv_LTN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
 }
 
 template <class T, class I>
+void xtrmm_LLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+                MatrixView<T, I> B) {
+    GUANAQO_ASSUME(A.rows == A.cols);
+    GUANAQO_ASSUME(A.cols == B.rows);
+    xtrmm<T, I>(CblasColMajor, CblasLeft, CblasLower, CblasNoTrans,
+                CblasNonUnit, B.rows, B.cols, alpha, A.data, A.outer_stride,
+                B.data, B.outer_stride);
+}
+
+template <class T, class I>
+void xtrmm_LLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+                MatrixView<T, I> B) {
+    GUANAQO_ASSUME(A.rows == A.cols);
+    GUANAQO_ASSUME(A.cols == B.rows);
+    xtrmm<T, I>(CblasColMajor, CblasLeft, CblasLower, CblasTrans, CblasNonUnit,
+                B.rows, B.cols, alpha, A.data, A.outer_stride, B.data,
+                B.outer_stride);
+}
+
+template <class T, class I>
 void xtrmm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
@@ -179,6 +199,16 @@ void xtrmm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
     xtrmm<T, I>(CblasColMajor, CblasRight, CblasLower, CblasNoTrans,
                 CblasNonUnit, B.rows, B.cols, alpha, A.data, A.outer_stride,
                 B.data, B.outer_stride);
+}
+
+template <class T, class I>
+void xtrmm_RLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+                MatrixView<T, I> B) {
+    GUANAQO_ASSUME(A.rows == A.cols);
+    GUANAQO_ASSUME(A.rows == B.cols);
+    xtrmm<T, I>(CblasColMajor, CblasRight, CblasLower, CblasTrans, CblasNonUnit,
+                B.rows, B.cols, alpha, A.data, A.outer_stride, B.data,
+                B.outer_stride);
 }
 
 template <class T, class I>
@@ -257,6 +287,15 @@ void xpotrf_L(MatrixView<T, I> A) {
     I info = 0;
     xpotrf<T, I>("L", A.rows, A.data, A.outer_stride, &info);
     lapack_throw_on_err("xpotrf_L", info);
+}
+
+/// @throw lapack_error
+template <class T, class I>
+void xlauum_L(MatrixView<T, I> A) {
+    GUANAQO_ASSUME(A.rows == A.cols);
+    I info = 0;
+    xlauum<T, I>("L", A.rows, A.data, A.outer_stride, &info);
+    lapack_throw_on_err("xlauum_L", info);
 }
 
 /// @throw lapack_error
