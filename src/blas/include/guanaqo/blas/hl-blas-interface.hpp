@@ -14,8 +14,9 @@
 namespace guanaqo::blas {
 
 template <class T, class I>
-void xgemv_N(T alpha, MatrixView<std::add_const_t<T>, I> A,
-             MatrixView<std::add_const_t<T>, I> x, T beta, MatrixView<T, I> y) {
+void xgemv_N(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+             std::type_identity_t<MatrixView<const T, I>> x, T beta,
+             MatrixView<T, I> y) {
     GUANAQO_ASSUME(A.rows == y.rows);
     GUANAQO_ASSUME(A.cols == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -25,8 +26,9 @@ void xgemv_N(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemv_T(T alpha, MatrixView<std::add_const_t<T>, I> A,
-             MatrixView<std::add_const_t<T>, I> x, T beta, MatrixView<T, I> y) {
+void xgemv_T(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+             std::type_identity_t<MatrixView<const T, I>> x, T beta,
+             MatrixView<T, I> y) {
     GUANAQO_ASSUME(A.cols == y.rows);
     GUANAQO_ASSUME(A.rows == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -36,8 +38,8 @@ void xgemv_T(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemm_NN(T alpha, MatrixView<std::add_const_t<T>, I> A,
-              MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemm_NN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+              std::type_identity_t<MatrixView<const T, I>> B, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.rows == C.rows);
     GUANAQO_ASSUME(A.cols == B.rows);
@@ -48,8 +50,8 @@ void xgemm_NN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemm_TN(T alpha, MatrixView<std::add_const_t<T>, I> A,
-              MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemm_TN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+              std::type_identity_t<MatrixView<const T, I>> B, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.cols == C.rows);
     GUANAQO_ASSUME(A.rows == B.rows);
@@ -60,8 +62,8 @@ void xgemm_TN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemm_TT(T alpha, MatrixView<std::add_const_t<T>, I> A,
-              MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemm_TT(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+              std::type_identity_t<MatrixView<const T, I>> B, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.cols == C.rows);
     GUANAQO_ASSUME(A.rows == B.cols);
@@ -72,8 +74,8 @@ void xgemm_TT(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemm_NT(T alpha, MatrixView<std::add_const_t<T>, I> A,
-              MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemm_NT(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+              std::type_identity_t<MatrixView<const T, I>> B, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.rows == C.rows);
     GUANAQO_ASSUME(A.cols == B.cols);
@@ -84,8 +86,8 @@ void xgemm_NT(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemmt_LNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
-                MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemmt_LNN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+                std::type_identity_t<MatrixView<const T, I>> B, T beta,
                 MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.rows == C.rows);
     GUANAQO_ASSUME(A.cols == B.rows);
@@ -97,8 +99,8 @@ void xgemmt_LNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemmt_LTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
-                MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemmt_LTN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+                std::type_identity_t<MatrixView<const T, I>> B, T beta,
                 MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.cols == C.rows);
     GUANAQO_ASSUME(A.rows == B.rows);
@@ -110,8 +112,8 @@ void xgemmt_LTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemmt_LTT(T alpha, MatrixView<std::add_const_t<T>, I> A,
-                MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemmt_LTT(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+                std::type_identity_t<MatrixView<const T, I>> B, T beta,
                 MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.cols == C.rows);
     GUANAQO_ASSUME(A.rows == B.cols);
@@ -123,8 +125,8 @@ void xgemmt_LTT(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xgemmt_LNT(T alpha, MatrixView<std::add_const_t<T>, I> A,
-                MatrixView<std::add_const_t<T>, I> B, T beta,
+void xgemmt_LNT(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
+                std::type_identity_t<MatrixView<const T, I>> B, T beta,
                 MatrixView<T, I> C) {
     GUANAQO_ASSUME(A.rows == C.rows);
     GUANAQO_ASSUME(A.cols == B.cols);
@@ -136,7 +138,8 @@ void xgemmt_LNT(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrmv_LNN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
+void xtrmv_LNN(std::type_identity_t<MatrixView<const T, I>> A,
+               MatrixView<T, I> x) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -145,7 +148,8 @@ void xtrmv_LNN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
 }
 
 template <class T, class I>
-void xtrmv_LTN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
+void xtrmv_LTN(std::type_identity_t<MatrixView<const T, I>> A,
+               MatrixView<T, I> x) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -154,7 +158,8 @@ void xtrmv_LTN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
 }
 
 template <class T, class I>
-void xtrsv_LNN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
+void xtrsv_LNN(std::type_identity_t<MatrixView<const T, I>> A,
+               MatrixView<T, I> x) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -163,7 +168,8 @@ void xtrsv_LNN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
 }
 
 template <class T, class I>
-void xtrsv_LTN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
+void xtrsv_LTN(std::type_identity_t<MatrixView<const T, I>> A,
+               MatrixView<T, I> x) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == x.rows);
     GUANAQO_ASSUME(x.cols == 1);
@@ -172,7 +178,7 @@ void xtrsv_LTN(MatrixView<std::add_const_t<T>, I> A, MatrixView<T, I> x) {
 }
 
 template <class T, class I>
-void xtrmm_LLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrmm_LLNN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.rows);
@@ -182,7 +188,7 @@ void xtrmm_LLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrmm_LLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrmm_LLTN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.rows);
@@ -192,7 +198,7 @@ void xtrmm_LLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrmm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrmm_RLNN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.rows == B.cols);
@@ -202,7 +208,7 @@ void xtrmm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrmm_RLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrmm_RLTN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.rows == B.cols);
@@ -212,7 +218,7 @@ void xtrmm_RLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xsyrk_LN(T alpha, MatrixView<std::add_const_t<T>, I> A, T beta,
+void xsyrk_LN(T alpha, std::type_identity_t<MatrixView<const T, I>> A, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(C.rows == C.cols);
     GUANAQO_ASSUME(A.rows == C.rows);
@@ -221,7 +227,7 @@ void xsyrk_LN(T alpha, MatrixView<std::add_const_t<T>, I> A, T beta,
 }
 
 template <class T, class I>
-void xsyrk_LT(T alpha, MatrixView<std::add_const_t<T>, I> A, T beta,
+void xsyrk_LT(T alpha, std::type_identity_t<MatrixView<const T, I>> A, T beta,
               MatrixView<T, I> C) {
     GUANAQO_ASSUME(C.rows == C.cols);
     GUANAQO_ASSUME(A.cols == C.rows);
@@ -230,7 +236,7 @@ void xsyrk_LT(T alpha, MatrixView<std::add_const_t<T>, I> A, T beta,
 }
 
 template <class T, class I>
-void xtrsm_LLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrsm_LLNN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.rows);
@@ -240,7 +246,7 @@ void xtrsm_LLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrsm_LLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrsm_LLTN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.rows == B.rows);
@@ -250,7 +256,7 @@ void xtrsm_LLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrsm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrsm_RLNN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.cols);
@@ -260,7 +266,7 @@ void xtrsm_RLNN(T alpha, MatrixView<std::add_const_t<T>, I> A,
 }
 
 template <class T, class I>
-void xtrsm_RLTN(T alpha, MatrixView<std::add_const_t<T>, I> A,
+void xtrsm_RLTN(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                 MatrixView<T, I> B) {
     GUANAQO_ASSUME(A.rows == A.cols);
     GUANAQO_ASSUME(A.cols == B.cols);
