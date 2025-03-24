@@ -14,6 +14,7 @@
 #endif
 
 #include <stdexcept>
+#include <string>
 #include <type_traits>
 
 namespace guanaqo::blas {
