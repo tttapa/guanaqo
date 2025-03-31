@@ -17,3 +17,6 @@ using index_t = @GUANAQO_BLAS_INDEX_TYPE@;
 #ifndef GUANAQO_WITH_OPENMP
 #cmakedefine01 GUANAQO_WITH_OPENMP
 #endif
+#ifndef GUANAQO_WITH_HL_BLAS_TRACING
+#cmakedefine01 GUANAQO_WITH_HL_BLAS_TRACING
+#endif

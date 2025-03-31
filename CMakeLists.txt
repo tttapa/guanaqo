@@ -29,6 +29,11 @@ option(GUANAQO_WITH_OPENMP
     "Enable parallelization using OpenMP" Off)
 set(GUANAQO_BLAS_INDEX_TYPE "long long" CACHE STRING
     "The main integer type for indices and sizes")
+option(GUANAQO_WITH_TRACING
+    "Enable tracing using GUANAQO_TRACE" Off)
+cmake_dependent_option(GUANAQO_WITH_HL_BLAS_TRACING
+    "Log all high-level BLAS calls and operation counts" Off
+    GUANAQO_WITH_TRACING Off)
 # Enable/disable floating point types
 option(GUANAQO_WITH_QUAD_PRECISION
     "Support quad-precision floating point types" Off)

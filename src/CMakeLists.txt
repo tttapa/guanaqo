@@ -130,6 +130,7 @@ target_compile_definitions(guanaqo PUBLIC
     $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:GUANAQO_WITH_QUAD_PRECISION>
     $<$<BOOL:${GUANAQO_WITH_OPENMP}>:GUANAQO_WITH_OPENMP>
     $<$<BOOL:${GUANAQO_WITH_ITT}>:GUANAQO_WITH_ITT>
+    $<$<BOOL:${GUANAQO_WITH_TRACING}>:GUANAQO_WITH_TRACING>
 )
 guanaqo_configure_library(guanaqo)
 if (GUANAQO_WITH_ITT)
@@ -175,6 +176,9 @@ if (GUANAQO_WITH_BLAS)
               "blas/include/guanaqo/blas/lapack.hpp"
               "blas/include/guanaqo/blas/blas-interface.hpp"
               "blas/include/guanaqo/blas/hl-blas-interface.hpp"
+    )
+    target_compile_definitions(blas PUBLIC
+        $<$<BOOL:${GUANAQO_WITH_HL_BLAS_TRACING}>:GUANAQO_WITH_HL_BLAS_TRACING>
     )
     target_link_libraries(blas PUBLIC guanaqo blas-lapack-lib PRIVATE warnings)
     guanaqo_configure_library(blas EXPORT_PREFIX guanaqo)

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <guanaqo/preprocessor.h>
 #include <guanaqo/stringify.h>
 
 #include <algorithm>
@@ -144,7 +145,7 @@ struct TraceLogger {
     TraceLogger(size_t capacity) { logs.resize(capacity); }
 
     [[nodiscard]] ScopedLog trace(const char *name, int64_t instance,
-                                  int64_t flop_count = 0) {
+                                  int64_t flop_count = -1) {
         size_t index = count.fetch_add(1, std::memory_order_relaxed);
         if (index >= logs.size())
             return ScopedLog{nullptr, {}};
@@ -177,9 +178,7 @@ extern TraceLogger trace_logger;
 #endif
 
 #if !GUANAQO_WITH_TRACING && !GUANAQO_WITH_ITT
-#define GUANAQO_TRACE(...)                                                     \
-    do {                                                                       \
-    } while (0)
+#define GUANAQO_TRACE(...) GUANAQO_NOOP()
 #endif
 
 #if GUANAQO_WITH_ITT

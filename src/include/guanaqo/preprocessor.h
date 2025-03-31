@@ -49,3 +49,7 @@
 #define GUANAQO_JOIN_STRINGS_ARGS_9(sep, x1, x2, x3, x4, x5, x6, x7, x8, x9) #x1 sep #x2 sep #x3 sep #x4 sep #x5 sep #x6 sep #x7 sep #x8 sep #x9
 #define GUANAQO_JOIN_STRINGS_ARGS_10(sep, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10) #x1 sep #x2 sep #x3 sep #x4 sep #x5 sep #x6 sep #x7 sep #x8 sep #x9 sep #x10
 // clang-format on
+
+#define GUANAQO_NOOP()                                                         \
+    do {                                                                       \
+    } while (false)

@@ -23,6 +23,7 @@ class GuanaqoRecipe(ConanFile):
         "with_quad_precision": False,
         "with_itt": False,
         "with_tracing": False,
+        "with_hl_blas_tracing": True,
         "with_openmp": False,
         "with_blas": False,
         "with_mkl": False,
@@ -69,9 +70,12 @@ class GuanaqoRecipe(ConanFile):
                 self.options.rm_safe("blas_index_type")
         else:
             self.options.rm_safe("with_mkl")
+        if not self.options.with_tracing or not self.options.with_blas:
+            self.options.rm_safe("with_hl_blas_tracing")
 
     def layout(self):
         cmake_layout(self)
+        self.cpp.build.builddirs.append("")
 
     def generate(self):
         tc = CMakeToolchain(self)
