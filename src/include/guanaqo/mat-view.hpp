@@ -169,11 +169,23 @@ struct MatrixView {
         return middle_rows(r, nr).middle_cols(c, nc);
     }
 
-    static MatrixView as_column(std::span<T> v) {
+    static MatrixView as_column(std::span<T> v)
+        requires is_column_major
+    {
         return {{
             .data = v.data(),
             .rows = static_cast<index_type>(v.size()),
             .cols = 1,
+        }};
+    }
+
+    static MatrixView as_row(std::span<T> v)
+        requires is_row_major
+    {
+        return {{
+            .data = v.data(),
+            .rows = 1,
+            .cols = static_cast<index_type>(v.size()),
         }};
     }
 
@@ -387,5 +399,8 @@ struct MatrixView {
         return *this;
     }
 };
+
+template <class T, class I, class S = std::integral_constant<I, 1>>
+using MatrixViewRM = MatrixView<T, I, S, StorageOrder::RowMajor>;
 
 } // namespace guanaqo
