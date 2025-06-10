@@ -20,6 +20,8 @@ auto as_view_impl(auto &M) {
     using T          = std::remove_pointer_t<decltype(data)>;
     using Scalar     = typename Derived::Scalar;
     static_assert(std::is_same_v<Scalar, std::remove_const_t<T>>);
+    static constexpr auto O =
+        Derived::IsRowMajor ? StorageOrder::RowMajor : StorageOrder::ColMajor;
     const auto rows         = static_cast<I>(M.derived().rows()),
                cols         = static_cast<I>(M.derived().cols()),
                outer_stride = static_cast<I>(M.derived().outerStride());
@@ -27,19 +29,19 @@ auto as_view_impl(auto &M) {
     // Dynamic (run-time) inner stride
     if constexpr (static_inner_stride == Eigen::Dynamic) {
         const auto inner_stride = static_cast<I>(M.derived().innerStride());
-        return MatrixView<T, I, I>{{.data         = data,
-                                    .rows         = rows,
-                                    .cols         = cols,
-                                    .inner_stride = inner_stride,
-                                    .outer_stride = outer_stride}};
+        return MatrixView<T, I, I, O>{{.data         = data,
+                                       .rows         = rows,
+                                       .cols         = cols,
+                                       .inner_stride = inner_stride,
+                                       .outer_stride = outer_stride}};
     }
     // Compile-time inner stride
     else {
         using S = std::integral_constant<I, static_inner_stride>;
-        return MatrixView<T, I, S>{{.data         = data,
-                                    .rows         = rows,
-                                    .cols         = cols,
-                                    .outer_stride = outer_stride}};
+        return MatrixView<T, I, S, O>{{.data         = data,
+                                       .rows         = rows,
+                                       .cols         = cols,
+                                       .outer_stride = outer_stride}};
     }
 }
 
@@ -94,14 +96,16 @@ auto as_view( // Refusing to return a view to a temporary Eigen matrix with its 
 // Conversions from MatrixView to Eigen::Map
 
 /// Convert a guanaqo::MatrixView to an Eigen::Matrix view.
-template <class T, class I, class S>
-auto as_eigen(MatrixView<T, I, S> M) {
-    using Scalar    = std::remove_const_t<T>;
-    using Mat       = Eigen::MatrixX<Scalar>;
-    using CMat      = std::conditional_t<std::is_const_v<T>, const Mat, Mat>;
-    using Index     = typename Mat::Index;
-    const auto rows = static_cast<Index>(M.rows),
-               cols = static_cast<Index>(M.cols),
+template <class T, class I, class S, StorageOrder O>
+auto as_eigen(MatrixView<T, I, S, O> M) {
+    constexpr auto Opt = M.is_row_major ? Eigen::RowMajor : Eigen::ColMajor;
+    constexpr auto X   = Eigen::Dynamic;
+    using Scalar       = std::remove_const_t<T>;
+    using Mat          = Eigen::Matrix<Scalar, X, X, Opt>;
+    using CMat         = std::conditional_t<std::is_const_v<T>, const Mat, Mat>;
+    using Index        = typename Mat::Index;
+    const auto rows    = static_cast<Index>(M.rows),
+               cols    = static_cast<Index>(M.cols),
                outer_stride = static_cast<Index>(M.outer_stride);
     // Case where inner stride is a compile-time constant
     if constexpr (requires { S::value; }) {

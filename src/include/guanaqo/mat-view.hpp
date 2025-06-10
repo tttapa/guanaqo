@@ -9,6 +9,16 @@
 
 namespace guanaqo {
 
+enum class StorageOrder : bool {
+    ColMajor,
+    RowMajor,
+};
+
+constexpr StorageOrder transpose(StorageOrder o) {
+    return o == StorageOrder::ColMajor ? StorageOrder::RowMajor
+                                       : StorageOrder::ColMajor;
+}
+
 enum class Triangular {
     Lower,
     StrictlyLower,
@@ -30,17 +40,40 @@ struct default_stride<S> {
     static constexpr S value{};
 };
 
-template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
+template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>,
+          StorageOrder O = StorageOrder::ColMajor>
 struct MatrixView {
-    using value_type        = T;
-    using index_type        = I;
-    using inner_stride_type = S;
+    using value_type                            = T;
+    using index_type                            = I;
+    using inner_stride_type                     = S;
+    static constexpr StorageOrder storage_order = O;
+    static constexpr bool is_column_major       = O == StorageOrder::ColMajor;
+    static constexpr bool is_row_major          = O == StorageOrder::RowMajor;
 
     value_type *data;
     index_type rows;
     index_type cols;
     [[no_unique_address]] inner_stride_type inner_stride;
     index_type outer_stride;
+
+    [[nodiscard]] constexpr index_type outer_size() const {
+        return is_row_major ? rows : cols;
+    }
+    [[nodiscard]] constexpr index_type inner_size() const {
+        return is_row_major ? cols : rows;
+    }
+    [[nodiscard]] constexpr auto row_stride() const {
+        if constexpr (is_row_major)
+            return outer_stride;
+        else
+            return inner_stride;
+    }
+    [[nodiscard]] constexpr index_type col_stride() const {
+        if constexpr (is_column_major)
+            return outer_stride;
+        else
+            return inner_stride;
+    }
 
     /// POD type for designated initializers
     struct PlainMatrixView {
@@ -49,7 +82,7 @@ struct MatrixView {
         index_type cols  = 1;
         [[no_unique_address]] inner_stride_type inner_stride =
             default_stride<inner_stride_type>::value;
-        index_type outer_stride = inner_stride * rows;
+        index_type outer_stride = inner_stride * (is_row_major ? cols : rows);
     };
 
     MatrixView(PlainMatrixView p)
@@ -61,7 +94,7 @@ struct MatrixView {
     value_type &operator()(index_type r, index_type c) const {
         assert(0 <= r && r < rows);
         assert(0 <= c && c < cols);
-        return data[r * inner_stride + c * outer_stride];
+        return data[c * col_stride() + r * row_stride()];
     }
 #if __cpp_multidimensional_subscript >= 202110L
 #ifdef NDEBUG
@@ -96,7 +129,7 @@ struct MatrixView {
     MatrixView bottom_rows(index_type n) const {
         assert(0 <= n && n <= rows);
         return {{
-            .data         = data + inner_stride * (rows - n),
+            .data         = data + row_stride() * (rows - n),
             .rows         = n,
             .cols         = cols,
             .inner_stride = inner_stride,
@@ -106,7 +139,7 @@ struct MatrixView {
     MatrixView right_cols(index_type n) const {
         assert(0 <= n && n <= cols);
         return {{
-            .data         = data + outer_stride * (cols - n),
+            .data         = data + col_stride() * (cols - n),
             .rows         = rows,
             .cols         = n,
             .inner_stride = inner_stride,
@@ -154,36 +187,83 @@ struct MatrixView {
         }};
     }
 
+    MatrixView<T, I, S, transpose(O)> transposed() const {
+        return MatrixView<T, I, S, transpose(O)>{{
+            .data         = data,
+            .rows         = cols,
+            .cols         = rows,
+            .inner_stride = inner_stride,
+            .outer_stride = outer_stride,
+        }};
+    }
+
     void set_constant(const value_type &t) {
         if (inner_stride == 1)
-            for (index_type c = 0; c < cols; ++c)
-                std::fill_n(data + c * outer_stride, rows, t);
-        else
+            for (index_type c = 0; c < outer_size(); ++c)
+                std::fill_n(data + c * outer_stride, inner_size(), t);
+        else if constexpr (is_column_major)
             for (index_type c = 0; c < cols; ++c)
                 for (index_type r = 0; r < rows; ++r)
                     (*this)(r, c) = t;
+        else
+            for (index_type r = 0; r < rows; ++r)
+                for (index_type c = 0; c < cols; ++c)
+                    (*this)(r, c) = t;
     }
     void set_constant(const value_type &t, Triangular tr)
-        requires(inner_stride_type::value == 1)
+        requires(inner_stride_type::value == 1 && is_column_major)
     {
-        auto n = std::max(rows, cols);
+        using std::fill_n;
+        auto n = std::min(rows, cols);
         switch (tr) {
             case Triangular::Lower:
                 for (index_type c = 0; c < n; ++c)
-                    std::fill_n(data + c + c * outer_stride, rows - c, t);
+                    fill_n(data + c + c * col_stride(), rows - c, t);
                 break;
             case Triangular::StrictlyLower:
-                for (index_type c = 0; c < n - 1; ++c)
-                    std::fill_n(data + c + 1 + c * outer_stride, rows - c - 1,
-                                t);
+                for (index_type c = 0; c < n; ++c)
+                    fill_n(data + c + 1 + c * col_stride(), rows - c - 1, t);
                 break;
             case Triangular::Upper:
                 for (index_type c = 0; c < n; ++c)
-                    std::fill_n(data + c * outer_stride, 1 + c, t);
+                    fill_n(data + c * col_stride(), 1 + c, t);
+                for (index_type c = n; c < cols; ++c)
+                    fill_n(data + c * col_stride(), rows, t);
                 break;
             case Triangular::StrictlyUpper:
                 for (index_type c = 1; c < n; ++c)
-                    std::fill_n(data + c * outer_stride, c, t);
+                    fill_n(data + c * col_stride(), c, t);
+                for (index_type c = n; c < cols; ++c)
+                    fill_n(data + c * col_stride(), rows, t);
+                break;
+            default: assert(!"Unexpected value for guanaqo::Triangular");
+        }
+    }
+    void set_constant(const value_type &t, Triangular tr)
+        requires(inner_stride_type::value == 1 && is_row_major)
+    {
+        using std::fill_n;
+        auto n = std::min(rows, cols);
+        switch (tr) {
+            case Triangular::Lower:
+                for (index_type r = 0; r < n; ++r)
+                    fill_n(data + r * row_stride(), 1 + r, t);
+                for (index_type r = n; r < rows; ++r)
+                    fill_n(data + r * row_stride(), cols, t);
+                break;
+            case Triangular::StrictlyLower:
+                for (index_type r = 1; r < n; ++r)
+                    fill_n(data + r * row_stride(), r, t);
+                for (index_type r = n; r < rows; ++r)
+                    fill_n(data + r * row_stride(), cols, t);
+                break;
+            case Triangular::Upper:
+                for (index_type r = 0; r < n; ++r)
+                    fill_n(data + r + r * row_stride(), cols - r, t);
+                break;
+            case Triangular::StrictlyUpper:
+                for (index_type r = 0; r < n; ++r)
+                    fill_n(data + r + 1 + r * row_stride(), cols - r - 1, t);
                 break;
             default: assert(!"Unexpected value for guanaqo::Triangular");
         }
@@ -197,34 +277,41 @@ struct MatrixView {
             .inner_stride = outer_stride + inner_stride,
         }};
     }
-    void set_diagonal(const value_type &t) {
+    [[gnu::always_inline]] void iter_diagonal(const auto f) {
         auto *p = data;
         auto n  = std::max(rows, cols);
         for (index_type i = 0; i < n; ++i) {
-            *p = t;
+            f(i, *p);
             p += outer_stride + inner_stride;
         }
+    }
+    [[gnu::always_inline]] void iter_diagonal(const auto f) const {
+        auto *p = data;
+        auto n  = std::max(rows, cols);
+        for (index_type i = 0; i < n; ++i) {
+            f(i, *p);
+            p += outer_stride + inner_stride;
+        }
+    }
+    void set_diagonal(const value_type &t) {
+        iter_diagonal([&t](index_type, value_type &value) { value = t; });
     }
     void add_to_diagonal(const value_type &t) {
-        auto *p = data;
-        auto n  = std::max(rows, cols);
-        for (index_type i = 0; i < n; ++i) {
-            *p += t;
-            p += outer_stride + inner_stride;
-        }
+        iter_diagonal([&t](index_type, value_type &value) { value += t; });
     }
     void copy_values(auto &other) {
+        static_assert(this->storage_order == other.storage_order);
         assert(other.rows == this->rows);
         assert(other.cols == this->cols);
         const auto *src = other.data;
         auto *dst       = this->data;
-        for (index_type c = 0; c < this->cols; ++c) {
+        for (index_type c = 0; c < this->outer_size(); ++c) {
             if (other.inner_stride == 1 && this->inner_stride == 1)
-                std::copy_n(src, this->rows, dst);
+                std::copy_n(src, this->inner_size(), dst);
             else {
                 const auto *src_ = src;
                 auto *dst_       = dst;
-                for (index_type r = 0; r < rows; ++r) {
+                for (index_type r = 0; r < this->inner_size(); ++r) {
                     *dst_ = *src_;
                     src_ += other.inner_stride;
                     dst_ += this->inner_stride;
@@ -244,7 +331,7 @@ struct MatrixView {
         requires(!std::is_const_v<T> &&
                  std::convertible_to<U, std::remove_cv_t<T>> &&
                  std::equality_comparable_with<I, J>)
-    MatrixView &operator=(MatrixView<U, J, R> other) {
+    MatrixView &operator=(MatrixView<U, J, R, O> other) {
         copy_values(other);
         return *this;
     }
@@ -253,15 +340,15 @@ struct MatrixView {
         requires(!std::is_const_v<T> &&
                  std::convertible_to<U, std::remove_cv_t<T>> &&
                  std::equality_comparable_with<I, J>)
-    MatrixView &operator+=(MatrixView<U, J, R> other) {
+    MatrixView &operator+=(MatrixView<U, J, R, O> other) {
         assert(other.rows == this->rows);
         assert(other.cols == this->cols);
         const auto *src = other.data;
         auto *dst       = this->data;
-        for (index_type c = 0; c < this->cols; ++c) {
+        for (index_type c = 0; c < this->outer_size(); ++c) {
             const auto *src_ = src;
             auto *dst_       = dst;
-            for (index_type r = 0; r < rows; ++r) {
+            for (index_type r = 0; r < this->inner_size(); ++r) {
                 *dst_ += *src_;
                 src_ += other.inner_stride;
                 dst_ += this->inner_stride;
@@ -275,9 +362,9 @@ struct MatrixView {
     template <class U>
     MatrixView &operator+=(const U &u) {
         auto *dst = this->data;
-        for (index_type c = 0; c < this->cols; ++c) {
+        for (index_type c = 0; c < this->outer_size(); ++c) {
             auto *dst_ = dst;
-            for (index_type r = 0; r < rows; ++r) {
+            for (index_type r = 0; r < this->inner_size(); ++r) {
                 *dst_ += u;
                 dst_ += this->inner_stride;
             }
