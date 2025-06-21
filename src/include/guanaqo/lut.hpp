@@ -63,9 +63,9 @@ consteval auto make_2d_lut(F f) {
         };
         using row_t = std::common_type_t<decltype(make_row(
             std::integral_constant<I, Rs>()))...>;
-        return std::array<row_t, R>{
+        return std::array<row_t, R>{{
             make_row(std::integral_constant<I, Rs>())...,
-        };
+        }};
     }(std::make_integer_sequence<I, R>(), std::make_integer_sequence<I, C>());
 }
 
@@ -82,8 +82,97 @@ consteval auto make_1d_lut(F f) {
     return [&]<I... Ns>(std::integer_sequence<I, Ns...>) {
         using elem_t =
             std::common_type_t<decltype(f(std::integral_constant<I, Ns>()))...>;
-        return std::array<elem_t, N>{f(std::integral_constant<I, Ns>())...};
+        return std::array<elem_t, N>{{f(std::integral_constant<I, Ns>())...}};
     }(std::make_integer_sequence<I, N>());
+}
+
+namespace detail {
+
+template <auto... Args>
+struct lut;
+
+// Recursive case: integer range
+template <std::integral I, I N, auto... Ns>
+struct lut<N, Ns...> {
+    template <class F, class... Args>
+    static consteval auto make(F f, Args... args) {
+        return [&]<I... Is>(std::integer_sequence<I, Is...>) {
+            using elem_t = std::common_type_t<decltype(lut<Ns...>::make(
+                f, args..., std::integral_constant<I, Is>{}))...>;
+            return std::array<elem_t, N>{{lut<Ns...>::make(
+                f, args..., std::integral_constant<I, Is>{})...}};
+        }(std::make_integer_sequence<I, N>());
+    }
+};
+
+// Recursive case: array
+using std::size_t;
+template <class Elem, size_t N, std::array<Elem, N> Arr, auto... Ns>
+struct lut<Arr, Ns...> {
+    template <class F, class... Args>
+    static consteval auto make(F f, Args... args) {
+        return [&]<size_t... Is>(std::integer_sequence<size_t, Is...>) {
+            using elem_t = std::common_type_t<decltype(lut<Ns...>::make(
+                f, args..., std::integral_constant<Elem, Arr[Is]>{}))...>;
+            return std::array<elem_t, N>{{lut<Ns...>::make(
+                f, args..., std::integral_constant<Elem, Arr[Is]>{})...}};
+        }(std::make_index_sequence<N>());
+    }
+};
+
+// Base case: no ranges left → call f with all collected arguments
+template <>
+struct lut<> {
+    template <class F, class... Args>
+    static consteval auto make(F f, Args... args) {
+        return f(args...);
+    }
+};
+
+} // namespace detail
+
+/// Generalization of @ref make_1d_lut and @ref make_2d_lut. Generates an
+/// n-dimensional array of the given function @p f applied point-wise to the
+/// cartesian product of the ranges given as template parameters.
+///
+/// @tparam Ranges
+///         Integers or arrays of [structural types](https://en.cppreference.com/w/cpp/language/template_parameters.html#Constant_template_parameter):
+///         an integer N results in the half-open range [0, N), and arrays
+///         result in all array elements being passed to the given function.
+///
+/// Example:
+/// ~~~
+/// auto lut = guanaqo::make_lut<3, 4, std::array{10, 20, 30, 40, 50}>([](int i, int j, int k) {
+///     return std::tuple{i, j, k};
+/// });
+/// for (const auto &slice : lut) {
+///     for (const auto &row : slice) {
+///         for (const auto [i, j, k] : row)
+///             std::cout << "(" << i << ", " << j << ", " << k << ")\t";
+///         std::cout << "\n";
+///     }
+///     std::cout << "\n";
+/// }
+/// ~~~
+/// ~~~
+/// (0, 0, 10)  (0, 0, 20)  (0, 0, 30)  (0, 0, 40)  (0, 0, 50)
+/// (0, 1, 10)  (0, 1, 20)  (0, 1, 30)  (0, 1, 40)  (0, 1, 50)
+/// (0, 2, 10)  (0, 2, 20)  (0, 2, 30)  (0, 2, 40)  (0, 2, 50)
+/// (0, 3, 10)  (0, 3, 20)  (0, 3, 30)  (0, 3, 40)  (0, 3, 50)
+///
+/// (1, 0, 10)  (1, 0, 20)  (1, 0, 30)  (1, 0, 40)  (1, 0, 50)
+/// (1, 1, 10)  (1, 1, 20)  (1, 1, 30)  (1, 1, 40)  (1, 1, 50)
+/// (1, 2, 10)  (1, 2, 20)  (1, 2, 30)  (1, 2, 40)  (1, 2, 50)
+/// (1, 3, 10)  (1, 3, 20)  (1, 3, 30)  (1, 3, 40)  (1, 3, 50)
+///
+/// (2, 0, 10)  (2, 0, 20)  (2, 0, 30)  (2, 0, 40)  (2, 0, 50)
+/// (2, 1, 10)  (2, 1, 20)  (2, 1, 30)  (2, 1, 40)  (2, 1, 50)
+/// (2, 2, 10)  (2, 2, 20)  (2, 2, 30)  (2, 2, 40)  (2, 2, 50)
+/// (2, 3, 10)  (2, 3, 20)  (2, 3, 30)  (2, 3, 40)  (2, 3, 50)
+/// ~~~
+template <auto... Ranges, class F>
+consteval auto make_lut(F f) {
+    return detail::lut<Ranges...>::make(f);
 }
 
 } // namespace guanaqo

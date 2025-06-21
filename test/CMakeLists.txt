@@ -14,6 +14,7 @@ add_executable(tests
     "test-any-ptr.cpp"
     "test-callback-streambuf.cpp"
     "test-duration-parse.cpp"
+    "test-lut.cpp"
     "test-mat-view.cpp"
     "test-print.cpp"
     "test-set-intersection.cpp"
