@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <guanaqo/compiler.h>
 #include <guanaqo/lut.hpp>
 
 #include <tuple>
@@ -56,6 +57,10 @@ TEST(lut, lut3D) {
 }
 
 TEST(lut, lut3Darray) {
+#if GUANAQO_GCC_OLDER_THAN(12) || GUANAQ_MSVC_OLDER_THAN(19, 42)
+    GTEST_SKIP() << "Advanced lookup tables require GCC 12 or later, "
+                    "or MSVC 19.42 or later";
+#else
     using guanaqo::make_lut;
     constexpr auto lut = make_lut<3l, std::array{5ll, 6ll, 7ll, 8ll}, 5>(
         []<class I, class J, class K>(I i, J j, K k) {
@@ -80,4 +85,5 @@ TEST(lut, lut3Darray) {
           {{{2, 8, 0}, {2, 8, 1}, {2, 8, 2}, {2, 8, 3}, {2, 8, 4}}}}},
     }};
     EXPECT_EQ(lut, expected);
+#endif
 }

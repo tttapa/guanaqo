@@ -96,7 +96,7 @@ template <std::integral I, I N, auto... Ns>
 struct lut<N, Ns...> {
     template <class F, class... Args>
     static consteval auto make(F f, Args... args) {
-        return [&]<I... Is>(std::integer_sequence<I, Is...>) {
+        return [&]<I... Is>(std::integer_sequence<I, Is...>) consteval {
             using elem_t = std::common_type_t<decltype(lut<Ns...>::make(
                 f, args..., std::integral_constant<I, Is>{}))...>;
             return std::array<elem_t, N>{{lut<Ns...>::make(
@@ -106,12 +106,11 @@ struct lut<N, Ns...> {
 };
 
 // Recursive case: array
-using std::size_t;
-template <class Elem, size_t N, std::array<Elem, N> Arr, auto... Ns>
+template <class Elem, std::size_t N, std::array<Elem, N> Arr, auto... Ns>
 struct lut<Arr, Ns...> {
     template <class F, class... Args>
     static consteval auto make(F f, Args... args) {
-        return [&]<size_t... Is>(std::integer_sequence<size_t, Is...>) {
+        return [&]<std::size_t... Is>(std::index_sequence<Is...>) consteval {
             using elem_t = std::common_type_t<decltype(lut<Ns...>::make(
                 f, args..., std::integral_constant<Elem, Arr[Is]>{}))...>;
             return std::array<elem_t, N>{{lut<Ns...>::make(
