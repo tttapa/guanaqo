@@ -7,10 +7,14 @@ on:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         blas: ['True', 'False']
+        os: ['ubuntu-24.04', 'windows-2022', 'macos-15']
+        exclude:
+          - {blas: 'True', os: 'windows-2022'}
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,21 +25,16 @@ jobs:
           python-version: '3.12'
           cache-key: build-and-test
 
-      - name: Install dependencies
+      - name: Install dependencies, build and test
+        shell: bash
         run: >
-          conan install . --build=missing
+          WIN_PATH="${{ github.workspace }}";
+          UNIX_PATH="${WIN_PATH//\\//}";
+          conan build . --build=missing
           -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+          -c tools.cmake.cmaketoolchain:user_toolchain+="[\"$UNIX_PATH/cmake/sccache.cmake\"]"
           -o \&:with_blas=${{ matrix.blas }}
-
-      - name: Configure
-        run: cmake --preset conan-default
         env:
-          CMAKE_CXX_COMPILER_LAUNCHER: sccache
-
-      - name: Build
-        run: cmake --build --preset conan-release
-
-      - name: Test
-        run: ./build/test/Release/tests
+          CTEST_OUTPUT_ON_FAILURE: "1"
 
       - run: conan cache clean

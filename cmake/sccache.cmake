@@ -1,0 +1,3 @@
+set(CMAKE_C_COMPILER_LAUNCHER "sccache")
+set(CMAKE_CXX_COMPILER_LAUNCHER "sccache")
+set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
