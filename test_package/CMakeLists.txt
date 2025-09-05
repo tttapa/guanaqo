@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.24...4.1)
 project(guanaqo_test_package CXX)
 
 find_package(guanaqo REQUIRED OPTIONAL_COMPONENTS BLAS)

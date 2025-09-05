@@ -59,6 +59,9 @@ class GuanaqoRecipe(ConanFile):
         self.test_requires("gtest/1.17.0")
         self.test_requires("eigen/3.4.0")
 
+    def build_requirements(self):
+        self.tool_requires("cmake/[>=3.24 <5]")
+
     def config_options(self):
         if self.settings.get_safe("os") == "Windows":
             self.options.rm_safe("fPIC")

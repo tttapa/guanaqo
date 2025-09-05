@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.24...4.1)
 project(guanaqo
     VERSION 1.0.0
     DESCRIPTION "Utilities for scientific software"
