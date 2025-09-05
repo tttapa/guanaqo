@@ -53,10 +53,10 @@ class GuanaqoRecipe(ConanFile):
 
     def requirements(self):
         if self.options.with_itt:
-            self.requires("ittapi/3.24.4", transitive_headers=True)
+            self.requires("ittapi/3.25.5", transitive_headers=True)
         if self.options.with_blas and not self.options.with_mkl:
-            self.requires("openblas/0.3.27", transitive_headers=True)
-        self.test_requires("gtest/1.15.0")
+            self.requires("openblas/0.3.30", transitive_headers=True)
+        self.test_requires("gtest/1.17.0")
         self.test_requires("eigen/3.4.0")
 
     def config_options(self):
