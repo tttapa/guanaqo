@@ -139,7 +139,7 @@ struct SparsityConverter<SparseCOO<Index>, Dense> {
     using to_sparsity_t   = Dense;
     using Request         = SparsityConversionRequest<to_sparsity_t>;
     to_sparsity_t convert_sparsity(from_sparsity_t from, Request) {
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
         assert(check_uniqueness_triplets(from.row_indices, from.col_indices));
 #endif
         if (from.symmetry != Symmetry::Unsymmetric && from.rows != from.cols)
@@ -333,7 +333,7 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     }
     SparsityConverter(from_sparsity_t from, Request request = {})
         : sparsity(convert_sparsity(from, request)) {
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
         assert(check_uniqueness_triplets(sparsity.row_indices,
                                          sparsity.col_indices));
 #endif
@@ -386,7 +386,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>, SparseCOO<IndexTo>> {
     }
     SparsityConverter(from_sparsity_t from, Request request = {})
         : sparsity(convert_sparsity(from, request)) {
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
         assert(check_uniqueness_triplets(sparsity.row_indices,
                                          sparsity.col_indices));
 #endif
@@ -443,7 +443,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
                 case from_sparsity_t::SortedByColsOnly: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsAndCols: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsOnly:
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
                     prepare_sort();
                     sort_triplets(row_indices, col_indices, permutation);
                     break;
@@ -467,7 +467,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
                 case from_sparsity_t::Unsorted: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsAndCols: [[fallthrough]];
                 case from_sparsity_t::SortedByRowsOnly:
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
                     order = to_sparsity_t::Unsorted;
                     prepare_sort();
                     sort_triplets_col(row_indices, col_indices, permutation);
@@ -547,7 +547,7 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
             std::ranges::transform(from.outer_ptr, outer_ptr.begin(), cvt_out);
         };
         auto sort_indices = [&] {
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
             permutation.resize(from.inner_idx.size());
             std::iota(begin(permutation), end(permutation), StorageIndexTo{0});
             sort_rows_csc(outer_ptr, inner_idx, permutation);

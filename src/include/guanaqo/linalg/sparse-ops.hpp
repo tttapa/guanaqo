@@ -5,6 +5,12 @@
 #include <numeric>
 #include <ranges>
 
+#if __cpp_lib_ranges_zip >= 202110L
+#define GUANAQO_SPARSE_SUPPORTS_SORTING 1
+#else
+#define GUANAQO_SPARSE_SUPPORTS_SORTING 0
+#endif
+
 namespace guanaqo::linalg {
 
 void convert_triplets_to_ccs(const auto &rows, const auto &cols,
@@ -31,7 +37,7 @@ void convert_triplets_to_ccs(const auto &rows, const auto &cols,
     }
 }
 
-#if __cpp_lib_ranges_zip >= 202110L
+#if GUANAQO_SPARSE_SUPPORTS_SORTING
 
 namespace detail {
 template <auto cmp, class... Ts>
@@ -45,7 +51,7 @@ void sort_triplets_impl(Ts &&...triplets) {
 template <class... Ts>
 void sort_triplets(Ts &&...triplets) {
     // Sort the indices (by column first, then row)
-    auto cmp = [](const auto &a, const auto &b) {
+    static constexpr auto cmp = [](const auto &a, const auto &b) {
         return std::tie(std::get<1>(a), std::get<0>(a)) <
                std::tie(std::get<1>(b), std::get<0>(b));
     };
@@ -56,7 +62,7 @@ void sort_triplets(Ts &&...triplets) {
 template <class... Ts>
 void sort_triplets_col(Ts &&...triplets) {
     // Sort the indices (by column)
-    auto cmp = [](const auto &a, const auto &b) {
+    static constexpr auto cmp = [](const auto &a, const auto &b) {
         return std::get<1>(a) < std::get<1>(b);
     };
     detail::sort_triplets_impl<cmp>(std::forward<Ts>(triplets)...);
@@ -69,7 +75,7 @@ void sort_rows_csc(const Outer &outer_ptr, Inners &&...inners) {
     if (outer_ptr.size() == 0)
         return;
     // Sort the indices (by row)
-    auto cmp = [](const auto &a, const auto &b) {
+    static constexpr auto cmp = [](const auto &a, const auto &b) {
         return std::get<0>(a) < std::get<0>(b);
     };
     // TODO: could be parallelized
@@ -92,7 +98,7 @@ bool check_uniqueness_triplets(Ts &&...triplets) {
            std::ranges::end(indices);
 }
 
-#endif // __cpp_lib_ranges_zip
+#endif // GUANAQO_SPARSE_SUPPORTS_SORTING
 
 /// Check that no two entries with the same row and column index exist in
 /// the given sparse compressed-column storage matrix. Assumes sorted indices.
