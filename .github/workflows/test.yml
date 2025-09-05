@@ -23,7 +23,7 @@ jobs:
         uses: ./.github/workflows/setup-conan
         with:
           python-version: '3.12'
-          cache-key: build-and-test
+          cache-key: build-and-test${{ matrix.blas == 'True' && '-blas' || ''}}
 
       - name: Install dependencies, build and test
         shell: bash
