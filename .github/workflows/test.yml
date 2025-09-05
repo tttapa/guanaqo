@@ -31,8 +31,8 @@ jobs:
           WIN_PATH="${{ github.workspace }}";
           UNIX_PATH="${WIN_PATH//\\//}";
           conan build . --build=missing
-          -c tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
-          -c tools.cmake.cmaketoolchain:user_toolchain+="[\"$UNIX_PATH/cmake/sccache.cmake\"]"
+          -c \&:tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
+          -c \&:tools.cmake.cmaketoolchain:user_toolchain+="[\"$UNIX_PATH/cmake/sccache.cmake\"]"
           -o \&:with_blas=${{ matrix.blas }}
           -s:h compiler.cppstd=23 -s:b compiler.cppstd=20
         env:
