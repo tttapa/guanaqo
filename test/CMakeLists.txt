@@ -19,6 +19,7 @@ add_executable(tests
     "test-print.cpp"
     "test-set-intersection.cpp"
     "test-string-util.cpp"
+    "test-tag-invoke.cpp"
     "test-type-erasure.cpp"
     "io/test-csv.cpp"
     "linalg/test-eigen.cpp"
