@@ -9,7 +9,7 @@ using index_t = @GUANAQO_BLAS_INDEX_TYPE@;
 } // namespace guanaqo::blas
 
 #ifndef GUANAQO_WITH_BLAS
-#cmakedefine01 GUANAQO_WITH_MKL
+#cmakedefine01 GUANAQO_WITH_BLAS
 #endif
 #ifndef GUANAQO_WITH_MKL
 #cmakedefine01 GUANAQO_WITH_MKL
