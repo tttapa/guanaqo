@@ -3,6 +3,8 @@ import os
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 from conan.tools.build import can_run
+from conan.tools.files import save
+from conan.tools.scm import Git
 
 
 class GuanaqoRecipe(ConanFile):
@@ -48,6 +50,14 @@ class GuanaqoRecipe(ConanFile):
         "LICENSE",
         "README.md",
     )
+
+    def export_sources(self):
+        git = Git(self)
+        status_cmd = "status . --short --no-branch --untracked-files=no"
+        dirty = bool(git.run(status_cmd).strip())
+        hash = git.get_commit() + ("-dirty" if dirty else "")
+        print("Commit hash:", hash)
+        save(self, os.path.join(self.export_sources_folder, "commit.txt"), hash)
 
     generators = ("CMakeDeps",)
 
