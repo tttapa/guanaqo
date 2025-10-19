@@ -189,7 +189,7 @@ struct MatrixView {
         }};
     }
 
-    operator MatrixView<const T, I, S>() const {
+    operator MatrixView<const T, I, S, O>() const {
         return {{
             .data         = data,
             .rows         = rows,
@@ -200,7 +200,7 @@ struct MatrixView {
     }
 
     MatrixView<T, I, S, transpose(O)> transposed() const {
-        return MatrixView<T, I, S, transpose(O)>{{
+        return {{
             .data         = data,
             .rows         = cols,
             .cols         = rows,
@@ -280,7 +280,7 @@ struct MatrixView {
             default: assert(!"Unexpected value for guanaqo::Triangular");
         }
     }
-    MatrixView<T, I, I> diagonal() {
+    MatrixView<T, I, I, O> diagonal() {
         auto n = std::max(rows, cols);
         return {{
             .data         = data,
