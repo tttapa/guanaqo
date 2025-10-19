@@ -9,10 +9,10 @@ from conan.tools.scm import Git
 
 class GuanaqoRecipe(ConanFile):
     name = "guanaqo"
-    version = "1.0.0-alpha.17"
+    version = "1.0.0-alpha.18"
 
     # Optional metadata
-    license = "LGPLv3"
+    license = "LGPL-3.0-or-later"
     author = "Pieter P <pieter.p.dev@outlook.com>"
     url = "https://github.com/tttapa/guanaqo"
     description = "Utilities for scientific software."
