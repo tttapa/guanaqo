@@ -142,9 +142,9 @@ struct CSVReader {
 
 #ifdef GUANAQO_WITH_QUAD_PRECISION
 template <>
-const char *CSVReader<__float128>::read_single(const char *bufbegin,
-                                               const char *bufend,
-                                               __float128 &v) {
+inline const char *CSVReader<__float128>::read_single(const char *bufbegin,
+                                                      const char *bufend,
+                                                      __float128 &v) {
     long double ld;
     auto ret = CSVReader<long double>::read_single(bufbegin, bufend, ld);
     v        = static_cast<__float128>(ld);
