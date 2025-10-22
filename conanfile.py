@@ -9,7 +9,7 @@ from conan.tools.scm import Git
 
 class GuanaqoRecipe(ConanFile):
     name = "guanaqo"
-    version = "1.0.0-alpha.18"
+    version = "1.0.0-alpha.19"
 
     # Optional metadata
     license = "LGPL-3.0-or-later"
