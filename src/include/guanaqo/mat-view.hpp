@@ -311,8 +311,9 @@ struct MatrixView {
     void add_to_diagonal(const value_type &t) {
         iter_diagonal([&t](index_type, value_type &value) { value += t; });
     }
-    void copy_values(auto &other) {
-        static_assert(this->storage_order == other.storage_order);
+    template <class Other>
+    void copy_values(const Other &other) {
+        static_assert(storage_order == Other::storage_order);
         assert(other.rows == this->rows);
         assert(other.cols == this->cols);
         const auto *src = other.data;
