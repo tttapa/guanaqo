@@ -191,6 +191,19 @@ void xgemmt_LNT(T alpha, std::type_identity_t<MatrixView<const T, I>> A,
                  beta, C.data, C.outer_stride);
 }
 
+template <class T, class I, StorageOrder O>
+void xsymv_L(T alpha, MatrixView<const T, I, UnitStride<I>, O> A,
+             std::type_identity_t<MatrixView<const T, I>> x, T beta,
+             MatrixView<T, I> y) {
+    GUANAQO_ASSUME(A.cols == A.rows);
+    GUANAQO_ASSUME(A.rows == y.rows);
+    GUANAQO_ASSUME(A.cols == x.rows);
+    GUANAQO_TRACE_HL_BLAS("symv", 0, A.rows * (A.cols + 1));
+    xsymv<T, I>(O == StorageOrder::RowMajor ? CblasRowMajor : CblasColMajor,
+                CblasLower, A.rows, alpha, A.data, A.outer_stride, x.data, I{1},
+                beta, y.data, I{1});
+}
+
 template <class T, class I>
 void xtrmv_LNN(std::type_identity_t<MatrixView<const T, I>> A,
                MatrixView<T, I> x) {

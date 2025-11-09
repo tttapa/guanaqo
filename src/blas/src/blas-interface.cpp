@@ -69,6 +69,25 @@ xgemmt(CBLAS_LAYOUT Layout, CBLAS_UPLO uplo, CBLAS_TRANSPOSE TransA,
 
 template <>
 GUANAQO_BLAS_EXPORT void
+xsymv(CBLAS_LAYOUT Layout, CBLAS_UPLO uplo, blas_index_t N,
+      std::type_identity_t<double> alpha,
+      std::type_identity_t<const double *> A, blas_index_t lda,
+      std::type_identity_t<const double *> X, blas_index_t incX,
+      std::type_identity_t<double> beta, double *Y, blas_index_t incY) {
+    cblas_dsymv(Layout, uplo, N, alpha, A, lda, X, incX, beta, Y, incY);
+}
+template <>
+GUANAQO_BLAS_EXPORT void
+xsymv(CBLAS_LAYOUT Layout, CBLAS_UPLO uplo, blas_index_t N,
+      std::type_identity_t<float> alpha, std::type_identity_t<const float *> A,
+      blas_index_t lda, std::type_identity_t<const float *> X,
+      blas_index_t incX, std::type_identity_t<float> beta, float *Y,
+      blas_index_t incY) {
+    cblas_ssymv(Layout, uplo, N, alpha, A, lda, X, incX, beta, Y, incY);
+}
+
+template <>
+GUANAQO_BLAS_EXPORT void
 xtrmv(CBLAS_LAYOUT Layout, CBLAS_UPLO Uplo, CBLAS_TRANSPOSE TransA,
       CBLAS_DIAG Diag, index_t N, std::type_identity_t<const double *> A,
       index_t lda, double *X, index_t incX) {

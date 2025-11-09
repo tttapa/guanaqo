@@ -30,6 +30,12 @@ void xgemmt(CBLAS_LAYOUT Layout, CBLAS_UPLO uplo, CBLAS_TRANSPOSE TransA,
             std::type_identity_t<T> beta, T *C, I ldc);
 
 template <class T, class I>
+void xsymv(CBLAS_LAYOUT Layout, CBLAS_UPLO uplo, I N,
+           std::type_identity_t<T> alpha, std::type_identity_t<const T *> A,
+           I lda, std::type_identity_t<const T *> X, I incX,
+           std::type_identity_t<T> beta, T *Y, I incY);
+
+template <class T, class I>
 void xtrmv(CBLAS_LAYOUT Layout, CBLAS_UPLO Uplo, CBLAS_TRANSPOSE TransA,
            CBLAS_DIAG Diag, I N, std::type_identity_t<const T *> A, I lda, T *X,
            I incX);

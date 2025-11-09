@@ -62,6 +62,19 @@ class BlasTest : public testing::TestWithParam<sizes_tuple> {
     }
 
     template <typename T>
+    void TestSymv(eindex_t n, T alpha, T beta) {
+        const Eigen::MatrixX<T> A = random_matrix<T>(n, n);
+        Eigen::MatrixX<T> x       = random_matrix<T>(n, 1),
+                          y = random_matrix<T>(n, 1), y_ref = y;
+
+        using namespace guanaqo::blas;
+        Eigen::MatrixX<T> Ax = A.template selfadjointView<Eigen::Lower>() * x;
+        y_ref                = alpha * Ax + beta * y_ref;
+        xsymv_L(alpha, as_view(A), as_view(x), beta, as_view(y));
+        EXPECT_THAT(y, EigenAlmostEqualRel(y_ref, eps));
+    }
+
+    template <typename T>
     void TestGemmt(char transA, char transB, eindex_t n, eindex_t k, T alpha,
                    T beta) {
         const Eigen::MatrixX<T> A = random_matrix<T>(n, k, transA == 'T');
@@ -213,6 +226,11 @@ TEST_P(BlasTest, TestGemmtTN) {
 TEST_P(BlasTest, TestGemmtTT) {
     auto [n, _, k] = GetParam();
     TestGemmt<double>('T', 'T', n, k, 1.2, 0.8);
+}
+
+TEST_P(BlasTest, TestSymvL) {
+    auto [n, _, k] = GetParam();
+    TestSymv<double>(n, 1.2, 0.8);
 }
 
 // Test cases for all xtrmm variants (triangular matrix multiplication)
