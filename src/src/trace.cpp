@@ -2,6 +2,9 @@
 
 namespace guanaqo {
 
-TraceLogger trace_logger{16'384};
+GUANAQO_EXPORT TraceLogger &get_trace_logger() {
+    static TraceLogger instance{16'384};
+    return instance;
+}
 
 } // namespace guanaqo

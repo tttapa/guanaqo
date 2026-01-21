@@ -1,5 +1,6 @@
 #pragma once
 
+#include <guanaqo/export.h>
 #include <guanaqo/preprocessor.h>
 #include <guanaqo/stringify.h>
 
@@ -85,12 +86,12 @@ struct TraceLogger {
     void reset() {}
 };
 
-extern TraceLogger trace_logger;
+GUANAQO_EXPORT TraceLogger &get_trace_logger();
 #define GUANAQO_TRACE_IMPL(var_name, name, instance)                           \
     static auto GUANAQO_CAT(var_name, _name) =                                 \
         __itt_string_handle_create(name);                                      \
-    const auto var_name =                                                      \
-        ::guanaqo::trace_logger.trace(GUANAQO_CAT(var_name, _name), instance)
+    const auto var_name = ::guanaqo::get_trace_logger().trace(                 \
+        GUANAQO_CAT(var_name, _name), instance)
 #define GUANAQO_TRACE(name, instance)                                          \
     GUANAQO_TRACE_IMPL(GUANAQO_CAT(trace_log_, __COUNTER__), name, instance)
 
@@ -169,10 +170,10 @@ struct TraceLogger {
 };
 
 #if GUANAQO_WITH_TRACING
-extern TraceLogger trace_logger;
+GUANAQO_EXPORT TraceLogger &get_trace_logger();
 #define GUANAQO_TRACE(name, ...)                                               \
     const auto GUANAQO_CAT(trace_log_, __COUNTER__) =                          \
-        ::guanaqo::trace_logger.trace(name, __VA_ARGS__)
+        ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)
 #endif
 
 #endif
