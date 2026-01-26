@@ -36,31 +36,31 @@ void print_elem(std::span<char> buf, std::complex<F> value, std::ostream &os) {
 namespace detail {
 
 template <class T> // NOLINTNEXTLINE(*-cognitive-complexity)
-std::ostream &print_csv_impl(std::ostream &os, PrintMatrixView<T> M,
+std::ostream &print_csv_impl(std::ostream &os, PrintMatrixView<const T> M,
                              PrintOpts opts) {
     using index_t = decltype(M)::index_type;
     auto indent   = std::string(opts.indent, opts.indent_char);
     std::array<char, 64> buf;
-    if ((M.cols == 1 && opts.column_vector_as_1d) ||
-        (M.rows == 1 && opts.row_vector_as_1d)) {
+    if ((M.cols() == 1 && opts.column_vector_as_1d) ||
+        (M.rows() == 1 && opts.row_vector_as_1d)) {
         os << indent << opts.start;
-        for (index_t r = 0; r < M.rows; ++r) {
-            for (index_t c = 0; c < M.cols; ++c) {
+        for (index_t r = 0; r < M.rows(); ++r) {
+            for (index_t c = 0; c < M.cols(); ++c) {
                 print_elem(buf, M(r, c), os);
-                if (r != M.rows - 1 || c != M.cols - 1)
+                if (r != M.rows() - 1 || c != M.cols() - 1)
                     os << opts.delimiter;
             }
         }
         return os << opts.end;
     } else {
-        for (index_t r = 0; r < M.rows; ++r) {
+        for (index_t r = 0; r < M.rows(); ++r) {
             os << indent << (r == 0 ? opts.start : opts.line_start);
-            for (index_t c = 0; c < M.cols; ++c) {
+            for (index_t c = 0; c < M.cols(); ++c) {
                 print_elem(buf, M(r, c), os);
-                if (c != M.cols - 1)
+                if (c != M.cols() - 1)
                     os << opts.delimiter;
             }
-            if (r != M.rows - 1)
+            if (r != M.rows() - 1)
                 os << opts.line_end;
         }
         return os << opts.end;
@@ -68,10 +68,10 @@ std::ostream &print_csv_impl(std::ostream &os, PrintMatrixView<T> M,
 }
 
 template <class T>
-std::ostream &print_matlab_impl(std::ostream &os, PrintMatrixView<T> M,
+std::ostream &print_matlab_impl(std::ostream &os, PrintMatrixView<const T> M,
                                 std::string_view end) {
     auto opts = [&] {
-        if (M.cols == 1)
+        if (M.cols() == 1)
             return PrintOpts{
                 .delimiter = "; ",
                 .start     = "[",
@@ -90,10 +90,10 @@ std::ostream &print_matlab_impl(std::ostream &os, PrintMatrixView<T> M,
 }
 
 template <class T>
-std::ostream &print_python_impl(std::ostream &os, PrintMatrixView<T> M,
+std::ostream &print_python_impl(std::ostream &os, PrintMatrixView<const T> M,
                                 std::string_view end, bool squeeze) {
     auto opts = [&] {
-        if ((M.cols == 1 && squeeze) || (M.rows == 1 && squeeze))
+        if ((M.cols() == 1 && squeeze) || (M.rows() == 1 && squeeze))
             return PrintOpts{
                 .delimiter = ", ",
                 .start     = "[",

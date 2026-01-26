@@ -27,8 +27,19 @@ TEST(Print, matlabVector) {
 TEST(Print, pythonMatrix) {
     std::ostringstream ss;
     std::vector<double> m{1, 3, 5, 2, 4, 0.1};
-    guanaqo::detail::print_python_impl<double>(
-        ss, {{.data = m.data(), .rows = 3, .cols = 2}});
+    guanaqo::print_python(ss, guanaqo::MatrixView<double>{
+                                  {.data = m.data(), .rows = 3, .cols = 2}});
+    EXPECT_EQ(ss.str(),
+              "[[+1.00000000000000000e+00, +2.00000000000000000e+00],\n"
+              " [+3.00000000000000000e+00, +4.00000000000000000e+00],\n"
+              " [+5.00000000000000000e+00, +1.00000000000000006e-01]]\n");
+}
+
+TEST(Print, pythonMatrixRM) {
+    std::ostringstream ss;
+    std::vector<double> m{1, 2, 3, 4, 5, 0.1};
+    guanaqo::print_python(ss, guanaqo::MatrixViewRM<double>{
+                                  {.data = m.data(), .rows = 3, .cols = 2}});
     EXPECT_EQ(ss.str(),
               "[[+1.00000000000000000e+00, +2.00000000000000000e+00],\n"
               " [+3.00000000000000000e+00, +4.00000000000000000e+00],\n"
@@ -38,8 +49,8 @@ TEST(Print, pythonMatrix) {
 TEST(Print, matlabMatrix) {
     std::ostringstream ss;
     std::vector<double> m{1, 3, 5, 2, 4, 0.1};
-    guanaqo::detail::print_matlab_impl<double>(
-        ss, {{.data = m.data(), .rows = 3, .cols = 2}});
+    guanaqo::print_matlab(ss, guanaqo::MatrixView<double>{
+                                  {.data = m.data(), .rows = 3, .cols = 2}});
     EXPECT_EQ(ss.str(),
               "[+1.00000000000000000e+00 +2.00000000000000000e+00;\n"
               " +3.00000000000000000e+00 +4.00000000000000000e+00;\n"

@@ -401,7 +401,7 @@ struct MatrixView {
     }
 };
 
-template <class T, class I, class S = std::integral_constant<I, 1>>
+template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
 using MatrixViewRM = MatrixView<T, I, S, StorageOrder::RowMajor>;
 
 } // namespace guanaqo
