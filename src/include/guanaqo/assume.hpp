@@ -5,7 +5,15 @@
 
 /// @def GUANAQO_ASSUME(x)
 /// Invokes undefined behavior if the expression @p x does not evaluate to true.
-/// @throws std::logic_error in debug mode (when `NDEBUG` is not defined).
+/// @throws std::logic_error in debug mode if @p x is false.
+
+/// @def GUANAQO_DEBUG_ASSERT(x)
+/// Check the expression @p x (in debug mode only).
+/// @throws std::logic_error in debug mode if @p x is false.
+
+/// @def GUANAQO_ASSERT(x)
+/// Check the expression @p x (regardless of debug or release mode).
+/// @throws std::logic_error if @p x is false.
 
 #if defined(NDEBUG) && !GUANAQO_VERIFY_ASSUMPTIONS
 #if __has_cpp_attribute(assume) >= 202207L
@@ -28,7 +36,20 @@
 #define GUANAQO_ASSUME(x) __assume(x)
 #endif // __cpp_lib_unreachable >= 202202L
 #endif // __has_cpp_attribute(assume)
+#define GUANAQO_DEBUG_ASSERT(x)                                                \
+    do {                                                                       \
+        (void)sizeof(x);                                                       \
+    } while (false)
 #endif // defined(NDEBUG) && !GUANAQO_VERIFY_ASSUMPTIONS
+
+#ifndef GUANAQO_DEBUG_ASSERT
+#define GUANAQO_DEBUG_ASSERT(x)                                                \
+    do {                                                                       \
+        if (!(x))                                                              \
+            throw std::logic_error("Assertion " #x " failed (" __FILE__        \
+                                   ":" GUANAQO_STRINGIFY(__LINE__) ")");       \
+    } while (false)
+#endif
 
 #define GUANAQO_ASSERT(x)                                                      \
     do {                                                                       \
