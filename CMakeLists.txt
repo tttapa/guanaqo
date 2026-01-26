@@ -60,6 +60,11 @@ set(GUANAQO_INSTALL_INCLUDEDIR "${CMAKE_INSTALL_INCLUDEDIR}"
 option(GUANAQO_STANDALONE
     "Install with relative RPATH to locate its own shared libraries" On)
 
+# Development
+if (PROJECT_IS_TOP_LEVEL)
+    set(CMAKE_EXPORT_COMPILE_COMMANDS On)
+endif()
+
 # Compiler warnings
 include(cmake/Warnings.cmake)
 add_warnings_target(warnings ${GUANAQO_WARNINGS_AS_ERRORS})
