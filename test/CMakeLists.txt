@@ -3,6 +3,9 @@ project(guanaqo-test CXX)
 enable_testing()
 include(GoogleTest)
 
+option(GUANAQO_WITH_PYTHON_TESTS
+    "Build the Python tests. Requires pytest to be installed." Off)
+
 # Dependencies
 find_package(GTest REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -57,4 +60,8 @@ if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.21)
             $<IF:$<BOOL:$<TARGET_RUNTIME_DLLS:tests>>,copy,true>
             $<TARGET_RUNTIME_DLLS:tests> $<TARGET_FILE_DIR:tests>
         COMMAND_EXPAND_LISTS)
+endif()
+
+if (GUANAQO_WITH_PYTHON_TESTS)
+    add_subdirectory(python)
 endif()

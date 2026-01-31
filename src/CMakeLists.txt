@@ -106,6 +106,7 @@ target_sources(guanaqo PUBLIC FILE_SET HEADERS
           "include/guanaqo/lut.hpp"
           "include/guanaqo/mat-view.hpp"
           "include/guanaqo/max-history.hpp"
+          "include/guanaqo/nanobind/matrix-view.hpp"
           "include/guanaqo/noop-delete.hpp"
           "include/guanaqo/not-implemented.hpp"
           "include/guanaqo/openmp.h"

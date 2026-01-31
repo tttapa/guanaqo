@@ -40,6 +40,13 @@ struct default_stride<S> {
     static constexpr S value{};
 };
 
+/// A lightweight view of a 2D matrix.
+/// @tparam T Element type (may be const).
+/// @tparam I Index type for dimensions and strides.
+/// @tparam S Stride type for inner dimension. Can be an integral constant for
+///           compile-time known strides, or can be the same as @p I for
+///           runtime strides.
+/// @tparam O Storage order (column-major or row-major).
 template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>,
           StorageOrder O = StorageOrder::ColMajor>
 struct MatrixView {
@@ -401,6 +408,7 @@ struct MatrixView {
     }
 };
 
+/// Convenience alias for a row-major @ref MatrixView.
 template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
 using MatrixViewRM = MatrixView<T, I, S, StorageOrder::RowMajor>;
 
