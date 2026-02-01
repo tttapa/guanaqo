@@ -30,7 +30,7 @@ runs:
   - name: Install Python dependencies
     shell: bash
     run: >
-      python3 -m pip install -U pip build conan ninja
+      python3 -m pip install -U pip build conan ninja pytest
 
   - name: Configure sccache version
     shell: bash
