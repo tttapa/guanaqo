@@ -4,7 +4,7 @@ enable_testing()
 include(GoogleTest)
 
 option(GUANAQO_WITH_PYTHON_TESTS
-    "Build the Python tests. Requires pytest to be installed." Off)
+    "Build the Python tests. Requires numpy and pytest." Off)
 
 # Dependencies
 find_package(GTest REQUIRED)
