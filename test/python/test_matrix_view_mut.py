@@ -4,7 +4,7 @@
 import numpy as np
 import pytest
 
-import guanaqo_matrix_view as mv
+import $<TARGET_FILE_BASE_NAME:guanaqo_matrix_view> as mv
 
 
 def test_times_two_fortran():
@@ -124,9 +124,6 @@ def test_reject_non_contiguous_inner():
     row_view = a_c[::2, :]
     with pytest.raises(TypeError):
         mv.times_two_F(row_view)
-
-
-# Stride tests
 
 
 def test_static_stride_4():

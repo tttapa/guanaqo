@@ -20,8 +20,13 @@ set_target_properties(guanaqo_matrix_view PROPERTIES
     RELWITHDEBINFO_POSTFIX "" MINSIZEREL_POSTFIX "")
 
 if (Python_Interpreter_FOUND)
-    add_test(NAME matrix_view_python
-             COMMAND ${Python_EXECUTABLE} -m pytest ${CMAKE_CURRENT_SOURCE_DIR}/test_matrix_view.py)
-    set_tests_properties(matrix_view_python PROPERTIES
-                         ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:guanaqo_matrix_view>")
+    foreach (file test_matrix_view_mut.py test_matrix_view_const.py)
+        file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${file}
+                      INPUT ${CMAKE_CURRENT_SOURCE_DIR}/${file})
+        add_test(NAME ${file}
+                 COMMAND ${Python_EXECUTABLE} -m pytest ${file}
+                 WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+        set_tests_properties(${file} PROPERTIES
+            ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:guanaqo_matrix_view>")
+    endforeach()
 endif()
