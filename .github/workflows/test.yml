@@ -33,6 +33,7 @@ jobs:
           conan build . --build=missing
           -c \&:tools.cmake.cmaketoolchain:generator="Ninja Multi-Config"
           -c \&:tools.cmake.cmaketoolchain:user_toolchain+="[\"$UNIX_PATH/cmake/sccache.cmake\"]"
+          -c \&:user.guanaqo:with_python_tests=True
           -o \&:with_blas=${{ matrix.blas }}
           -o openblas/\*:dynamic_arch=True
           -s:h compiler.cppstd=23 -s:b compiler.cppstd=20
