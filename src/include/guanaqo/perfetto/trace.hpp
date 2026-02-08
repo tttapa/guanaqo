@@ -52,105 +52,43 @@ inline auto getThreadTrack() {
 GUANAQO_EXPORT uint64_t &get_thread_gflop_count();
 
 #if GUANAQO_WITH_PCM
-template <class F>
 GUANAQO_EXPORT struct ScopedLinalgCounters {
-    F func;
-    std::unique_ptr<pcm::detail::ScopedCounters> impl;
+    ::perfetto::ThreadTrack parent_track              = getThreadTrack();
+    std::unique_ptr<pcm::detail::ScopedCounters> impl = pcm::start_counters();
 
-    ScopedLinalgCounters(F &&func)
-        : func(std::forward<F>(func)), impl(pcm::start_counters()) {}
+    ScopedLinalgCounters() { trace_gflops(impl ? &impl->get() : nullptr); }
     ScopedLinalgCounters(const ScopedLinalgCounters &)            = delete;
     ScopedLinalgCounters &operator=(const ScopedLinalgCounters &) = delete;
-    pcm::ThreadPerfCounters *get() { return impl ? &impl->get() : nullptr; }
-    ~ScopedLinalgCounters() { func(impl ? &impl->stop() : nullptr); }
+    ~ScopedLinalgCounters() { trace_gflops(impl ? &impl->stop() : nullptr); }
+
+    void trace_gflops(pcm::ThreadPerfCounters *ctr) const;
 };
 #else
-template <class F>
 GUANAQO_EXPORT struct ScopedLinalgCounters {
-    F func;
+    ::perfetto::ThreadTrack parent_track = getThreadTrack();
 
-    ScopedLinalgCounters(F &&func) : func(std::forward<F>(func)) {}
+    ScopedLinalgCounters() { trace_gflops(); }
     ScopedLinalgCounters(const ScopedLinalgCounters &)            = delete;
     ScopedLinalgCounters &operator=(const ScopedLinalgCounters &) = delete;
-    ~ScopedLinalgCounters() { func(nullptr); }
+    ~ScopedLinalgCounters() { trace_gflops(); }
+
+    void trace_gflops() const {
+        TRACE_COUNTER("gflops",
+                      ::perfetto::CounterTrack("gflops", parent_track),
+                      get_thread_gflop_count());
+    }
 };
 #endif
-
-template <class F>
-ScopedLinalgCounters(F &&) -> ScopedLinalgCounters<F>;
-template <class F>
-ScopedLinalgCounters(F &) -> ScopedLinalgCounters<F &>;
 
 } // namespace trace
 } // namespace guanaqo
 
-#if GUANAQO_WITH_PCM
-
-#define GUANAQO_COUNT_PCM_PRIVATE(ctr, name, uid)                              \
-    TRACE_COUNTER("pcm", ::perfetto::CounterTrack(#name, track_##uid),         \
-                  time_##uid, (ctr)->name)
-
 #define GUANAQO_TRACE_LINALG_PRIVATE(name, gflops, uid)                        \
-    auto &GUANAQO_CONCATENATE_TOKENS(gflops_, uid) =                           \
-        ::guanaqo::trace::get_thread_gflop_count();                            \
-    auto GUANAQO_CONCATENATE_TOKENS(track_, uid) =                             \
-        ::guanaqo::trace::getThreadTrack();                                    \
-    auto GUANAQO_CONCATENATE_TOKENS(                                           \
-        log_ctr_, uid) = [&](const ::guanaqo::pcm::ThreadPerfCounters *ctr) {  \
-        TRACE_COUNTER("gflops",                                                \
-                      ::perfetto::CounterTrack(                                \
-                          "gflops", GUANAQO_CONCATENATE_TOKENS(track_, uid)),  \
-                      GUANAQO_CONCATENATE_TOKENS(gflops_, uid));               \
-        if (ctr) {                                                             \
-            auto GUANAQO_CONCATENATE_TOKENS(time_, uid) =                      \
-                PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::GetTraceTimeNs();  \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, instructions, uid);                 \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, cycles, uid);                       \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, ref_cycles, uid);                   \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, l2_misses, uid);                    \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, l2_hits, uid);                      \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, l3_misses, uid);                    \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, branch_misses, uid);                \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, all_slots, uid);                    \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, frontend_bound_slots, uid);         \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, backend_bound_slots, uid);          \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, bad_speculation_slots, uid);        \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, retiring_slots, uid);               \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, mem_bound_slots, uid);              \
-            GUANAQO_COUNT_PCM_PRIVATE(ctr, fetch_lat_slots, uid);              \
-        }                                                                      \
-    };                                                                         \
-    auto GUANAQO_CONCATENATE_TOKENS(ctr_, uid) =                               \
-        ::guanaqo::trace::ScopedLinalgCounters{                                \
-            GUANAQO_CONCATENATE_TOKENS(log_ctr_, uid)};                        \
-    GUANAQO_CONCATENATE_TOKENS(log_ctr_, uid)(                                 \
-        GUANAQO_CONCATENATE_TOKENS(ctr_, uid).get());                          \
-    TRACE_EVENT("gflops", name, GUANAQO_CONCATENATE_TOKENS(track_, uid));      \
-    GUANAQO_CONCATENATE_TOKENS(gflops_, uid) += (gflops)
-
-#else // GUANAQO_WITH_PCM
-
-#define GUANAQO_TRACE_LINALG_PRIVATE(name, gflops, uid)                        \
-    auto &GUANAQO_CONCATENATE_TOKENS(gflops_, uid) =                           \
-        ::guanaqo::trace::get_thread_gflop_count();                            \
-    auto GUANAQO_CONCATENATE_TOKENS(track_, uid) =                             \
-        ::guanaqo::trace::getThreadTrack();                                    \
-    auto GUANAQO_CONCATENATE_TOKENS(                                           \
-        log_ctr_, uid) = [&](const ::guanaqo::pcm::ThreadPerfCounters *ctr) {  \
-        TRACE_COUNTER("gflops",                                                \
-                      ::perfetto::CounterTrack(                                \
-                          "gflops", GUANAQO_CONCATENATE_TOKENS(track_, uid)),  \
-                      GUANAQO_CONCATENATE_TOKENS(gflops_, uid));               \
-    };                                                                         \
-    auto GUANAQO_CONCATENATE_TOKENS(ctr_, uid) =                               \
-        ::guanaqo::trace::ScopedLinalgCounters{                                \
-            GUANAQO_CONCATENATE_TOKENS(log_ctr_, uid)};                        \
-    GUANAQO_CONCATENATE_TOKENS(log_ctr_, uid)(                                 \
-        GUANAQO_CONCATENATE_TOKENS(ctr_, uid).get());                          \
-    TRACE_EVENT("gflops", name, GUANAQO_CONCATENATE_TOKENS(track_, uid));      \
-    GUANAQO_CONCATENATE_TOKENS(gflops_, uid) += (gflops)
-
-#endif // GUANAQO_WITH_PCM
+    ::guanaqo::trace::ScopedLinalgCounters GUANAQO_CONCATENATE_TOKENS(ctr_,    \
+                                                                      uid){};  \
+    ::guanaqo::trace::get_thread_gflop_count() += (gflops);                    \
+    TRACE_EVENT("gflops", name,                                                \
+                GUANAQO_CONCATENATE_TOKENS(ctr_, uid).parent_track)
 
 #define GUANAQO_TRACE_LINALG_IMPL(name, gflops)                                \
     GUANAQO_TRACE_LINALG_PRIVATE(name, gflops, __COUNTER__)
