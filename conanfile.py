@@ -29,6 +29,7 @@ class GuanaqoRecipe(ConanFile):
         "with_tracing": False,  # affects ABI
         "with_perfetto": False,  # affects ABI
         "with_pcm": False,  # affects ABI
+        "with_pcm_tracing": False,  # affects ABI
         "with_hl_blas_tracing": True,  # affects ABI
         "with_openmp": False,  # affects ABI
         "with_blas": False,  # affects ABI
@@ -95,6 +96,8 @@ class GuanaqoRecipe(ConanFile):
             self.options.rm_safe("with_mkl")
         if not self.options.with_tracing or not self.options.with_blas:
             self.options.rm_safe("with_hl_blas_tracing")
+        if not self.options.with_perfetto or not self.options.with_pcm:
+            self.options.rm_safe("with_pcm_tracing")
 
     def layout(self):
         cmake_layout(self)

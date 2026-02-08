@@ -62,7 +62,7 @@ void stop_tracing(std::unique_ptr<::perfetto::TracingSession> tracing_session,
     tracing_session.reset();
 }
 
-#if GUANAQO_WITH_PCM
+#if GUANAQO_WITH_PCM_TRACING
 #define GUANAQO_COUNT_PCM(ctr, name, track, time)                              \
     TRACE_COUNTER("pcm", ::perfetto::CounterTrack(#name, track), time,         \
                   (ctr)->name)

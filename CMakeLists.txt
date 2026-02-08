@@ -38,7 +38,10 @@ option(GUANAQO_WITH_PCM
     "Enable performance counters using Intel PCM" Off)
 cmake_dependent_option(GUANAQO_WITH_HL_BLAS_TRACING
     "Log all high-level BLAS calls and operation counts" Off
-    GUANAQO_WITH_TRACING OR GUANAQO_WITH_PERFETTO Off)
+    "GUANAQO_WITH_TRACING OR GUANAQO_WITH_PERFETTO" Off)
+cmake_dependent_option(GUANAQO_WITH_PCM_TRACING
+    "Log PCM counters in Perfetto traces" Off
+    "GUANAQO_WITH_PCM AND GUANAQO_WITH_PERFETTO" Off)
 # Enable/disable floating point types
 option(GUANAQO_WITH_QUAD_PRECISION
     "Support quad-precision floating point types" Off)

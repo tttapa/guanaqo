@@ -51,7 +51,7 @@ inline auto getThreadTrack() {
 
 GUANAQO_EXPORT uint64_t &get_thread_gflop_count();
 
-#if GUANAQO_WITH_PCM
+#if GUANAQO_WITH_PCM_TRACING
 GUANAQO_EXPORT struct ScopedLinalgCounters {
     ::perfetto::ThreadTrack parent_track              = getThreadTrack();
     std::unique_ptr<pcm::detail::ScopedCounters> impl = pcm::start_counters();
