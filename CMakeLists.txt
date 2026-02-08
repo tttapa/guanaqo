@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.24...4.1)
+set(CMAKE_CXX_SCAN_FOR_MODULES Off)
 project(guanaqo
     VERSION 1.0.0
     DESCRIPTION "Utilities for scientific software"
@@ -31,9 +32,13 @@ set(GUANAQO_BLAS_INDEX_TYPE "long long" CACHE STRING
     "The main integer type for indices and sizes")
 option(GUANAQO_WITH_TRACING
     "Enable tracing using GUANAQO_TRACE" Off)
+option(GUANAQO_WITH_PERFETTO
+    "Enable tracing using Perfetto" Off)
+option(GUANAQO_WITH_PCM
+    "Enable performance counters using Intel PCM" Off)
 cmake_dependent_option(GUANAQO_WITH_HL_BLAS_TRACING
     "Log all high-level BLAS calls and operation counts" Off
-    GUANAQO_WITH_TRACING Off)
+    GUANAQO_WITH_TRACING OR GUANAQO_WITH_PERFETTO Off)
 # Enable/disable floating point types
 option(GUANAQO_WITH_QUAD_PRECISION
     "Support quad-precision floating point types" Off)

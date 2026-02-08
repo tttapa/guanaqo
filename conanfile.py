@@ -27,6 +27,8 @@ class GuanaqoRecipe(ConanFile):
         "with_quad_precision": False,  # affects ABI
         "with_itt": False,  # affects ABI
         "with_tracing": False,  # affects ABI
+        "with_perfetto": False,  # affects ABI
+        "with_pcm": False,  # affects ABI
         "with_hl_blas_tracing": True,  # affects ABI
         "with_openmp": False,  # affects ABI
         "with_blas": False,  # affects ABI
@@ -66,6 +68,10 @@ class GuanaqoRecipe(ConanFile):
     def requirements(self):
         if self.options.with_itt:
             self.requires("ittapi/3.25.5", transitive_headers=True)
+        if self.options.with_perfetto:
+            self.requires("perfetto/52.0", transitive_headers=True)
+        if self.options.with_pcm:
+            self.requires("intel-pcm/tttapa.20260207")
         if self.options.with_blas and not self.options.with_mkl:
             self.requires("openblas/0.3.30", transitive_headers=True)
         self.test_requires("gtest/1.17.0")

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <guanaqo/export.h>
+#include <guanaqo/perfetto/trace.hpp>
 #include <guanaqo/preprocessor.h>
 #include <guanaqo/stringify.h>
 
@@ -171,15 +172,29 @@ struct TraceLogger {
 
 #if GUANAQO_WITH_TRACING
 GUANAQO_EXPORT TraceLogger &get_trace_logger();
+#endif
+
+#endif
+
+#if GUANAQO_WITH_TRACING && !GUANAQO_WITH_PERFETTO
 #define GUANAQO_TRACE(name, ...)                                               \
     const auto GUANAQO_CAT(trace_log_, __COUNTER__) =                          \
         ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)
+#define GUANAQO_TRACE_INSTANT(category, name, instance)                        \
+    do {                                                                       \
+        ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)->log = nullptr; \
+    } while (0)
+#define GUANAQO_TRACE_LINALG(name, gflops) GUANAQO_TRACE(name, 0, gflops)
+#define GUANAQO_TRACE_REGION(name, instance) GUANAQO_TRACE(name, instance)
+#define GUANAQO_TRACE_STATIC_STR(s) s
 #endif
 
-#endif
-
-#if !GUANAQO_WITH_TRACING && !GUANAQO_WITH_ITT
+#if !GUANAQO_WITH_TRACING && !GUANAQO_WITH_ITT && !GUANAQO_WITH_PERFETTO
 #define GUANAQO_TRACE(...) GUANAQO_NOOP()
+#define GUANAQO_TRACE_INSTANT(...) GUANAQO_NOOP()
+#define GUANAQO_TRACE_LINALG(...) GUANAQO_NOOP()
+#define GUANAQO_TRACE_REGION(...) GUANAQO_NOOP()
+#define GUANAQO_TRACE_STATIC_STR(s) s
 #endif
 
 #if GUANAQO_WITH_ITT

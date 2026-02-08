@@ -7,6 +7,12 @@ if (GUANAQO_WITH_ITT)
         add_library(ittapi::ittnotify ALIAS ittapi::ittapi)
     endif()
 endif()
+if (GUANAQO_WITH_PERFETTO)
+    find_package(perfetto REQUIRED)
+endif()
+if (GUANAQO_WITH_PCM)
+    find_package(pcm REQUIRED)
+endif()
 
 # Sets the default visibility to "hidden", and prevents exporting symbols from
 # static libraries into shared libraries on Linux.
@@ -78,6 +84,8 @@ add_library(guanaqo
     "src/type-erasure.cpp"
     "src/timed-cpu.cpp"
     "src/io/csv.cpp"
+    "src/pcm/counters.cpp"
+    "src/perfetto/trace.cpp"
     "src/quadmath/quadmath-print.cpp"
 )
 target_sources(guanaqo PUBLIC FILE_SET HEADERS
@@ -110,6 +118,8 @@ target_sources(guanaqo PUBLIC FILE_SET HEADERS
           "include/guanaqo/noop-delete.hpp"
           "include/guanaqo/not-implemented.hpp"
           "include/guanaqo/openmp.h"
+          "include/guanaqo/perfetto/trace.hpp"
+          "include/guanaqo/pcm/counters.hpp"
           "include/guanaqo/possible-alias.hpp"
           "include/guanaqo/preprocessor.h"
           "include/guanaqo/print.hpp"
@@ -136,10 +146,18 @@ target_compile_definitions(guanaqo PUBLIC
     $<$<BOOL:${GUANAQO_WITH_OPENMP}>:GUANAQO_WITH_OPENMP>
     $<$<BOOL:${GUANAQO_WITH_ITT}>:GUANAQO_WITH_ITT>
     $<$<BOOL:${GUANAQO_WITH_TRACING}>:GUANAQO_WITH_TRACING>
+    $<$<BOOL:${GUANAQO_WITH_PERFETTO}>:GUANAQO_WITH_PERFETTO>
+    $<$<BOOL:${GUANAQO_WITH_PCM}>:GUANAQO_WITH_PCM>
 )
 guanaqo_configure_library(guanaqo)
 if (GUANAQO_WITH_ITT)
     target_link_libraries(guanaqo PUBLIC ittapi::ittnotify)
+endif()
+if (GUANAQO_WITH_PERFETTO)
+    target_link_libraries(guanaqo PUBLIC perfetto::perfetto)
+endif()
+if (GUANAQO_WITH_PCM)
+    target_link_libraries(guanaqo PUBLIC pcm::pcm-static-silent)
 endif()
 if (GUANAQO_WITH_TRACING OR GUANAQO_WITH_ITT)
     target_sources(guanaqo PRIVATE "src/trace.cpp")
