@@ -149,6 +149,16 @@ div.memproto, div.memdoc, div.directory, div.dyncontent {
 div.contents > div.textblock > hr {
     margin-right: 15px; /* To match width of doxygen headers and code blocks */
 }
+.memtitle {
+    box-shadow: none;
+}
+.memtitle::after {
+    display: none;
+}
+.permalink {
+    vertical-align: top;
+}
+
 /* Footer */
 hr.footer { display: none; }
 address.footer {
