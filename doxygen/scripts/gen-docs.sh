@@ -5,8 +5,10 @@ repodir="$PWD"/../..
 set -x
 cd "$repodir"
 
-mainbranch="develop"
+mainbranch="main"
 output_folder="${1:-/tmp}"
+conf_preset="${2:-conan-relwithdebinfo}"
+build_preset="${3:-${conf_preset}}"
 mkdir -p "$output_folder"
 
 # Function that builds the doxygen documentation and generates the
@@ -21,7 +23,7 @@ function run_doxygen_coverage {
     fi
     htmldir="Doxygen"
     covdir="$outdir/Coverage"
-    tmpdir="$repodir/tmp"
+    tmpdir="$repodir/build/docs"
     # Prepare temporary folders
     mkdir -p "$tmpdir"
     echo '*' > "$tmpdir/.gitignore"
@@ -39,31 +41,21 @@ function run_doxygen_coverage {
 	GENERATE_LATEX = NO
 	EOF
 
-    # See if we're cross-compiling and add dependencies to CMake's search path
-    if [ -n "$CMAKE_TOOLCHAIN_FILE" ]; then
-        pfx="$(dirname "$CMAKE_TOOLCHAIN_FILE")"
-        extra_cmake_opts=("-D" "CMAKE_FIND_ROOT_PATH=$pfx/pybind11;$pfx/eigen-master;$pfx/casadi;$pfx/googletest")
-    fi
-
     # Configure the project
-    cmake -S. -B"$tmpdir/build" \
-        -G "Ninja" \
+    cmake --fresh --preset "$conf_preset" \
         -DGUANAQO_WITH_COVERAGE=On \
-        -DGUANAQO_WITH_TESTS=On \
         -DGUANAQO_FORCE_TEST_DISCOVERY=On \
-        -DGUANAQO_WITH_QUAD_PRECISION=On \
-        -DGUANAQO_DOXYFILE="$tmpdir/tmp-Doxyfile" \
-        ${extra_cmake_opts[@]}
+        -DGUANAQO_DOXYFILE="$tmpdir/tmp-Doxyfile"
 
     # Generate the Doxygen C++ documentation
-    cmake --build "$tmpdir/build" -t docs
+    cmake --build --preset "$build_preset" -t docs
 
     # Generate coverage report
-    cmake --build "$tmpdir/build" -j -t coverage
+    cmake --build --preset "$build_preset" -t coverage
     mv docs/Coverage "$covdir"
 
     # Cleanup
-    rm -f tmp-Doxyfile
+    rm -f "$tmpdir/tmp-Doxyfile"
 }
 
 # Generate the documentation for the current branch

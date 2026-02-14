@@ -42,3 +42,35 @@ jobs:
           CTEST_OUTPUT_ON_FAILURE: "1"
 
       - run: conan cache clean
+
+  docs:
+    name: Generate Documentation
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Conan
+        uses: ./.github/workflows/setup-conan
+        with:
+          python-version: '3.12'
+          cache-key: docs
+
+      - name: Install dependencies
+        shell: bash
+        run: >
+          WIN_PATH="${{ github.workspace }}";
+          UNIX_PATH="${WIN_PATH//\\//}";
+          conan install . --build=missing -of build/docs
+          -c \&:tools.cmake.cmaketoolchain:generator="Ninja"
+          -c \&:tools.cmake.cmaketoolchain:user_toolchain+="[\"$UNIX_PATH/cmake/sccache.cmake\"]"
+          -c nanobind/\*:tools.build:skip_test=True
+          -o \&:with_blas=True
+          -o openblas/\*:dynamic_arch=True
+          -s:h compiler.cppstd=23 -s:b compiler.cppstd=20
+          -s:h build_type=RelWithDebInfo -s:b build_type=Release
+
+      - name: Generate documentation and coverage report
+        shell: bash
+        run: |
+          doxygen/scripts/gen-docs.sh "${{ github.workspace }}/staging" conan-relwithdebinfo
