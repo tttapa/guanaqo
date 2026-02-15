@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_views
+/// Conversions between Eigen expressions, maps and refs, and guanaqo::MatrixView.
+
 #include <guanaqo/mat-view.hpp>
 
 #include <Eigen/Core>
@@ -46,6 +50,9 @@ auto as_view_impl(auto &M) {
 }
 
 } // namespace detail
+
+/// @addtogroup linalg_views
+/// @{
 
 // Conversions from Eigen expressions to MatrixView
 
@@ -140,5 +147,7 @@ auto as_eigen(MatrixView<T, I, S, O> M) {
         return Map{M.data, rows, cols, {outer_stride, inner_stride}};
     }
 }
+
+/// @}
 
 } // namespace guanaqo

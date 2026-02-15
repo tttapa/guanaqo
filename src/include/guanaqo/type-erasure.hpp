@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup type_erasure
+/// Flexible type erasure utilities.
+
 #include <guanaqo/demangled-typename.hpp>
 #include <guanaqo/export.h>
 #include <guanaqo/noop-delete.hpp>
@@ -20,6 +24,7 @@
 
 namespace guanaqo {
 
+/// @ingroup type_erasure
 class GUANAQO_EXPORT bad_type_erased_type : public std::logic_error {
   public:
     bad_type_erased_type(const std::type_info &actual_type,
@@ -45,6 +50,7 @@ class GUANAQO_EXPORT bad_type_erased_type : public std::logic_error {
     mutable std::string message;
 };
 
+/// @ingroup type_erasure
 class GUANAQO_EXPORT bad_type_erased_constness : public std::logic_error {
   public:
     bad_type_erased_constness()
@@ -76,6 +82,9 @@ struct optional_function<R(Args...) const, VTable> {
 };
 
 } // namespace detail
+
+/// @addtogroup type_erasure
+/// @{
 
 /// A required function includes a void pointer to self, in addition to the
 /// arguments of @p F.
@@ -148,6 +157,8 @@ struct BasicVTable {
     }
 };
 
+/// @}
+
 namespace detail {
 template <class Class, class... ExtraArgs>
 struct Launderer {
@@ -187,6 +198,9 @@ struct Launderer {
     }
 };
 } // namespace detail
+
+/// @addtogroup type_erasure
+/// @{
 
 /// @copydoc detail::Launderer::invoker
 template <class Class, auto Method, class... ExtraArgs>
@@ -708,5 +722,7 @@ class TypeErased {
 template <class Child>
 concept derived_from_TypeErased =
     requires(Child c) { derived_from_TypeErased_helper(c); };
+
+/// @}
 
 } // namespace guanaqo

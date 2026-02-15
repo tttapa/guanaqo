@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_views
+/// Conversion between guanaqo::MatrixView and NumPy arrays for nanobind bindings.
+
 #include <guanaqo/mat-view.hpp>
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
@@ -8,7 +12,10 @@
 
 namespace nanobind::detail {
 
-/// Type caster for @ref guanaqo::MatrixView.
+/// @addtogroup linalg_views
+/// @{
+
+/// Nanobind type caster for @ref guanaqo::MatrixView.
 /// Supports only NumPy arrays on CPU. No conversions or copies are performed.
 template <class T, class I, class S, guanaqo::StorageOrder O>
 struct type_caster<guanaqo::MatrixView<T, I, S, O>> {
@@ -103,5 +110,7 @@ struct type_caster<guanaqo::MatrixView<T, I, S, O>> {
             NDArray(view.data(), 2, shape, handle(), strides), policy, cleanup);
     }
 };
+
+/// @}
 
 } // namespace nanobind::detail

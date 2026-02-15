@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_views
+/// Conversions between Eigen vector views and `std::span`.
+
 #include <Eigen/Core>
 #include <span>
 #include <type_traits>
@@ -14,6 +18,9 @@ template <size_t E>
 constexpr auto to_eigen_extent =
     E == std::dynamic_extent ? Eigen::Dynamic : static_cast<Eigen::Index>(E);
 } // namespace detail
+
+/// @addtogroup linalg_views
+/// @{
 
 /// Convert an Eigen vector view to a `std::span`.
 template <class Derived>
@@ -67,5 +74,7 @@ template <class T, size_t E>
 [[deprecated("use as_eigen instead")]] auto as_vec(std::span<T, E> s) {
     return as_eigen(s);
 }
+
+/// @}
 
 } // namespace guanaqo

@@ -1,10 +1,15 @@
 #pragma once
 
+/// @file
+/// @ingroup dylib
+/// Flags wrapper for dynamic library loading.
+
 #include <guanaqo/export.h>
 
 namespace guanaqo {
 
 /// Flags to be passed to `dlopen`.
+/// @ingroup dylib
 struct GUANAQO_EXPORT DynamicLoadFlags {
     /// `RTLD_GLOBAL` (true) or `RTLD_LOCAL` (false).
     bool global = false;

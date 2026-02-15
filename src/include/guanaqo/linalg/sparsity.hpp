@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_sparsity
+/// Sparse and dense sparsity descriptors.
+
 #include <guanaqo/linalg/config.hpp>
 
 #include <cassert>
@@ -8,6 +12,9 @@
 #include <variant>
 
 namespace guanaqo::linalg::sparsity {
+
+/// @addtogroup linalg_sparsity
+/// @{
 
 /// Describes the symmetry of matrices.
 enum class Symmetry : uint8_t {
@@ -114,6 +121,8 @@ struct Sparsity {
     SparsityVariant value;
 };
 
+/// @}
+
 namespace detail {
 template <class... Ts>
 struct overloaded : Ts... {
@@ -122,6 +131,9 @@ struct overloaded : Ts... {
 template <class... Ts>
 overloaded(Ts...) -> overloaded<Ts...>;
 } // namespace detail
+
+/// @addtogroup linalg_sparsity
+/// @{
 
 /// Returns true if the sparsity pattern represents a dense matrix.
 inline bool is_dense(const Sparsity &sp) {
@@ -155,6 +167,8 @@ inline length_t num_rows(const Sparsity &sp) {
 inline length_t num_cols(const Sparsity &sp) {
     return std::visit([](const auto &s) { return s.cols; }, sp.value);
 }
+
+/// @}
 
 } // namespace guanaqo::linalg::sparsity
 

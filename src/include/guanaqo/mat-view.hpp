@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_views
+/// Non-owning matrix view.
+
 #include <algorithm>
 #include <cassert>
 #include <concepts>
@@ -9,31 +13,43 @@
 
 namespace guanaqo {
 
+/// @addtogroup linalg_views
+/// @{
+
+/// Storage order of matrices.
 enum class StorageOrder : bool {
+    /// Column-major storage order (Fortran-style, layout left, unit row stride).
     ColMajor,
+    /// Row-major storage order (C-style, layout right, unit column stride).
     RowMajor,
 };
 
+/// Transpose the storage order (swaps row and column major).
 constexpr StorageOrder transpose(StorageOrder o) {
     return o == StorageOrder::ColMajor ? StorageOrder::RowMajor
                                        : StorageOrder::ColMajor;
 }
 
+/// Triangular matrix structure.
+/// @todo Unit-diagonal variants?
 enum class Triangular {
-    Lower,
-    StrictlyLower,
-    Upper,
-    StrictlyUpper,
+    Lower,         ///< Lower triangular (including diagonal).
+    StrictlyLower, ///< Strictly lower triangular (excluding diagonal).
+    Upper,         ///< Upper triangular (including diagonal).
+    StrictlyUpper, ///< Strictly upper triangular (excluding diagonal).
 };
 
+/// Get the default stride value for a given integer type (primary template).
 template <class S>
 struct default_stride;
 
+/// Get the default stride value for a run-time integer type.
 template <std::integral S>
 struct default_stride<S> {
     static constexpr S value{1};
 };
 
+/// Get the default stride value for a compile-time integer type such as `std::integral_constant`.
 template <class S>
     requires(std::default_initializable<S> && !std::constructible_from<S, int>)
 struct default_stride<S> {
@@ -41,7 +57,7 @@ struct default_stride<S> {
 };
 
 /// A lightweight view of a 2D matrix.
-/// @tparam T Element type (may be const).
+/// @tparam T Element type (may be const-qualified).
 /// @tparam I Index type for dimensions and strides.
 /// @tparam S Stride type for inner dimension. Can be an integral constant for
 ///           compile-time known strides, or can be the same as @p I for
@@ -411,5 +427,7 @@ struct MatrixView {
 /// Convenience alias for a row-major @ref MatrixView.
 template <class T, class I = ptrdiff_t, class S = std::integral_constant<I, 1>>
 using MatrixViewRM = MatrixView<T, I, S, StorageOrder::RowMajor>;
+
+/// @}
 
 } // namespace guanaqo

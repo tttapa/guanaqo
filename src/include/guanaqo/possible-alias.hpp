@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup core
+/// Utility to guard against accidental template aliases.
+
 #include <type_traits>
 
 namespace guanaqo {
@@ -22,6 +26,7 @@ struct dummy;
 /// is @p NewAlias. If @p NewAlias is not distinct from @p PossibleAliases, the
 /// result is a dummy type, uniquely determined by @p NewAlias and
 /// @p PossibleAliases.
+/// @ingroup core
 template <class NewAlias, class... PossibleAliases>
 using possible_alias_t =
     std::conditional_t<detail::any_is_same<NewAlias, PossibleAliases...>(),

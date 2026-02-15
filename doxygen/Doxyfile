@@ -1,1 +1,1 @@
-@INCLUDE               = "Doxyfile.common"
+@INCLUDE               = "doxygen/Doxyfile.common"

@@ -1,11 +1,16 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_views
+/// Non-owning view over values plus sparsity description.
+
 #include <guanaqo/linalg/config.hpp>
 #include <guanaqo/linalg/sparsity.hpp>
 
 namespace guanaqo::linalg {
 
 /// Non-owning view of dense and various formats of sparse matrix.
+/// @ingroup linalg_views
 template <class T>
 struct MatrixView {
     /// Description of sparsity format.

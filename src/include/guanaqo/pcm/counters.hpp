@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup trace_pcm
+/// Performance counter snapshots and scoped collectors.
+
 #include <guanaqo/export.h>
 #include <cstdint>
 #include <memory>
@@ -8,6 +12,7 @@
 namespace guanaqo::pcm {
 
 // Accumulated performance counters
+/// @ingroup trace_pcm
 struct ThreadPerfCounters {
     // Basic counters
     uint64_t instructions = 0;
@@ -46,6 +51,9 @@ GUANAQO_EXPORT struct ScopedCounters {
 
 } // namespace detail
 
+/// @addtogroup trace_pcm
+/// @{
+
 /// May return null if PCM is not available.
 GUANAQO_EXPORT std::unique_ptr<detail::ScopedCounters> start_counters();
 /// Disables performance counters globally. Blocks until all active counters have stopped.
@@ -80,5 +88,7 @@ template <class F>
 ScopedCounters(F &&) -> ScopedCounters<F>;
 template <class F>
 ScopedCounters(F &) -> ScopedCounters<F &>;
+
+/// @}
 
 } // namespace guanaqo::pcm

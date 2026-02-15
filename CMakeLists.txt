@@ -116,7 +116,7 @@ endif()
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
     add_custom_target(docs Doxygen::doxygen ${GUANAQO_DOXYFILE}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/doxygen)
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 endif()
 
 # Libraries

@@ -1,17 +1,24 @@
 #pragma once
 
+/// @file
+/// @ingroup macros
+/// Assertion and assumption macros with debug/release semantics.
+
 #include <guanaqo/stringify.h>
 #include <stdexcept>
 
 /// @def GUANAQO_ASSUME(x)
+/// @ingroup macros
 /// Invokes undefined behavior if the expression @p x does not evaluate to true.
 /// @throws std::logic_error in debug mode if @p x is false.
 
 /// @def GUANAQO_DEBUG_ASSERT(x)
+/// @ingroup macros
 /// Check the expression @p x (in debug mode only).
 /// @throws std::logic_error in debug mode if @p x is false.
 
 /// @def GUANAQO_ASSERT(x)
+/// @ingroup macros
 /// Check the expression @p x (regardless of debug or release mode).
 /// @throws std::logic_error if @p x is false.
 

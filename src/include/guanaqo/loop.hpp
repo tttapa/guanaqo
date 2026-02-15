@@ -1,10 +1,19 @@
+#pragma once
+
+/// @file
+/// @ingroup core
+/// Chunked iteration helpers.
+
 namespace guanaqo {
 
+/// Direction for chunked iteration.
+/// @ingroup core
 enum class LoopDir : bool {
     Forward,
     Backward,
 };
 
+/// @ingroup core
 template <class I>
 [[gnu::always_inline]] inline void
 foreach_chunked(I i_begin, I i_end, auto chunk_size, auto func_chunk,
@@ -26,6 +35,7 @@ foreach_chunked(I i_begin, I i_end, auto chunk_size, auto func_chunk,
     }
 }
 
+/// @ingroup core
 template <class I>
 [[gnu::always_inline]] inline void
 foreach_chunked_merged(I i_begin, I i_end, auto chunk_size, auto func_chunk,

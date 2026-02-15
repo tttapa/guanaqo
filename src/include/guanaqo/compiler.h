@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup macros
+/// Compiler feature detection helpers.
+
 #ifdef __clang__
 #define GUANAQO_CLANG_OLDER_THAN(maj) (__clang_maj__ < (maj))
 #else

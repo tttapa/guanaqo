@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup core
+/// Lightweight type-trait helpers.
+
 #include <concepts>
 #include <memory>
 #include <type_traits>
@@ -22,6 +26,9 @@ struct class_from_member_ptr_impl<Ret (C::*)(Args...) const> {
 template <class M>
 using class_from_member_ptr_impl_t =
     typename class_from_member_ptr_impl<M>::type;
+
+/// @addtogroup core
+/// @{
 
 template <auto M>
 using class_from_member_ptr_t = class_from_member_ptr_impl_t<decltype(M)>;
@@ -54,5 +61,7 @@ template <class... Pack>
 concept no_leading_allocator =
     !std::is_same_v<std::remove_cvref_t<first_type_or_void_t<Pack...>>,
                     std::allocator_arg_t>;
+
+/// @}
 
 } // namespace guanaqo

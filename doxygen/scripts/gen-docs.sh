@@ -39,10 +39,12 @@ function run_doxygen_coverage {
 	OUTPUT_DIRECTORY = "$outdir"
 	HTML_OUTPUT = "$htmldir"
 	GENERATE_LATEX = NO
+	GENERATE_TAGFILE = "$outdir/$htmldir/guanaqo.tag"
 	EOF
 
     # Configure the project
     cmake --fresh --preset "$conf_preset" \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
         -DGUANAQO_WITH_COVERAGE=On \
         -DGUANAQO_FORCE_TEST_DISCOVERY=On \
         -DGUANAQO_DOXYFILE="$tmpdir/tmp-Doxyfile"

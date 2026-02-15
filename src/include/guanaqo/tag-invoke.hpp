@@ -1,12 +1,14 @@
 #pragma once
 
+/// @file
+/// @ingroup customization
+/// tag_invoke customization point and concepts.
+/// @see https://wg21.link/P1895R0
+/// @see https://wg21.link/P2547R0
+
 #include <guanaqo/compiler.h>
 #include <type_traits>
 #include <utility>
-
-/// @file
-/// @see https://wg21.link/P1895R0
-/// @see https://wg21.link/P2547R0
 
 namespace guanaqo {
 
@@ -39,8 +41,13 @@ struct tag_invoke_fn {
 // Function object needs to be in a separate namespace to avoid conflicts with
 // hidden-friend customizations defined for types in the guanaqo namespace.
 inline namespace tag_invoke_ns {
+/// The tag_invoke customization point object.
+/// @ingroup customization
 inline constexpr tag_invoke_fn_ns::tag_invoke_fn guanaqo_tag_invoke = {};
 }
+
+/// @addtogroup customization
+/// @{
 
 template <typename Tag, typename... Args>
 concept tag_invocable = requires(Tag tag, Args... args) {
@@ -73,5 +80,7 @@ using tag_invoke_result_t =
 
 template <auto &Tag>
 using tag_t = std::decay_t<decltype(Tag)>;
+
+/// @}
 
 } // namespace guanaqo

@@ -1,12 +1,16 @@
 #pragma once
 
+/// @file
+/// @ingroup core
+/// Sliding-window maximum tracker.
+
 #include <algorithm>
 #include <cstddef>
 #include <vector>
-
 namespace guanaqo {
 
 /// Keep track of the maximum value over a specified horizon length.
+/// @ingroup core
 template <class T>
 class MaxHistory {
   public:

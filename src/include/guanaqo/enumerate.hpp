@@ -1,10 +1,15 @@
 #pragma once
 
+/// @file
+/// @ingroup ranges
+/// enumerate() range adapter.
+
 #include <ranges>
 #include <utility>
 
 namespace guanaqo {
 
+/// @ingroup ranges
 template <class Rng>
 struct enumerate_t : std::ranges::view_interface<enumerate_t<Rng>> {
     Rng rng;
@@ -62,6 +67,7 @@ struct enumerate_t : std::ranges::view_interface<enumerate_t<Rng>> {
     }
 };
 
+/// @ingroup ranges
 template <class Rng>
 auto enumerate(Rng &&rng) {
     return enumerate_t<std::views::all_t<Rng>>{std::forward<Rng>(rng)};

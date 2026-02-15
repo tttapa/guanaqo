@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_sparsity_utils
+/// Helpers for sparse matrix index ordering and conversions.
+
 #include <algorithm>
 #include <cassert>
 #include <numeric>
@@ -13,6 +17,7 @@
 
 namespace guanaqo::linalg {
 
+/// @ingroup linalg_sparsity_utils
 void convert_triplets_to_ccs(const auto &rows, const auto &cols,
                              auto &&inner_idx, auto &&outer_ptr,
                              auto idx_0 = 0) {
@@ -48,6 +53,7 @@ void sort_triplets_impl(Ts &&...triplets) {
 } // namespace detail
 
 /// Sort the (row, column, value) triplets, by column index first, then row.
+/// @ingroup linalg_sparsity_utils
 template <class... Ts>
 void sort_triplets(Ts &&...triplets) {
     // Sort the indices (by column first, then row)
@@ -59,6 +65,7 @@ void sort_triplets(Ts &&...triplets) {
 }
 
 /// Sort the (row, column, value) triplets by column index.
+/// @ingroup linalg_sparsity_utils
 template <class... Ts>
 void sort_triplets_col(Ts &&...triplets) {
     // Sort the indices (by column)
@@ -70,6 +77,7 @@ void sort_triplets_col(Ts &&...triplets) {
 
 /// Given a sparse compressed-column storage matrix, sort all row indices
 /// within each column.
+/// @ingroup linalg_sparsity_utils
 template <class Outer, class... Inners>
 void sort_rows_csc(const Outer &outer_ptr, Inners &&...inners) {
     if (outer_ptr.size() == 0)
@@ -91,6 +99,7 @@ void sort_rows_csc(const Outer &outer_ptr, Inners &&...inners) {
 
 /// Check that no two entries with the same row and column index exist in
 /// the given sparse coordinate list matrix. Assumes sorted indices.
+/// @ingroup linalg_sparsity_utils
 template <class... Ts>
 bool check_uniqueness_triplets(Ts &&...triplets) {
     auto indices = std::views::zip(std::ranges::ref_view{triplets}...);
@@ -102,6 +111,7 @@ bool check_uniqueness_triplets(Ts &&...triplets) {
 
 /// Check that no two entries with the same row and column index exist in
 /// the given sparse compressed-column storage matrix. Assumes sorted indices.
+/// @ingroup linalg_sparsity_utils
 template <class Outer, class Inner>
 bool check_uniqueness_csc(const Outer &outer_ptr, const Inner inner) {
     if (outer_ptr.size() == 0)

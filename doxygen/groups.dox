@@ -1,0 +1,127 @@
+/** @file groups.dox
+ *  @brief Doxygen group definitions for the public API.
+ */
+
+/** @defgroup core Core Utilities
+ *  Core helpers such as lookup tables, chunked loops, and assertion/assumption macros.
+ */
+
+    /** @defgroup strings Strings & Parsing
+     *  String utilities and portable parsing helpers.
+     *  @ingroup core
+     */
+
+    /** @defgroup macros Macros & Build Helpers
+     *  Public-facing preprocessor utilities.
+     *  @ingroup core
+     */
+
+/** @defgroup type_erasure Type Erasure
+ *  Small-buffer-optimized type erasure with configurable vtables.
+ */
+
+/** @defgroup linalg Linear Algebra
+ *  Linear algebra utilities, including dense and matrix views, conversions, BLAS wrappers, Eigen
+ *  interop, etc.
+ */
+
+    /** @defgroup linalg_views Linear Algebra Views
+     *  Dense matrix views and Eigen interop adapters.
+     *  @ingroup linalg
+     */
+
+    /** @defgroup linalg_sparsity Sparse matrices
+     *  Sparse matrix data structures.
+     *  @ingroup linalg
+     *
+     * Guanaqo supports the following (sparse) matrix formats:
+     *  - @ref guanaqo::linalg::sparsity::Dense "Dense": A plain dense matrix.
+     *  - @ref guanaqo::linalg::sparsity::SparseCSC "SparseCSC": Compressed Sparse Column format.
+     *  - @ref guanaqo::linalg::sparsity::SparseCOO "SparseCOO": Coordinate list format.
+     * Different index types are supported, and indices can be zero-based or one-based. For sparse
+     * formats, we also keep track of whether the indices are sorted or not.
+     * 
+     * The @ref guanaqo::linalg::sparsity::Sparsity class is a type-erased wrapper around these
+     * various formats. Conversions between formats are supported by the
+     * @ref guanaqo::linalg::sparsity::SparsityConverter<Sparsity,To> class
+     * (see @ref linalg_sparsity_conv).
+     * The desired index options (zero/one-based, sorted/unsorted) can be specified using the
+     * @ref guanaqo::linalg::sparsity::SparsityConversionRequest struct. While the conversions
+     * convert only the sparsity structure by default, they remember the original structure, and
+     * can be used to repeatedly convert the values as well. This is useful in optimization solvers,
+     * for example, where the sparsity structures of the Hessians and Jacobians are fixed, but the
+     * values change at each iteration.
+     */
+
+        /** @defgroup linalg_sparsity_conv Sparsity Conversions
+         *  Sparse matrix conversions.
+         *  @ingroup linalg_sparsity
+         */
+
+        /** @defgroup linalg_sparsity_utils Sparsity Utilities
+         *  Sparse matrix utilities for sorting indices, checking uniqueness, etc.
+         *  @ingroup linalg_sparsity
+         */
+
+    /** @defgroup linalg_blas BLAS Wrappers
+     *  Convenience wrappers around BLAS and LAPACK functions.
+     *  @ingroup linalg
+     */
+
+        /** @defgroup linalg_blas_ll Low-Level BLAS Wrappers
+         *  Simple overloaded wrappers around BLAS and LAPACK functions.
+         *  @ingroup linalg_blas
+         */
+
+        /** @defgroup linalg_blas_hl High-Level BLAS Wrappers
+         *  High-level BLAS and LAPACK wrappers with @ref MatrixView arguments.
+         *  @ingroup linalg_blas
+         */
+
+/** @defgroup profiling Profiling & Tracing
+ *  Runtime profiling helpers including trace logging.
+ */
+
+    /** @defgroup trace_core Tracing
+     *  Core tracing utilities and macros (ITT, Perfetto or fallback logger).
+     *  @ingroup profiling
+     */
+
+        /** @defgroup trace_perfetto Perfetto Tracing
+         *  Perfetto track events, tracing sessions, and FLOP counting.
+         *  @ingroup trace_core
+         */
+
+        /** @defgroup trace_pcm Performance Counters
+         *  CPU performance counters (PCM) integration and scoped collectors.
+         *  @ingroup trace_core
+         */
+
+    /** @defgroup timing Timing & Benchmarking
+     *  Timing helpers for wall and CPU time measurements.
+     *  @ingroup profiling
+     */
+
+/** @defgroup io IO & Printing
+ *  CSV reading and matrix/array printing utilities.
+ */
+
+/** @defgroup ranges Iteration & Ranges
+ *  Range utilities such as set intersection views and enumeration adapters.
+ */
+
+/** @defgroup customization Tag-Invoke Customization
+ *  Tag-invoke customization point objects (CPO), concepts, and helpers.
+ */
+
+/** @defgroup memory Memory & Pointer Helpers
+ *  Pointer wrappers, lifetime helpers, and utility deleters.
+ */
+
+/** @defgroup dylib Dynamic Loading
+ *  Dynamic library loading helpers and flags.
+ */
+
+/** @defgroup control Control & Stop Signals
+ *  Atomic stop/cancel helpers.
+ */

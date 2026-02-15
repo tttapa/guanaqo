@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup strings
+/// Portable wrapper around std::from_chars for integers and floats.
+
 #include <charconv>
 #include <stdexcept>
 #include <system_error>
@@ -36,6 +40,7 @@
 
 namespace guanaqo {
 
+/// @ingroup strings
 template <class T>
     requires(
 #if GUANAQO_USE_FROM_CHARS_FLOAT
@@ -48,6 +53,7 @@ from_chars(const char *first, const char *last, T &value,
     return std::from_chars(first, last, value, fmt);
 }
 
+/// @ingroup strings
 template <class T>
     requires(
 #if GUANAQO_USE_FROM_CHARS_INT
@@ -59,6 +65,7 @@ std::from_chars_result from_chars(const char *first, const char *last, T &value,
     return std::from_chars(first, last, value, base);
 }
 
+/// @ingroup strings
 template <class T, class... Args>
     requires(
 #if !GUANAQO_USE_FROM_CHARS_FLOAT
@@ -95,6 +102,7 @@ std::from_chars_result from_chars(
     };
 }
 
+/// @ingroup strings
 template <class T, class... Args>
     requires(
 #if !GUANAQO_USE_FROM_CHARS_INT
@@ -148,4 +156,5 @@ std::from_chars_result from_chars(const char *first, const char *last, T &value,
         .ec  = std::errc(),
     };
 }
+
 } // namespace guanaqo

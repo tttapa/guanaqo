@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup io
+/// Stream buffer and redirector for capturing ostream output.
+
 #include <cstring>
 #include <functional>
 #include <ostream>
@@ -14,6 +18,7 @@ namespace guanaqo {
 /// @note   Not thread-safe.
 ///
 /// Inspired by https://github.com/pybind/pybind11/blob/master/include/pybind11/iostream.h
+/// @ingroup io
 class callback_streambuf : public std::streambuf {
   public:
     using write_func_t = std::function<void(std::span<const char>)>;
@@ -101,6 +106,7 @@ class callback_streambuf : public std::streambuf {
 
 /// Temporarily replaces the rdbuf of the given ostream. Flushes and restores
 /// the old rdbuf upon destruction.
+/// @ingroup io
 class scoped_ostream_redirect {
   private:
     std::ostream &os;

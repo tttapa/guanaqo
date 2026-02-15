@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup ranges
+/// Adapter turning iterator pairs into a view.
+
 #include <concepts>
 #include <iterator>
 #include <ranges>
@@ -8,6 +12,7 @@
 
 namespace guanaqo {
 
+/// @ingroup ranges
 template <class It>
 struct iter_range_adapter {
     // P2325R3: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2325r3.html

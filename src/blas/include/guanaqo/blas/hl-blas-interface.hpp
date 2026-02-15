@@ -1,9 +1,8 @@
-/**
- * @file
- * This file provides simple overloaded wrappers around standard BLAS functions.
- */
-
 #pragma once
+
+/// @file
+/// This file provides simple overloaded wrappers around standard BLAS functions.
+/// @ingroup linalg_blas_hl
 
 #include <guanaqo/assume.hpp>
 #include <guanaqo/blas/blas-interface.hpp>
@@ -19,6 +18,9 @@
 #endif
 
 namespace guanaqo::blas {
+
+/// @addtogroup linalg_blas_hl
+/// @{
 
 template <class I>
 using UnitStride = std::integral_constant<I, 1>;
@@ -406,5 +408,7 @@ void xtrtri_LN(MatrixView<T, I> A) {
     xtrtri<T, I>("L", "N", A.rows, A.data, A.outer_stride, &info);
     lapack_throw_on_err("xtrtri_LN", info);
 }
+
+/// @}
 
 } // namespace guanaqo::blas

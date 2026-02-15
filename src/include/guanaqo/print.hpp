@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup io
+/// Matrix/vector printing helpers and float formatting.
+
 #include <guanaqo/export.h>
 #include <guanaqo/float.hpp>
 #include <guanaqo/mat-view.hpp>
@@ -12,6 +16,9 @@
 #include <string_view>
 
 namespace guanaqo {
+
+/// @addtogroup io
+/// @{
 
 template <class T>
 class PrintMatrixView {
@@ -85,6 +92,8 @@ template <std::floating_point F>
 GUANAQO_EXPORT std::string
 float_to_str(F value, int precision = std::numeric_limits<F>::max_digits10);
 
+/// @}
+
 namespace detail {
 
 template <class T>
@@ -103,6 +112,9 @@ print_python_impl(std::ostream &os, PrintMatrixView<const T> M,
                   std::string_view end = "\n", bool squeeze = true);
 
 } // namespace detail
+
+/// @addtogroup io
+/// @{
 
 template <class T, std::size_t E>
 std::ostream &print_csv(std::ostream &os, std::span<T, E> x,
@@ -145,5 +157,7 @@ std::ostream &print_python(std::ostream &os, MatrixView<T, I, S, O> X,
     return guanaqo::detail::print_python_impl(os, PrintMatrixView<const T>{X},
                                               end, squeeze);
 }
+
+/// @}
 
 } // namespace guanaqo

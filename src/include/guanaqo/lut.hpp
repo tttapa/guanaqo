@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup core
+/// Compile-time lookup table generators.
+
 #include <array>
 #include <type_traits>
 #include <utility>
@@ -48,6 +52,7 @@ namespace guanaqo {
 ///     std::cout << "\n";
 /// }
 /// ~~~
+/// @ingroup core
 template <class I, I R, I C, class F>
 consteval auto make_2d_lut(F f) {
     return [&]<I... Rs, I... Cs>(std::integer_sequence<I, Rs...>,
@@ -77,6 +82,7 @@ consteval auto make_2d_lut(F f) {
 ///
 /// The argument @p f should be a function (or callable) that accepts an
 /// argument of type @ref std::integral_constant.
+/// @ingroup core
 template <class I, I N, class F>
 consteval auto make_1d_lut(F f) {
     return [&]<I... Ns>(std::integer_sequence<I, Ns...>) {
@@ -169,6 +175,7 @@ struct lut<> {
 /// (2, 2, 10)  (2, 2, 20)  (2, 2, 30)  (2, 2, 40)  (2, 2, 50)
 /// (2, 3, 10)  (2, 3, 20)  (2, 3, 30)  (2, 3, 40)  (2, 3, 50)
 /// ~~~
+/// @ingroup core
 template <auto... Ranges, class F>
 consteval auto make_lut(F f) {
     return detail::lut<Ranges...>::make(f);

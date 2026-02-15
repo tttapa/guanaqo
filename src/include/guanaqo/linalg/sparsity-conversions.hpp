@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_sparsity_conv
+/// Convert between dense and sparse sparsity descriptors.
+
 #include <guanaqo/export.h>
 #include <guanaqo/linalg/config.hpp>
 #include <guanaqo/linalg/sparse-ops.hpp>
@@ -16,14 +20,20 @@
 
 namespace guanaqo::linalg::sparsity {
 
-struct GUANAQO_EXPORT unsupported_conversion : std::logic_error {
-    using std::logic_error::logic_error;
-};
-
 constexpr size_t cast_sz(auto i) {
     assert(i >= 0);
     return static_cast<size_t>(i);
 }
+
+/// @addtogroup linalg_sparsity_conv
+/// @{
+
+/// The requested conversion between sparsity structures could not be performed
+/// (most likely because certain compiler or standard library features were unavailable when
+/// the library was built).
+struct GUANAQO_EXPORT unsupported_conversion : std::logic_error {
+    using std::logic_error::logic_error;
+};
 
 /// Converts one matrix storage format to another.
 /// @tparam From
@@ -37,9 +47,13 @@ struct SparsityConverter;
 template <class To>
 struct SparsityConversionRequest;
 
+/// Conversion to dense format does not require any additional options.
+/// @todo We could support row/column major output order, triangular structure, symmetry (full,
+///       lower or upper), etc. as options here, and use them in the conversion.
 template <>
 struct SparsityConversionRequest<Dense> {};
 
+/// Conversion from dense to dense is trivial.
 template <>
 struct SparsityConverter<Dense, Dense> {
     using from_sparsity_t = Dense;
@@ -65,6 +79,7 @@ struct SparsityConverter<Dense, Dense> {
     }
 };
 
+/// Conversion from CSC to dense format.
 template <class Index, class StorageIndex>
 struct SparsityConverter<SparseCSC<Index, StorageIndex>, Dense> {
     using from_sparsity_t = SparseCSC<Index, StorageIndex>;
@@ -133,6 +148,7 @@ struct SparsityConverter<SparseCSC<Index, StorageIndex>, Dense> {
     }
 };
 
+/// Conversion from COO to dense format.
 template <class Index>
 struct SparsityConverter<SparseCOO<Index>, Dense> {
     using from_sparsity_t = SparseCOO<Index>;
@@ -198,12 +214,15 @@ struct SparsityConverter<SparseCOO<Index>, Dense> {
     }
 };
 
+/// Conversion to COO format allows customization of the index offset (zero-based or one-based).
+/// @todo We could support sorting the indices in the output if desired as well.
 template <class Index>
 struct SparsityConversionRequest<SparseCOO<Index>> {
     /// Convert the index offset (zero for C/C++, one for Fortran).
     std::optional<Index> first_index = std::nullopt;
 };
 
+/// Conversion from dense to COO format.
 template <class Index>
 struct SparsityConverter<Dense, SparseCOO<Index>> {
     using from_sparsity_t = Dense;
@@ -296,6 +315,7 @@ struct SparsityConverter<Dense, SparseCOO<Index>> {
     }
 };
 
+/// Conversion from CSC to COO format.
 template <class IndexFrom, class StorageIndexFrom, class IndexTo>
 struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
                          SparseCOO<IndexTo>> {
@@ -353,6 +373,7 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     }
 };
 
+/// Conversion from COO to COO format (with possibly different index types and offsets).
 template <class IndexFrom, class IndexTo>
 struct SparsityConverter<SparseCOO<IndexFrom>, SparseCOO<IndexTo>> {
     using from_sparsity_t = SparseCOO<IndexFrom>;
@@ -406,6 +427,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>, SparseCOO<IndexTo>> {
     }
 };
 
+/// Conversion to CSC format allows sorting the indices in the output if desired.
 template <class Index, class StorageIndex>
 struct SparsityConversionRequest<SparseCSC<Index, StorageIndex>> {
     /// Sort the indices.
@@ -413,6 +435,7 @@ struct SparsityConversionRequest<SparseCSC<Index, StorageIndex>> {
         std::nullopt;
 };
 
+/// Conversion from COO to CSC format.
 template <class IndexFrom, class IndexTo, class StorageIndexTo>
 struct SparsityConverter<SparseCOO<IndexFrom>,
                          SparseCSC<IndexTo, StorageIndexTo>> {
@@ -527,6 +550,7 @@ struct SparsityConverter<SparseCOO<IndexFrom>,
     }
 };
 
+/// Conversion from CSC to CSC format (with possibly different index types and sorting).
 template <class IndexFrom, class StorageIndexFrom, class IndexTo,
           class StorageIndexTo>
 struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
@@ -636,6 +660,7 @@ struct SparsityConverter<SparseCSC<IndexFrom, StorageIndexFrom>,
     }
 };
 
+/// Conversion from dense to CSC format.
 template <class Index, class StorageIndex>
 struct SparsityConverter<Dense, SparseCSC<Index, StorageIndex>> {
     using to_sparsity_t   = SparseCSC<Index, StorageIndex>;
@@ -730,6 +755,8 @@ struct SparsityConverter<Dense, SparseCSC<Index, StorageIndex>> {
     }
 };
 
+/// @}
+
 namespace detail {
 template <class To, class>
 struct ConverterVariantHelper;
@@ -739,6 +766,9 @@ struct ConverterVariantHelper<To, std::variant<Froms...>> {
     using type = std::variant<SparsityConverter<Froms, To>...>;
 };
 } // namespace detail
+
+/// @addtogroup linalg_sparsity_conv
+/// @{
 
 template <class To>
 using ConverterVariant =
@@ -779,7 +809,7 @@ struct SparsityConverter<Sparsity, To> {
     }
     /// Call @p evaluator, then convert the values and write the result into
     /// @p result, while minimizing the number of copies.
-    /// @return The allocated workspace that can be passed as the @p work
+    /// @return The allocated workspace that can be moved into the @p work
     ///         argument during the next invocation (to minimize allocations).
     /// @todo   Write tests.
     template <class T, class E>
@@ -827,5 +857,7 @@ struct SparsityConverter<Sparsity, To> {
         };
     }
 };
+
+/// @}
 
 } // namespace guanaqo::linalg::sparsity

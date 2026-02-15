@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup memory
+/// Fallback implementations for `std::start_lifetime_as`.
+
 #include <memory>
 
 #if __cpp_lib_start_lifetime_as >= 202207L
@@ -17,6 +21,9 @@ using std::start_lifetime_as_array;
 
 namespace guanaqo {
 
+/// @addtogroup memory
+/// @{
+
 template <class T>
     requires std::is_trivially_copyable_v<T>
 T *start_lifetime_as_array(void *p, size_t n) noexcept {
@@ -25,6 +32,7 @@ T *start_lifetime_as_array(void *p, size_t n) noexcept {
 #endif
     return std::launder(static_cast<T *>(std::memmove(p, p, n * sizeof(T))));
 }
+
 template <class T>
     requires std::is_trivially_copyable_v<T>
 const T *start_lifetime_as_array(const void *p, size_t n) noexcept {
@@ -35,16 +43,20 @@ const T *start_lifetime_as_array(const void *p, size_t n) noexcept {
     // best we can do without compiler support
     return std::launder(static_cast<const T *>(p));
 }
+
 template <class T>
     requires std::is_trivially_copyable_v<T>
 T *start_lifetime_as(void *p) noexcept {
     return start_lifetime_as_array<T>(p, 1);
 }
+
 template <class T>
     requires std::is_trivially_copyable_v<T>
 const T *start_lifetime_as(const void *p) noexcept {
     return start_lifetime_as_array<T>(p, 1);
 }
+
+/// @}
 
 } // namespace guanaqo
 

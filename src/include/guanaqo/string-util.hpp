@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup strings
+/// String utilities for splitting, joining, and sorting.
+
 #include <algorithm>
 #include <numeric>
 #include <ranges>
@@ -8,6 +12,9 @@
 #include <tuple>
 
 namespace guanaqo {
+
+/// @addtogroup strings
+/// @{
 
 /// Split the string @p full on the first occurrence of @p tok.
 /// Returns `(s, "")` if tok was not found.
@@ -108,5 +115,7 @@ void sort_case_insensitive(auto &range) {
     };
     std::ranges::sort(range, cmp);
 }
+
+/// @}
 
 } // namespace guanaqo

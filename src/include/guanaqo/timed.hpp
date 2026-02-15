@@ -1,9 +1,16 @@
 #pragma once
 
+/// @file
+/// @ingroup timing
+/// RAII timing helper.
+
 #include <chrono>
 #include <functional>
 
 namespace guanaqo {
+
+/// @addtogroup timing
+/// @{
 
 template <class T>
 struct Timed;
@@ -31,5 +38,7 @@ decltype(auto) timed(T &time, F &&func, Args &&...args) {
     Timed timer{time};
     return std::invoke(std::forward<F>(func), std::forward<Args>(args)...);
 }
+
+/// @}
 
 } // namespace guanaqo

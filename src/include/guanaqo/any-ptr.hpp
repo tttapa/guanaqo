@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup type_erasure
+/// Non-owning and shared pointer wrappers with type tagging.
+
 #include <any>
 #include <memory>
 #include <type_traits>
@@ -8,6 +12,7 @@
 namespace guanaqo {
 
 /// Like std::any, but storing just the pointer, without any dynamic allocation.
+/// @ingroup type_erasure
 class any_ptr {
   public:
     any_ptr() = default;
@@ -40,6 +45,7 @@ class any_ptr {
 };
 
 /// Like std::any, but storing a shared_ptr, to allow for move-only types.
+/// @ingroup type_erasure
 class shared_any_ptr {
   public:
     shared_any_ptr() = default;

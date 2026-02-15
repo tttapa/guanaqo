@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup io
+/// Reading matrices and vectors from CSV files.
+
 #include <guanaqo/export.h>
 #include <guanaqo/mat-view.hpp>
 #include <concepts>
@@ -10,6 +14,9 @@
 #include <vector>
 
 namespace guanaqo::io {
+
+/// @addtogroup io
+/// @{
 
 struct GUANAQO_EXPORT csv_read_error : std::runtime_error {
     using std::runtime_error::runtime_error;
@@ -51,5 +58,7 @@ template <class F>
     requires(std::floating_point<F> || std::integral<F>)
 std::vector<F> GUANAQO_EXPORT csv_read_row_std_vector(std::istream &is,
                                                       char sep = ',');
+
+/// @}
 
 } // namespace guanaqo::io

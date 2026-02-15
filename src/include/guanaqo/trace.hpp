@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup trace_core
+/// Tracing logger and macros (ITT, Perfetto, or fallback).
+
 #include <guanaqo/export.h>
 #include <guanaqo/perfetto/trace.hpp>
 #include <guanaqo/preprocessor.h>
@@ -98,6 +102,8 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
 
 #else
 
+/// Class for recording trace logs, used when ITT or Perfetto tracing is not enabled.
+/// @ingroup trace_core
 struct TraceLogger {
     struct Log {
         const char *name = "";
@@ -171,6 +177,10 @@ struct TraceLogger {
 };
 
 #if GUANAQO_WITH_TRACING
+/// Get a reference to the global trace logger instance.
+/// @note Tracing is thread-safe, but for performance reasons, it may be desirable to use a separate
+///       logger for each thread.
+/// @ingroup trace_core
 GUANAQO_EXPORT TraceLogger &get_trace_logger();
 #endif
 

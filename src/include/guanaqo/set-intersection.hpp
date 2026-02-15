@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup ranges
+/// View for iterating the intersection of two sorted ranges.
+
 #include <algorithm>
 #include <functional>
 #include <iterator>
@@ -7,6 +11,7 @@
 
 namespace guanaqo {
 
+/// @ingroup ranges
 template <std::ranges::input_range R1, std::ranges::input_range R2,
           class Comp = std::ranges::less, class Proj1 = std::identity,
           class Proj2 = std::identity>
@@ -106,6 +111,7 @@ struct set_intersection_iterable
     }
 };
 
+/// @ingroup ranges
 template <std::ranges::viewable_range R1, std::ranges::viewable_range R2,
           class Comp = std::ranges::less, class Proj1 = std::identity,
           class Proj2 = std::identity>

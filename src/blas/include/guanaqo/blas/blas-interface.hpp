@@ -1,13 +1,15 @@
-/**
- * @file
- * This file provides simple overloaded wrappers around standard BLAS functions.
- */
+/// @file
+/// This file provides simple overloaded wrappers around standard BLAS functions.
+/// @ingroup linalg_blas_ll
 
 #pragma once
 
 #include <guanaqo/blas/blas.hpp>
 
 namespace guanaqo::blas {
+
+/// @addtogroup linalg_blas_ll
+/// @{
 
 template <class T, class I>
 void xgemv(CBLAS_LAYOUT Layout, CBLAS_TRANSPOSE TransA, I M, I N,
@@ -119,5 +121,7 @@ void xtrsm_batch_strided(CBLAS_LAYOUT Layout, CBLAS_SIDE Side, CBLAS_UPLO Uplo,
 template <class T, class I>
 void xpotrf_batch_strided(const char *Uplo, I N, T *A, I lda, I stridea,
                           I batch_size);
+
+/// @}
 
 } // namespace guanaqo::blas

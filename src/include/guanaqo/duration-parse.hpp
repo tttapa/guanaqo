@@ -1,11 +1,18 @@
 #pragma once
 
+/// @file
+/// @ingroup strings
+/// Duration parsing helpers.
+
 #include <guanaqo/demangled-typename.hpp>
 #include <guanaqo/from_chars-wrapper.hpp>
 #include <chrono>
 #include <string_view>
 
 namespace guanaqo {
+
+/// @addtogroup strings
+/// @{
 
 struct GUANAQO_EXPORT invalid_duration_value : std::invalid_argument {
     explicit invalid_duration_value(const std::string &arg,
@@ -71,5 +78,7 @@ void parse_duration(std::chrono::duration<Rep, Period> &t, std::string_view s) {
     while (!s.empty())
         s = parse_single_duration(t, s);
 }
+
+/// @}
 
 } // namespace guanaqo

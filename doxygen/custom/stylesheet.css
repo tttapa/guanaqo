@@ -12,6 +12,8 @@ html {
     --nav-hover-color: #283a5d;
     --box-shadow-color: #555;
     --footer-logo-width: 80px;
+    --accent-color: #0d90a5;
+    /* --memname-color-detail: #238899; */
 }
 /* Dark mode */
 html.dark-mode {
@@ -43,6 +45,8 @@ html.dark-mode {
     --deprecated-color-text: white;
     --bug-color-text: white;
     --invariant-color-text: white;
+    --accent-color: #31b2ff;
+    /* --memname-color-detail: var(--accent-color); */
 }
 html.dark-mode img.footer {
     filter: brightness(0.666);
@@ -157,6 +161,10 @@ div.contents > div.textblock > hr {
 }
 .permalink {
     vertical-align: top;
+}
+/* Accent color in declarations */
+.memItemRight>a.el:first-child {
+    color: var(--accent-color);
 }
 
 /* Footer */
@@ -546,37 +554,6 @@ blockquote.doxtable > p:last-child {
         line-height: 1px;
     }
 }
-
-/* ---- Start search box ---- */
-
-#MSearchField {
-    max-width: initial;
-}
-iframe#MSearchResults {
-    height: auto;
-    width: 100%;
-    max-width: 25em;
-    margin-left: auto;
-    margin-right: 0;
-    display: block;
-    resize: vertical;
-}
-#MSearchResultsWindow {
-    position: relative;
-    border: none;
-    z-index: 10000;
-    width: 100% !important;
-    top: 0 !important;
-    left: 0 !important;
-    box-shadow: inset #778 1px 0px 4px 0px;
-}
-.SRResult {
-    margin-left: auto;
-    margin-right: 0;
-    max-width: 25em;
-}
-
-/* ---- End search box ---- */
 
 /* ---- Start print ---- */
 

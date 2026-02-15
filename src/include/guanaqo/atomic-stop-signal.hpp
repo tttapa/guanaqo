@@ -1,10 +1,15 @@
 #pragma once
 
+/// @file
+/// @ingroup control
+/// Thread-safe stop signal.
+
 #include <atomic>
 
 namespace guanaqo {
 
 /// Cancel a running solver or other job in a thread-safe and signal-safe way.
+/// @ingroup control
 class AtomicStopSignal {
   public:
     AtomicStopSignal() = default;

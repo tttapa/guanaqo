@@ -1,10 +1,17 @@
 #pragma once
 
+/// @file
+/// @ingroup timing
+/// CPU and wall-time measurements with RAII helper.
+
 #include <guanaqo/export.h>
 #include <guanaqo/timed.hpp>
 #include <iosfwd>
 
 namespace guanaqo {
+
+/// @addtogroup timing
+/// @{
 
 /// Measures the number of invocations of a specific piece of code and its
 /// run time.
@@ -30,5 +37,7 @@ struct GUANAQO_EXPORT Timed<TimingsCPU> {
     clock::time_point wall_start_time;
     int64_t cpu_start_time;
 };
+
+/// @}
 
 } // namespace guanaqo

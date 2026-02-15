@@ -1,10 +1,14 @@
 #pragma once
 
+/// @file
+/// @ingroup core
+/// Circular index utilities and iterators.
+
 #include <cstddef>
 #include <iterator>
-
 namespace guanaqo {
 
+/// @ingroup core
 template <class IndexT = size_t>
 struct CircularIndices {
     using Index = IndexT;
@@ -26,6 +30,7 @@ bool operator!=(CircularIndices<IndexT> a, CircularIndices<IndexT> b) {
     return !(a == b);
 }
 
+/// @ingroup core
 template <class IndexT = size_t>
 struct CircularIndexIterator {
     using Index   = IndexT;
@@ -84,6 +89,7 @@ bool operator!=(CircularIndexIterator<IndexT> a,
     return !(a == b);
 }
 
+/// @ingroup core
 template <class IndexT = size_t>
 struct ReverseCircularIndexIterator {
     using ForwardIterator = CircularIndexIterator<IndexT>;
@@ -142,6 +148,7 @@ bool operator!=(ReverseCircularIndexIterator<IndexT> a,
     return !(a == b);
 }
 
+/// @ingroup core
 template <class IndexT>
 class CircularRange {
   public:
@@ -177,6 +184,7 @@ class CircularRange {
     Index max;
 };
 
+/// @ingroup core
 template <class IndexT>
 class ReverseCircularRange {
   public:

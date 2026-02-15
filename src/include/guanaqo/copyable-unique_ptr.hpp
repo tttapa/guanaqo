@@ -1,11 +1,16 @@
 #pragma once
 
+/// @file
+/// @ingroup memory
+/// Clone-on-copy unique_ptr wrapper.
+
 #include <memory>
 
 namespace guanaqo {
 
 /// `std::unique_ptr` is move-only, this class wraps such a pointer and provides
 /// copy operations as well.
+/// @ingroup memory
 template <class T>
 struct copyable_unique_ptr {
     copyable_unique_ptr(std::unique_ptr<T> ptr) : ptr{std::move(ptr)} {}

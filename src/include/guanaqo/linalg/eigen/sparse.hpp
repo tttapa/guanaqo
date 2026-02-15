@@ -1,5 +1,9 @@
 #pragma once
 
+/// @file
+/// @ingroup linalg_sparsity_conv
+/// Eigen interop for sparse matrices.
+
 #include <guanaqo/linalg/sparsity.hpp>
 
 #include <Eigen/Sparse>
@@ -7,6 +11,7 @@
 namespace guanaqo::linalg::sparsity {
 
 /// Convert a guanaqo::MatrixView to an Eigen::Matrix view.
+/// @ingroup linalg_sparsity_conv
 template <class I, class T>
 auto as_eigen(const SparseCSC<I, I> sparsity, std::span<T> values) {
     using Scalar = std::remove_const_t<T>;
@@ -23,6 +28,8 @@ auto as_eigen(const SparseCSC<I, I> sparsity, std::span<T> values) {
     };
 }
 
+/// Convert an Eigen::SparseMatrix to a guanaqo::SparseCSC view.
+/// @ingroup linalg_sparsity_conv
 template <class Derived>
     requires(!Derived::IsRowMajor)
 auto as_sparsity(const Eigen::SparseMatrixBase<Derived> &M,

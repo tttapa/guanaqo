@@ -1,6 +1,7 @@
 /**
  * @file
  * LAPACK error handling.
+ * @ingroup linalg_blas_ll
  */
 
 #pragma once
@@ -19,6 +20,9 @@
 
 namespace guanaqo::blas {
 
+/// @addtogroup linalg_blas_ll
+/// @{
+
 struct lapack_error : std::runtime_error {
     lapack_error(const std::string &name, index_t info)
         : std::runtime_error("LAPACK error: " + name +
@@ -32,6 +36,8 @@ void lapack_throw_on_err(Name &&name, index_t info) {
     if (info)
         throw lapack_error(std::forward<Name>(name), info);
 }
+
+/// @}
 
 static_assert(std::is_same_v<index_t, lapack_int>, "Unsupported index type");
 static_assert(std::is_signed_v<index_t>);

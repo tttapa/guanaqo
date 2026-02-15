@@ -1,9 +1,14 @@
 #pragma once
 
+/// @file
+/// @ingroup memory
+/// Deleter that skips deallocation.
+
 namespace guanaqo {
 
 /// Deleter for `std::unique_ptr` that just destructs the object, without
 /// deallocating.
+/// @ingroup memory
 template <class T>
 struct noop_delete {
     constexpr noop_delete() noexcept = default;
