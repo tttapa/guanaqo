@@ -56,6 +56,22 @@ jobs:
           python-version: '3.12'
           cache-key: docs
 
+      - name: Install Doxygen
+        run: >
+          wget -qO- https://github.com/doxygen/doxygen/releases/download/Release_1_16_1/doxygen-1.16.1.linux.bin.tar.gz
+          | sudo tar xz -C /usr/local/bin doxygen-1.16.1/bin/doxygen --strip-components=2
+
+      - name: Install LCOV
+        run: >
+          wget -qO- https://github.com/linux-test-project/lcov/releases/download/v2.4/lcov-2.4.tar.gz
+          | sudo tar xz -C /usr/local --strip-components=1
+
+      - name: Install Graphviz and Perl dependencies
+        run: >
+          sudo apt update && sudo apt install -y graphviz libcapture-tiny-perl libdatetime-perl
+          libdevel-cover-perl libdigest-md5-perl libjson-xs-perl libmodule-load-conditional-perl
+          libtimedate-perl
+
       - name: Install dependencies
         shell: bash
         run: >
