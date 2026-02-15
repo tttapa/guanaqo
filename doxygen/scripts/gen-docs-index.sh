@@ -9,7 +9,7 @@ repodir="$PWD"/../..
 set -x
 cd "$repodir"
 
-mainbranch="develop"
+mainbranch="main"
 
 set +x
 
@@ -42,6 +42,7 @@ function write_readme_item {
     local result=""
     result+="$(write_readme_item_item "$type" "$name" Doxygen)"
     result+="$(write_readme_item_item "$type" "$name" Sphinx)"
+    result+="$(write_readme_item_item "$type" "$name" Coverage)"
     # Write result to file
     if [ -n "$result" ]; then
         echo "- **$name**  " >> "$README"

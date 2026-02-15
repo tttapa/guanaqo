@@ -57,14 +57,22 @@ jobs:
           cache-key: docs
 
       - name: Install Doxygen
-        run: >
-          wget -qO- https://github.com/doxygen/doxygen/releases/download/Release_1_16_1/doxygen-1.16.1.linux.bin.tar.gz
-          | sudo tar xz -C /usr/local/bin doxygen-1.16.1/bin/doxygen --strip-components=2
+        run: |
+          set -euo pipefail
+          DOXY_URL="https://github.com/doxygen/doxygen/releases/download/Release_1_16_1/doxygen-1.16.1.linux.bin.tar.gz"
+          DOXY_SHA="a56f885d37e3aae08a99f638d17bbb381224c03a878d9e2dda4f9fa4baf1d8bd"
+          curl -sL "$DOXY_URL" -o /tmp/doxygen-1.16.1.linux.bin.tar.gz
+          echo "$DOXY_SHA  /tmp/doxygen-1.16.1.linux.bin.tar.gz" | sha256sum -c -
+          sudo tar xzf /tmp/doxygen-1.16.1.linux.bin.tar.gz -C /usr/local/bin doxygen-1.16.1/bin/doxygen --strip-components=2
 
       - name: Install LCOV
-        run: >
-          wget -qO- https://github.com/linux-test-project/lcov/releases/download/v2.4/lcov-2.4.tar.gz
-          | sudo tar xz -C /usr/local --strip-components=1
+        run: |
+          set -euo pipefail
+          LCOV_URL="https://github.com/linux-test-project/lcov/releases/download/v2.4/lcov-2.4.tar.gz"
+          LCOV_SHA="3457825c6b2fe4ef77c782b82a23875c84a3c955243823f05d8f2dec0d455820"
+          curl -sL "$LCOV_URL" -o /tmp/lcov-2.4.tar.gz
+          echo "$LCOV_SHA  /tmp/lcov-2.4.tar.gz" | sha256sum -c -
+          sudo tar xzf /tmp/lcov-2.4.tar.gz -C /usr/local --strip-components=1
 
       - name: Install Graphviz and Perl dependencies
         run: >
@@ -88,5 +96,57 @@ jobs:
 
       - name: Generate documentation and coverage report
         shell: bash
+        run: doxygen/scripts/gen-docs.sh "${{ github.workspace }}/staging" conan-debug
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v6
+        with:
+          name: documentation
+          path: staging
+
+  deploy-docs:
+    name: Deploy Documentation
+    runs-on: ubuntu-24.04
+    needs: docs
+    permissions:
+      contents: write
+    concurrency:
+      group: docs-${{ github.repository }}-gh-pages
+      cancel-in-progress: false  # queue, don’t cancel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Create a copy of the repo in /tmp/staging.
+      # Create the `gh-pages` branch if it doesn't exist already, check it out.
+      - name: Create staging area
         run: |
-          doxygen/scripts/gen-docs.sh "${{ github.workspace }}/staging" conan-debug
+          rm -rf /tmp/staging
+          cp -ar $GITHUB_WORKSPACE/ /tmp/staging
+          git config --global --add safe.directory /tmp/staging
+          cd /tmp/staging
+          git fetch origin gh-pages:gh-pages ||:
+          git checkout gh-pages || \
+          { git checkout --orphan gh-pages && git rm -rf . && git clean -fxd ; }
+          echo -e 'bib*.aux\ncitelist.doc*\n.conan2\nbuild\ntttapa-conan-recipes' > .gitignore
+
+      - name: Download documentation
+        uses: actions/download-artifact@v7
+        with:
+          name: documentation
+          path: /tmp/staging
+
+      - name: Generate index
+        run: doxygen/scripts/gen-docs-index.sh "/tmp/staging"
+
+      # Commit the new documentation, squash the commits, and push it to GitHub
+      - name: Commit and push documention
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          commithash=$(git rev-parse HEAD)
+          cd /tmp/staging
+          git add .
+          git commit -m "Documentation for ${commithash}" && \
+          git reset $(git commit-tree HEAD^{tree} -m "Documentation for ${commithash}") && \
+          git push -f origin gh-pages ||:
