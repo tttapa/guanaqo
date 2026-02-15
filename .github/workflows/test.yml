@@ -84,9 +84,9 @@ jobs:
           -o \&:with_blas=True
           -o openblas/\*:dynamic_arch=True
           -s:h compiler.cppstd=23 -s:b compiler.cppstd=20
-          -s:h build_type=RelWithDebInfo -s:b build_type=Release
+          -s:h build_type=Debug -s:b build_type=Release
 
       - name: Generate documentation and coverage report
         shell: bash
         run: |
-          doxygen/scripts/gen-docs.sh "${{ github.workspace }}/staging" conan-relwithdebinfo
+          doxygen/scripts/gen-docs.sh "${{ github.workspace }}/staging" conan-debug
