@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - d64458590aaefaee80a06891532d460019fc0040 - src/src/pcm/counters.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src/src/pcm">src/src/pcm</a> - counters.cpp</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">d64458590aaefaee80a06891532d460019fc0040</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-02-16 16:27:10</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:&nbsp&nbsp&nbsp&nbsp
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : #include &lt;guanaqo/pcm/counters.hpp&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &lt;atomic&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span>              : #if GUANAQO_WITH_PCM</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &lt;bit&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &lt;cmath&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #include &lt;format&gt;</span>
+<span id="L9"><span class="lineNum">       9</span>              : #include &lt;memory&gt;</span>
+<span id="L10"><span class="lineNum">      10</span>              : #include &lt;mutex&gt;</span>
+<span id="L11"><span class="lineNum">      11</span>              : #include &lt;vector&gt;</span>
+<span id="L12"><span class="lineNum">      12</span>              : </span>
+<span id="L13"><span class="lineNum">      13</span>              : #include &lt;msr.h&gt;</span>
+<span id="L14"><span class="lineNum">      14</span>              : #include &lt;sched.h&gt;</span>
+<span id="L15"><span class="lineNum">      15</span>              : #include &lt;types.h&gt;</span>
+<span id="L16"><span class="lineNum">      16</span>              : #include &lt;unistd.h&gt;</span>
+<span id="L17"><span class="lineNum">      17</span>              : </span>
+<span id="L18"><span class="lineNum">      18</span>              : namespace guanaqo::pcm {</span>
+<span id="L19"><span class="lineNum">      19</span>              : </span>
+<span id="L20"><span class="lineNum">      20</span>              : using namespace ::pcm;</span>
+<span id="L21"><span class="lineNum">      21</span>              : </span>
+<span id="L22"><span class="lineNum">      22</span>              : GUANAQO_EXPORT ThreadPerfCounters &amp;get_thread_perf_counters() {</span>
+<span id="L23"><span class="lineNum">      23</span>              :     static thread_local ThreadPerfCounters counters;</span>
+<span id="L24"><span class="lineNum">      24</span>              :     return counters;</span>
+<span id="L25"><span class="lineNum">      25</span>              : }</span>
+<span id="L26"><span class="lineNum">      26</span>              : </span>
+<span id="L27"><span class="lineNum">      27</span>              : namespace {</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : /// Get the current CPU ID.</span>
+<span id="L30"><span class="lineNum">      30</span>              : int get_cpu(int cpu = -1) {</span>
+<span id="L31"><span class="lineNum">      31</span>              :     if (cpu &lt; 0)</span>
+<span id="L32"><span class="lineNum">      32</span>              :         cpu = sched_getcpu();</span>
+<span id="L33"><span class="lineNum">      33</span>              :     return cpu;</span>
+<span id="L34"><span class="lineNum">      34</span>              : }</span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span>              : /// Implementation follows cpucounters.cpp:4288-4303 (setEvent lambda)</span>
+<span id="L37"><span class="lineNum">      37</span>              : /// Creates an IA32_PERFEVTSELx register value from event number and umask</span>
+<span id="L38"><span class="lineNum">      38</span>              : constexpr uint64 makeEventSelect(uint8_t event, uint8_t umask) {</span>
+<span id="L39"><span class="lineNum">      39</span>              :     const decltype(EventSelectRegister::fields) fields{</span>
+<span id="L40"><span class="lineNum">      40</span>              :         .event_select = event, // Bits 7:0 - Event select</span>
+<span id="L41"><span class="lineNum">      41</span>              :         .umask        = umask, // Bits 15:8 - Unit mask</span>
+<span id="L42"><span class="lineNum">      42</span>              :         .usr          = 1,     // Bit 16 - Count in user mode (CPL &gt; 0)</span>
+<span id="L43"><span class="lineNum">      43</span>              :         .os           = 1,     // Bit 17 - Count in kernel mode (CPL = 0)</span>
+<span id="L44"><span class="lineNum">      44</span>              :         .edge         = 0,     // Bit 18 - Edge detect (0=count cycles)</span>
+<span id="L45"><span class="lineNum">      45</span>              :         .pin_control  = 0,     // Bit 19 - Pin control</span>
+<span id="L46"><span class="lineNum">      46</span>              :         .apic_int     = 0,     // Bit 20 - APIC interrupt enable</span>
+<span id="L47"><span class="lineNum">      47</span>              :         .any_thread   = 0,     // Bit 21 - Any thread (0=this thread only)</span>
+<span id="L48"><span class="lineNum">      48</span>              :         .enable       = 1,     // Bit 22 - Enable counter</span>
+<span id="L49"><span class="lineNum">      49</span>              :         .invert       = 0,     // Bit 23 - Invert counter mask</span>
+<span id="L50"><span class="lineNum">      50</span>              :         .cmask        = 0,     // Bits 31:24 - Counter mask</span>
+<span id="L51"><span class="lineNum">      51</span>              :         .in_tx        = 0,     // Bit 32 - In TSX transaction</span>
+<span id="L52"><span class="lineNum">      52</span>              :         .in_txcp      = 0,     // Bit 33 - In TSX abort handler</span>
+<span id="L53"><span class="lineNum">      53</span>              :         .reservedX    = 0,     // Bits 63:34 - Reserved must be zero</span>
+<span id="L54"><span class="lineNum">      54</span>              :     };</span>
+<span id="L55"><span class="lineNum">      55</span>              :     return std::bit_cast&lt;uint64&gt;(fields);</span>
+<span id="L56"><span class="lineNum">      56</span>              : }</span>
+<span id="L57"><span class="lineNum">      57</span>              : </span>
+<span id="L58"><span class="lineNum">      58</span>              : /// Helper to extract a range of bits from a 64-bit value.</span>
+<span id="L59"><span class="lineNum">      59</span>              : constexpr uint64 extract_bits(uint64 value, int start, int end) {</span>
+<span id="L60"><span class="lineNum">      60</span>              :     uint64 mask = (uint64{1} &lt;&lt; (end - start + 1)) - 1;</span>
+<span id="L61"><span class="lineNum">      61</span>              :     return (value &gt;&gt; start) &amp; mask;</span>
+<span id="L62"><span class="lineNum">      62</span>              : }</span>
+<span id="L63"><span class="lineNum">      63</span>              : </span>
+<span id="L64"><span class="lineNum">      64</span>              : class LightweightPerfCounters {</span>
+<span id="L65"><span class="lineNum">      65</span>              :   private:</span>
+<span id="L66"><span class="lineNum">      66</span>              :     std::unique_ptr&lt;MsrHandle&gt; msr;</span>
+<span id="L67"><span class="lineNum">      67</span>              : </span>
+<span id="L68"><span class="lineNum">      68</span>              :     /// Event select configuration for different counters</span>
+<span id="L69"><span class="lineNum">      69</span>              :     struct CounterConfig {</span>
+<span id="L70"><span class="lineNum">      70</span>              :         uint64 evtsel_addr;</span>
+<span id="L71"><span class="lineNum">      71</span>              :         uint64 pmc_addr;</span>
+<span id="L72"><span class="lineNum">      72</span>              :         uint64 config;</span>
+<span id="L73"><span class="lineNum">      73</span>              :     };</span>
+<span id="L74"><span class="lineNum">      74</span>              : </span>
+<span id="L75"><span class="lineNum">      75</span>              :     /// Configure 4 programmable counters with Skylake+ events</span>
+<span id="L76"><span class="lineNum">      76</span>              :     /// Event configuration follows cpucounters.cpp:3735-3738 and 4318-4319</span>
+<span id="L77"><span class="lineNum">      77</span>              :     /// Uses `SKL_MEM_LOAD_RETIRED_*` constants from types.h:127-134</span>
+<span id="L78"><span class="lineNum">      78</span>              :     static constexpr std::array&lt;CounterConfig, 4&gt; counters{{</span>
+<span id="L79"><span class="lineNum">      79</span>              :         // Counter 0: L2 cache misses</span>
+<span id="L80"><span class="lineNum">      80</span>              :         // Event: MEM_LOAD_RETIRED.L2_MISS (0xD1:0x10)</span>
+<span id="L81"><span class="lineNum">      81</span>              :         {.evtsel_addr = IA32_PERFEVTSEL0_ADDR,</span>
+<span id="L82"><span class="lineNum">      82</span>              :          .pmc_addr    = IA32_PMC0,</span>
+<span id="L83"><span class="lineNum">      83</span>              :          .config      = makeEventSelect(SKL_MEM_LOAD_RETIRED_L2_MISS_EVTNR,</span>
+<span id="L84"><span class="lineNum">      84</span>              :                                         SKL_MEM_LOAD_RETIRED_L2_MISS_UMASK)},</span>
+<span id="L85"><span class="lineNum">      85</span>              :         // Counter 1: L2 cache hits</span>
+<span id="L86"><span class="lineNum">      86</span>              :         // Event: MEM_LOAD_RETIRED.L2_HIT (0xD1:0x02)</span>
+<span id="L87"><span class="lineNum">      87</span>              :         {.evtsel_addr = IA32_PERFEVTSEL1_ADDR,</span>
+<span id="L88"><span class="lineNum">      88</span>              :          .pmc_addr    = IA32_PMC1,</span>
+<span id="L89"><span class="lineNum">      89</span>              :          .config      = makeEventSelect(SKL_MEM_LOAD_RETIRED_L2_HIT_EVTNR,</span>
+<span id="L90"><span class="lineNum">      90</span>              :                                         SKL_MEM_LOAD_RETIRED_L2_HIT_UMASK)},</span>
+<span id="L91"><span class="lineNum">      91</span>              :         // Counter 2: L3 cache misses</span>
+<span id="L92"><span class="lineNum">      92</span>              :         // Event: MEM_LOAD_RETIRED.L3_MISS (0xD1:0x20)</span>
+<span id="L93"><span class="lineNum">      93</span>              :         {.evtsel_addr = IA32_PERFEVTSEL2_ADDR,</span>
+<span id="L94"><span class="lineNum">      94</span>              :          .pmc_addr    = IA32_PMC2,</span>
+<span id="L95"><span class="lineNum">      95</span>              :          .config      = makeEventSelect(SKL_MEM_LOAD_RETIRED_L3_MISS_EVTNR,</span>
+<span id="L96"><span class="lineNum">      96</span>              :                                         SKL_MEM_LOAD_RETIRED_L3_MISS_UMASK)},</span>
+<span id="L97"><span class="lineNum">      97</span>              :         // Counter 3: Branch mispredictions</span>
+<span id="L98"><span class="lineNum">      98</span>              :         // Event: BR_MISP_RETIRED.ALL_BRANCHES (0xC5:0x00)</span>
+<span id="L99"><span class="lineNum">      99</span>              :         {.evtsel_addr = IA32_PERFEVTSEL3_ADDR,</span>
+<span id="L100"><span class="lineNum">     100</span>              :          .pmc_addr    = IA32_PMC3,</span>
+<span id="L101"><span class="lineNum">     101</span>              :          .config      = makeEventSelect(0xC5, 0x00)},</span>
+<span id="L102"><span class="lineNum">     102</span>              :     }};</span>
+<span id="L103"><span class="lineNum">     103</span>              : </span>
+<span id="L104"><span class="lineNum">     104</span>              :   public:</span>
+<span id="L105"><span class="lineNum">     105</span>              :     LightweightPerfCounters(uint32_t cpu)</span>
+<span id="L106"><span class="lineNum">     106</span>              :         : msr(std::make_unique&lt;MsrHandle&gt;(cpu)) {}</span>
+<span id="L107"><span class="lineNum">     107</span>              :     LightweightPerfCounters(const LightweightPerfCounters &amp;) = delete;</span>
+<span id="L108"><span class="lineNum">     108</span>              :     LightweightPerfCounters &amp;</span>
+<span id="L109"><span class="lineNum">     109</span>              :     operator=(const LightweightPerfCounters &amp;)                   = delete;</span>
+<span id="L110"><span class="lineNum">     110</span>              :     LightweightPerfCounters(LightweightPerfCounters &amp;&amp;) noexcept = default;</span>
+<span id="L111"><span class="lineNum">     111</span>              :     LightweightPerfCounters &amp;</span>
+<span id="L112"><span class="lineNum">     112</span>              :     operator=(LightweightPerfCounters &amp;&amp;) noexcept = default;</span>
+<span id="L113"><span class="lineNum">     113</span>              :     ~LightweightPerfCounters() { stop(); }</span>
+<span id="L114"><span class="lineNum">     114</span>              : </span>
+<span id="L115"><span class="lineNum">     115</span>              :     // Start counting</span>
+<span id="L116"><span class="lineNum">     116</span>              :     // Implementation follows cpucounters.cpp:4252-4422</span>
+<span id="L117"><span class="lineNum">     117</span>              :     void start() {</span>
+<span id="L118"><span class="lineNum">     118</span>              :         // Step 1: Disable counters during programming (cpucounters.cpp:4252)</span>
+<span id="L119"><span class="lineNum">     119</span>              :         // This prevents spurious counts while we're configuring</span>
+<span id="L120"><span class="lineNum">     120</span>              :         msr-&gt;write(pcm::IA32_CR_PERF_GLOBAL_CTRL, 0);</span>
+<span id="L121"><span class="lineNum">     121</span>              : </span>
+<span id="L122"><span class="lineNum">     122</span>              :         // Step 2: Configure fixed counter control register (cpucounters.cpp:4138-4162)</span>
+<span id="L123"><span class="lineNum">     123</span>              :         // IA32_CR_FIXED_CTR_CTRL (MSR 0x38D) controls 3 fixed counters:</span>
+<span id="L124"><span class="lineNum">     124</span>              :         //   Counter 0: Instructions Retired (INST_RETIRED.ANY)</span>
+<span id="L125"><span class="lineNum">     125</span>              :         //   Counter 1: Core Clocks Unhalted (CPU_CLK_UNHALTED.THREAD)</span>
+<span id="L126"><span class="lineNum">     126</span>              :         //   Counter 2: Reference Clocks Unhalted (CPU_CLK_UNHALTED.REF_TSC)</span>
+<span id="L127"><span class="lineNum">     127</span>              :         // Each counter uses 4 bits: [1:0]=enable user+kernel, [2]=any_thread, [3]=pmi</span>
+<span id="L128"><span class="lineNum">     128</span>              :         // We set os=1 (kernel) and usr=1 (user) for each counter</span>
+<span id="L129"><span class="lineNum">     129</span>              :         FixedEventControlRegister fixed_ctrl_reg;</span>
+<span id="L130"><span class="lineNum">     130</span>              :         fixed_ctrl_reg.value       = 0;</span>
+<span id="L131"><span class="lineNum">     131</span>              :         fixed_ctrl_reg.fields.os0  = 1; // Counter 0: count in kernel mode</span>
+<span id="L132"><span class="lineNum">     132</span>              :         fixed_ctrl_reg.fields.usr0 = 1; // Counter 0: count in user mode</span>
+<span id="L133"><span class="lineNum">     133</span>              :         fixed_ctrl_reg.fields.os1  = 1; // Counter 1: count in kernel mode</span>
+<span id="L134"><span class="lineNum">     134</span>              :         fixed_ctrl_reg.fields.usr1 = 1; // Counter 1: count in user mode</span>
+<span id="L135"><span class="lineNum">     135</span>              :         fixed_ctrl_reg.fields.os2  = 1; // Counter 2: count in kernel mode</span>
+<span id="L136"><span class="lineNum">     136</span>              :         fixed_ctrl_reg.fields.usr2 = 1; // Counter 2: count in user mode</span>
+<span id="L137"><span class="lineNum">     137</span>              : </span>
+<span id="L138"><span class="lineNum">     138</span>              :         // Check if TOPDOWN.SLOTS is supported (Ice Lake+) and enable fixed counter 3</span>
+<span id="L139"><span class="lineNum">     139</span>              :         // NOTE: On hybrid CPUs (12th gen+), this only works on P-cores, not E-cores</span>
+<span id="L140"><span class="lineNum">     140</span>              :         // Use taskset to pin to a P-core: taskset -c 0 ./lightweight_perf_example</span>
+<span id="L141"><span class="lineNum">     141</span>              :         uint64 test_slots = 0;</span>
+<span id="L142"><span class="lineNum">     142</span>              :         if (msr-&gt;read(TOPDOWN_SLOTS_ADDR, &amp;test_slots) == sizeof(uint64)) {</span>
+<span id="L143"><span class="lineNum">     143</span>              :             // Counter 3: count in kernel mode (TOPDOWN.SLOTS)</span>
+<span id="L144"><span class="lineNum">     144</span>              :             fixed_ctrl_reg.fields.os3  = 1;</span>
+<span id="L145"><span class="lineNum">     145</span>              :             fixed_ctrl_reg.fields.usr3 = 1; // Counter 3: count in user mode</span>
+<span id="L146"><span class="lineNum">     146</span>              :         }</span>
+<span id="L147"><span class="lineNum">     147</span>              : </span>
+<span id="L148"><span class="lineNum">     148</span>              :         // Step 3: Reset all fixed counters BEFORE writing control register (cpucounters.cpp:4257-4260)</span>
+<span id="L149"><span class="lineNum">     149</span>              :         msr-&gt;write(INST_RETIRED_ADDR, 0);            // MSR 0x309</span>
+<span id="L150"><span class="lineNum">     150</span>              :         msr-&gt;write(CPU_CLK_UNHALTED_THREAD_ADDR, 0); // MSR 0x30A</span>
+<span id="L151"><span class="lineNum">     151</span>              :         msr-&gt;write(CPU_CLK_UNHALTED_REF_ADDR, 0);    // MSR 0x30B</span>
+<span id="L152"><span class="lineNum">     152</span>              :         msr-&gt;write(IA32_CR_FIXED_CTR_CTRL, fixed_ctrl_reg.value);</span>
+<span id="L153"><span class="lineNum">     153</span>              : </span>
+<span id="L154"><span class="lineNum">     154</span>              :         // Step 4: Reset programmable counters BEFORE writing event selectors (cpucounters.cpp:4381)</span>
+<span id="L155"><span class="lineNum">     155</span>              :         for (const auto &amp;counter : counters)</span>
+<span id="L156"><span class="lineNum">     156</span>              :             msr-&gt;write(counter.pmc_addr, 0);</span>
+<span id="L157"><span class="lineNum">     157</span>              : </span>
+<span id="L158"><span class="lineNum">     158</span>              :         // Step 5: Program programmable counter event selectors (cpucounters.cpp:4382)</span>
+<span id="L159"><span class="lineNum">     159</span>              :         for (const auto &amp;counter : counters)</span>
+<span id="L160"><span class="lineNum">     160</span>              :             msr-&gt;write(counter.evtsel_addr, counter.config);</span>
+<span id="L161"><span class="lineNum">     161</span>              : </span>
+<span id="L162"><span class="lineNum">     162</span>              :         // Step 6: Reset Top-Down metrics MSRs (cpucounters.cpp:4393-4400)</span>
+<span id="L163"><span class="lineNum">     163</span>              :         // TOPDOWN_SLOTS (MSR 0x30C): Counts total pipeline slots</span>
+<span id="L164"><span class="lineNum">     164</span>              :         // PERF_METRICS (MSR 0x329): Accumulated TMA metrics (Ice Lake+)</span>
+<span id="L165"><span class="lineNum">     165</span>              :         msr-&gt;write(TOPDOWN_SLOTS_ADDR, 0); // MSR 0x30C (types.h:53)</span>
+<span id="L166"><span class="lineNum">     166</span>              :         msr-&gt;write(PERF_METRICS_ADDR, 0);  // MSR 0x329 (types.h:54)</span>
+<span id="L167"><span class="lineNum">     167</span>              : </span>
+<span id="L168"><span class="lineNum">     168</span>              :         // Step 7: Enable all counters globally (cpucounters.cpp:4386-4422)</span>
+<span id="L169"><span class="lineNum">     169</span>              :         // IA32_CR_PERF_GLOBAL_CTRL (MSR 0x38F):</span>
+<span id="L170"><span class="lineNum">     170</span>              :         //   Bits 0-3: Enable PMC0-3</span>
+<span id="L171"><span class="lineNum">     171</span>              :         //   Bits 32-34: Enable fixed counters 0-2</span>
+<span id="L172"><span class="lineNum">     172</span>              :         // Start with basic counters only (cpucounters.cpp:4388)</span>
+<span id="L173"><span class="lineNum">     173</span>              :         uint64 global_ctrl = (uint64{0xF} &lt;&lt; 0) | // PMC0-3</span>
+<span id="L174"><span class="lineNum">     174</span>              :                              (uint64{0x7} &lt;&lt; 32); // Fixed 0-2</span>
+<span id="L175"><span class="lineNum">     175</span>              : </span>
+<span id="L176"><span class="lineNum">     176</span>              :         // Try to enable TOPDOWN.SLOTS (Ice Lake+) - if CPU doesn't support it, reading will fail</span>
+<span id="L177"><span class="lineNum">     177</span>              :         // On hybrid CPUs, this check will fail on E-cores but succeed on P-cores</span>
+<span id="L178"><span class="lineNum">     178</span>              :         uint64 test_val = 0;</span>
+<span id="L179"><span class="lineNum">     179</span>              :         if (msr-&gt;read(TOPDOWN_SLOTS_ADDR, &amp;test_val) == sizeof(uint64))</span>
+<span id="L180"><span class="lineNum">     180</span>              :             // Enable fixed counter 3 (TOPDOWN.SLOTS)</span>
+<span id="L181"><span class="lineNum">     181</span>              :             global_ctrl |= uint64{1} &lt;&lt; 35;</span>
+<span id="L182"><span class="lineNum">     182</span>              : </span>
+<span id="L183"><span class="lineNum">     183</span>              :         // Try to enable PERF_METRICS (Ice Lake+)</span>
+<span id="L184"><span class="lineNum">     184</span>              :         if (msr-&gt;read(PERF_METRICS_ADDR, &amp;test_val) == sizeof(uint64))</span>
+<span id="L185"><span class="lineNum">     185</span>              :             // Enable PERF_METRICS</span>
+<span id="L186"><span class="lineNum">     186</span>              :             global_ctrl |= uint64{1} &lt;&lt; 48;</span>
+<span id="L187"><span class="lineNum">     187</span>              : </span>
+<span id="L188"><span class="lineNum">     188</span>              :         // Clear any overflow status bits (cpucounters.cpp:4420)</span>
+<span id="L189"><span class="lineNum">     189</span>              :         msr-&gt;write(IA32_PERF_GLOBAL_OVF_CTRL, global_ctrl);</span>
+<span id="L190"><span class="lineNum">     190</span>              :         // Enable all configured counters (cpucounters.cpp:4421)</span>
+<span id="L191"><span class="lineNum">     191</span>              :         msr-&gt;write(IA32_CR_PERF_GLOBAL_CTRL, global_ctrl);</span>
+<span id="L192"><span class="lineNum">     192</span>              :     }</span>
+<span id="L193"><span class="lineNum">     193</span>              : </span>
+<span id="L194"><span class="lineNum">     194</span>              :     // Stop counting</span>
+<span id="L195"><span class="lineNum">     195</span>              :     void stop() {</span>
+<span id="L196"><span class="lineNum">     196</span>              :         // (cpucounters.cpp:5264-5297)</span>
+<span id="L197"><span class="lineNum">     197</span>              :         msr-&gt;write(IA32_CR_PERF_GLOBAL_CTRL, 0);</span>
+<span id="L198"><span class="lineNum">     198</span>              :         // Disable event selectors</span>
+<span id="L199"><span class="lineNum">     199</span>              :         for (const auto &amp;counter : counters)</span>
+<span id="L200"><span class="lineNum">     200</span>              :             msr-&gt;write(counter.evtsel_addr, 0);</span>
+<span id="L201"><span class="lineNum">     201</span>              :         msr-&gt;write(IA32_CR_FIXED_CTR_CTRL, 0);</span>
+<span id="L202"><span class="lineNum">     202</span>              :     }</span>
+<span id="L203"><span class="lineNum">     203</span>              : </span>
+<span id="L204"><span class="lineNum">     204</span>              :     struct Snapshot {</span>
+<span id="L205"><span class="lineNum">     205</span>              :         uint64 abs_instructions;  // Fixed counter 0</span>
+<span id="L206"><span class="lineNum">     206</span>              :         uint64 abs_cycles;        // Fixed counter 1</span>
+<span id="L207"><span class="lineNum">     207</span>              :         uint64 abs_ref_cycles;    // Fixed counter 2</span>
+<span id="L208"><span class="lineNum">     208</span>              :         uint64 abs_l2_misses;     // PMC0</span>
+<span id="L209"><span class="lineNum">     209</span>              :         uint64 abs_l2_hits;       // PMC1</span>
+<span id="L210"><span class="lineNum">     210</span>              :         uint64 abs_l3_misses;     // PMC2</span>
+<span id="L211"><span class="lineNum">     211</span>              :         uint64 abs_branch_misses; // PMC3</span>
+<span id="L212"><span class="lineNum">     212</span>              : </span>
+<span id="L213"><span class="lineNum">     213</span>              :         // Top-Down Microarchitecture Analysis (Ice Lake+)</span>
+<span id="L214"><span class="lineNum">     214</span>              :         uint64 delta_slots;</span>
+<span id="L215"><span class="lineNum">     215</span>              :         uint64 delta_frontend_bound_slots;</span>
+<span id="L216"><span class="lineNum">     216</span>              :         uint64 delta_backend_bound_slots;</span>
+<span id="L217"><span class="lineNum">     217</span>              :         uint64 delta_bad_speculation_slots;</span>
+<span id="L218"><span class="lineNum">     218</span>              :         uint64 delta_retiring_slots;</span>
+<span id="L219"><span class="lineNum">     219</span>              :         uint64 delta_mem_bound_slots; // Level 2 metric</span>
+<span id="L220"><span class="lineNum">     220</span>              :         uint64 delta_fetch_lat_slots; // Level 2 metric</span>
+<span id="L221"><span class="lineNum">     221</span>              :     };</span>
+<span id="L222"><span class="lineNum">     222</span>              : </span>
+<span id="L223"><span class="lineNum">     223</span>              :     static void accumulate(ThreadPerfCounters &amp;ctr, const Snapshot &amp;before,</span>
+<span id="L224"><span class="lineNum">     224</span>              :                            const Snapshot &amp;after) {</span>
+<span id="L225"><span class="lineNum">     225</span>              :         ctr.instructions += after.abs_instructions - before.abs_instructions;</span>
+<span id="L226"><span class="lineNum">     226</span>              :         ctr.cycles += after.abs_cycles - before.abs_cycles;</span>
+<span id="L227"><span class="lineNum">     227</span>              :         ctr.ref_cycles += after.abs_ref_cycles - before.abs_ref_cycles;</span>
+<span id="L228"><span class="lineNum">     228</span>              :         ctr.l2_misses += after.abs_l2_misses - before.abs_l2_misses;</span>
+<span id="L229"><span class="lineNum">     229</span>              :         ctr.l2_hits += after.abs_l2_hits - before.abs_l2_hits;</span>
+<span id="L230"><span class="lineNum">     230</span>              :         ctr.l3_misses += after.abs_l3_misses - before.abs_l3_misses;</span>
+<span id="L231"><span class="lineNum">     231</span>              :         ctr.branch_misses += after.abs_branch_misses - before.abs_branch_misses;</span>
+<span id="L232"><span class="lineNum">     232</span>              : </span>
+<span id="L233"><span class="lineNum">     233</span>              :         ctr.all_slots += after.delta_slots;</span>
+<span id="L234"><span class="lineNum">     234</span>              :         ctr.frontend_bound_slots += after.delta_frontend_bound_slots;</span>
+<span id="L235"><span class="lineNum">     235</span>              :         ctr.backend_bound_slots += after.delta_backend_bound_slots;</span>
+<span id="L236"><span class="lineNum">     236</span>              :         ctr.bad_speculation_slots += after.delta_bad_speculation_slots;</span>
+<span id="L237"><span class="lineNum">     237</span>              :         ctr.retiring_slots += after.delta_retiring_slots;</span>
+<span id="L238"><span class="lineNum">     238</span>              :         ctr.mem_bound_slots += after.delta_mem_bound_slots;</span>
+<span id="L239"><span class="lineNum">     239</span>              :         ctr.fetch_lat_slots += after.delta_fetch_lat_slots;</span>
+<span id="L240"><span class="lineNum">     240</span>              :     }</span>
+<span id="L241"><span class="lineNum">     241</span>              : </span>
+<span id="L242"><span class="lineNum">     242</span>              :     Snapshot read() {</span>
+<span id="L243"><span class="lineNum">     243</span>              :         // Check for CPU migration</span>
+<span id="L244"><span class="lineNum">     244</span>              :         auto current_cpu = static_cast&lt;int32_t&gt;(sched_getcpu());</span>
+<span id="L245"><span class="lineNum">     245</span>              :         if (current_cpu != msr-&gt;getCoreId())</span>
+<span id="L246"><span class="lineNum">     246</span>              :             throw std::runtime_error(std::format(</span>
+<span id="L247"><span class="lineNum">     247</span>              :                 &quot;CPU migration detected: was on CPU {} , now on CPU {}&quot;,</span>
+<span id="L248"><span class="lineNum">     248</span>              :                 msr-&gt;getCoreId(), current_cpu));</span>
+<span id="L249"><span class="lineNum">     249</span>              : </span>
+<span id="L250"><span class="lineNum">     250</span>              :         Snapshot s{};</span>
+<span id="L251"><span class="lineNum">     251</span>              :         msr-&gt;read(INST_RETIRED_ADDR, &amp;s.abs_instructions);</span>
+<span id="L252"><span class="lineNum">     252</span>              :         msr-&gt;read(CPU_CLK_UNHALTED_THREAD_ADDR, &amp;s.abs_cycles);</span>
+<span id="L253"><span class="lineNum">     253</span>              :         msr-&gt;read(CPU_CLK_UNHALTED_REF_ADDR, &amp;s.abs_ref_cycles);</span>
+<span id="L254"><span class="lineNum">     254</span>              :         msr-&gt;read(counters[0].pmc_addr, &amp;s.abs_l2_misses);</span>
+<span id="L255"><span class="lineNum">     255</span>              :         msr-&gt;read(counters[1].pmc_addr, &amp;s.abs_l2_hits);</span>
+<span id="L256"><span class="lineNum">     256</span>              :         msr-&gt;read(counters[2].pmc_addr, &amp;s.abs_l3_misses);</span>
+<span id="L257"><span class="lineNum">     257</span>              :         msr-&gt;read(counters[3].pmc_addr, &amp;s.abs_branch_misses);</span>
+<span id="L258"><span class="lineNum">     258</span>              : </span>
+<span id="L259"><span class="lineNum">     259</span>              :         // Read Top-Down metrics (Ice Lake+)</span>
+<span id="L260"><span class="lineNum">     260</span>              :         // (cpucounters.cpp:5702-5741)</span>
+<span id="L261"><span class="lineNum">     261</span>              :         // IMPORTANT: These MSRs accumulate since the last reset - they are STATEFUL</span>
+<span id="L262"><span class="lineNum">     262</span>              :         // PERF_METRICS: Contains accumulated ratios (8-bit per metric)</span>
+<span id="L263"><span class="lineNum">     263</span>              :         // TOPDOWN_SLOTS: Contains accumulated slot count</span>
+<span id="L264"><span class="lineNum">     264</span>              :         // Both must be reset after reading to get deltas on the next read</span>
+<span id="L265"><span class="lineNum">     265</span>              :         uint64 perf_metrics  = 0;</span>
+<span id="L266"><span class="lineNum">     266</span>              :         uint64 topdown_slots = 0;</span>
+<span id="L267"><span class="lineNum">     267</span>              : </span>
+<span id="L268"><span class="lineNum">     268</span>              :         if (msr-&gt;read(PERF_METRICS_ADDR, &amp;perf_metrics) == sizeof(uint64) &amp;&amp;</span>
+<span id="L269"><span class="lineNum">     269</span>              :             msr-&gt;read(TOPDOWN_SLOTS_ADDR, &amp;topdown_slots) == sizeof(uint64)) {</span>
+<span id="L270"><span class="lineNum">     270</span>              : </span>
+<span id="L271"><span class="lineNum">     271</span>              :             // Reset counters for next measurement period (read+reset as delta)</span>
+<span id="L272"><span class="lineNum">     272</span>              :             msr-&gt;write(PERF_METRICS_ADDR, 0);</span>
+<span id="L273"><span class="lineNum">     273</span>              :             msr-&gt;write(TOPDOWN_SLOTS_ADDR, 0);</span>
+<span id="L274"><span class="lineNum">     274</span>              : </span>
+<span id="L275"><span class="lineNum">     275</span>              :             // Extract Level 1 metric ratios (8-bit values, 0-255)</span>
+<span id="L276"><span class="lineNum">     276</span>              :             uint64 retiring_ratio = extract_bits(perf_metrics, 0, 7);</span>
+<span id="L277"><span class="lineNum">     277</span>              :             uint64 bad_spec_ratio = extract_bits(perf_metrics, 8, 15);</span>
+<span id="L278"><span class="lineNum">     278</span>              :             uint64 frontend_ratio = extract_bits(perf_metrics, 16, 23);</span>
+<span id="L279"><span class="lineNum">     279</span>              :             uint64 backend_ratio  = extract_bits(perf_metrics, 24, 31);</span>
+<span id="L280"><span class="lineNum">     280</span>              : </span>
+<span id="L281"><span class="lineNum">     281</span>              :             // Extract Level 2 metric ratios (Sapphire Rapids+)</span>
+<span id="L282"><span class="lineNum">     282</span>              :             uint64 mem_bound_ratio = extract_bits(perf_metrics, 56, 63);</span>
+<span id="L283"><span class="lineNum">     283</span>              :             uint64 fetch_lat_ratio = extract_bits(perf_metrics, 48, 55);</span>
+<span id="L284"><span class="lineNum">     284</span>              : </span>
+<span id="L285"><span class="lineNum">     285</span>              :             // Scale ratios to actual slot counts (DELTA values since last read)</span>
+<span id="L286"><span class="lineNum">     286</span>              :             // The ratio represents accumulated behavior since last reset</span>
+<span id="L287"><span class="lineNum">     287</span>              :             const auto total_ratio = retiring_ratio + bad_spec_ratio +</span>
+<span id="L288"><span class="lineNum">     288</span>              :                                      frontend_ratio + backend_ratio;</span>
+<span id="L289"><span class="lineNum">     289</span>              :             const auto inv_total_ratio =</span>
+<span id="L290"><span class="lineNum">     290</span>              :                 total_ratio &gt; 0 ? 1.0 / static_cast&lt;double&gt;(total_ratio) : 0.0;</span>
+<span id="L291"><span class="lineNum">     291</span>              :             auto delta_slots = [&amp;](uint64 ratio) {</span>
+<span id="L292"><span class="lineNum">     292</span>              :                 return static_cast&lt;uint64_t&gt;(</span>
+<span id="L293"><span class="lineNum">     293</span>              :                     std::round((static_cast&lt;double&gt;(ratio) * inv_total_ratio) *</span>
+<span id="L294"><span class="lineNum">     294</span>              :                                static_cast&lt;double&gt;(topdown_slots)));</span>
+<span id="L295"><span class="lineNum">     295</span>              :             };</span>
+<span id="L296"><span class="lineNum">     296</span>              :             s.delta_slots                 = topdown_slots;</span>
+<span id="L297"><span class="lineNum">     297</span>              :             s.delta_frontend_bound_slots  = delta_slots(frontend_ratio);</span>
+<span id="L298"><span class="lineNum">     298</span>              :             s.delta_backend_bound_slots   = delta_slots(backend_ratio);</span>
+<span id="L299"><span class="lineNum">     299</span>              :             s.delta_bad_speculation_slots = delta_slots(bad_spec_ratio);</span>
+<span id="L300"><span class="lineNum">     300</span>              :             s.delta_retiring_slots        = delta_slots(retiring_ratio);</span>
+<span id="L301"><span class="lineNum">     301</span>              :             s.delta_mem_bound_slots       = delta_slots(mem_bound_ratio);</span>
+<span id="L302"><span class="lineNum">     302</span>              :             s.delta_fetch_lat_slots       = delta_slots(fetch_lat_ratio);</span>
+<span id="L303"><span class="lineNum">     303</span>              :         }</span>
+<span id="L304"><span class="lineNum">     304</span>              : </span>
+<span id="L305"><span class="lineNum">     305</span>              :         return s;</span>
+<span id="L306"><span class="lineNum">     306</span>              :     }</span>
+<span id="L307"><span class="lineNum">     307</span>              : };</span>
+<span id="L308"><span class="lineNum">     308</span>              : </span>
+<span id="L309"><span class="lineNum">     309</span>              : struct alignas(128) CountersEntry {</span>
+<span id="L310"><span class="lineNum">     310</span>              :     // Should be uncontended since each CPU is accessed by only one thread at a time</span>
+<span id="L311"><span class="lineNum">     311</span>              :     std::mutex mtx;</span>
+<span id="L312"><span class="lineNum">     312</span>              :     std::optional&lt;LightweightPerfCounters&gt; counters;</span>
+<span id="L313"><span class="lineNum">     313</span>              : };</span>
+<span id="L314"><span class="lineNum">     314</span>              : </span>
+<span id="L315"><span class="lineNum">     315</span>              : GUANAQO_EXPORT std::vector&lt;CountersEntry&gt; &amp;get_all_perf_counters() {</span>
+<span id="L316"><span class="lineNum">     316</span>              :     static std::vector&lt;CountersEntry&gt; instances = [] {</span>
+<span id="L317"><span class="lineNum">     317</span>              :         long max_cpus = sysconf(_SC_NPROCESSORS_CONF);</span>
+<span id="L318"><span class="lineNum">     318</span>              :         return std::vector&lt;CountersEntry&gt;(static_cast&lt;size_t&gt;(max_cpus));</span>
+<span id="L319"><span class="lineNum">     319</span>              :     }();</span>
+<span id="L320"><span class="lineNum">     320</span>              :     return instances;</span>
+<span id="L321"><span class="lineNum">     321</span>              : }</span>
+<span id="L322"><span class="lineNum">     322</span>              : </span>
+<span id="L323"><span class="lineNum">     323</span>              : std::pair&lt;std::unique_lock&lt;std::mutex&gt;, LightweightPerfCounters &amp;&gt;</span>
+<span id="L324"><span class="lineNum">     324</span>              : get_perf_counters(int cpu) {</span>
+<span id="L325"><span class="lineNum">     325</span>              :     auto &amp;inst = get_all_perf_counters()[static_cast&lt;size_t&gt;(cpu)];</span>
+<span id="L326"><span class="lineNum">     326</span>              :     std::unique_lock lck{inst.mtx};</span>
+<span id="L327"><span class="lineNum">     327</span>              :     if (!inst.counters)</span>
+<span id="L328"><span class="lineNum">     328</span>              :         inst.counters.emplace(static_cast&lt;uint32_t&gt;(cpu)).start();</span>
+<span id="L329"><span class="lineNum">     329</span>              :     return {std::move(lck), *inst.counters};</span>
+<span id="L330"><span class="lineNum">     330</span>              : }</span>
+<span id="L331"><span class="lineNum">     331</span>              : </span>
+<span id="L332"><span class="lineNum">     332</span>              : void stop_all_perf_counters() {</span>
+<span id="L333"><span class="lineNum">     333</span>              :     for (auto &amp;entry : get_all_perf_counters()) {</span>
+<span id="L334"><span class="lineNum">     334</span>              :         std::lock_guard lck{entry.mtx};</span>
+<span id="L335"><span class="lineNum">     335</span>              :         entry.counters.reset();</span>
+<span id="L336"><span class="lineNum">     336</span>              :     }</span>
+<span id="L337"><span class="lineNum">     337</span>              : }</span>
+<span id="L338"><span class="lineNum">     338</span>              : </span>
+<span id="L339"><span class="lineNum">     339</span>              : } // namespace</span>
+<span id="L340"><span class="lineNum">     340</span>              : </span>
+<span id="L341"><span class="lineNum">     341</span>              : namespace detail {</span>
+<span id="L342"><span class="lineNum">     342</span>              : namespace {</span>
+<span id="L343"><span class="lineNum">     343</span>              : </span>
+<span id="L344"><span class="lineNum">     344</span>              : struct ScopedThreadAffinity {</span>
+<span id="L345"><span class="lineNum">     345</span>              :     cpu_set_t original_set;</span>
+<span id="L346"><span class="lineNum">     346</span>              :     ScopedThreadAffinity(int cpu) {</span>
+<span id="L347"><span class="lineNum">     347</span>              :         // Save original affinity</span>
+<span id="L348"><span class="lineNum">     348</span>              :         sched_getaffinity(0, sizeof(cpu_set_t), &amp;original_set);</span>
+<span id="L349"><span class="lineNum">     349</span>              :         cpu_set_t set;</span>
+<span id="L350"><span class="lineNum">     350</span>              :         CPU_ZERO(&amp;set);</span>
+<span id="L351"><span class="lineNum">     351</span>              :         CPU_SET(cpu, &amp;set); // Set affinity to target CPU</span>
+<span id="L352"><span class="lineNum">     352</span>              :         sched_setaffinity(0, sizeof(cpu_set_t), &amp;set);</span>
+<span id="L353"><span class="lineNum">     353</span>              :     }</span>
+<span id="L354"><span class="lineNum">     354</span>              :     ScopedThreadAffinity(const ScopedThreadAffinity &amp;)            = delete;</span>
+<span id="L355"><span class="lineNum">     355</span>              :     ScopedThreadAffinity &amp;operator=(const ScopedThreadAffinity &amp;) = delete;</span>
+<span id="L356"><span class="lineNum">     356</span>              :     ~ScopedThreadAffinity() {</span>
+<span id="L357"><span class="lineNum">     357</span>              :         // Restore original affinity</span>
+<span id="L358"><span class="lineNum">     358</span>              :         sched_setaffinity(0, sizeof(cpu_set_t), &amp;original_set);</span>
+<span id="L359"><span class="lineNum">     359</span>              :     }</span>
+<span id="L360"><span class="lineNum">     360</span>              : };</span>
+<span id="L361"><span class="lineNum">     361</span>              : </span>
+<span id="L362"><span class="lineNum">     362</span>              : struct PCMScopedCounters : ScopedCounters {</span>
+<span id="L363"><span class="lineNum">     363</span>              :     ScopedThreadAffinity affinity;</span>
+<span id="L364"><span class="lineNum">     364</span>              :     std::pair&lt;std::unique_lock&lt;std::mutex&gt;, LightweightPerfCounters &amp;&gt;</span>
+<span id="L365"><span class="lineNum">     365</span>              :         cpu_counters;</span>
+<span id="L366"><span class="lineNum">     366</span>              :     LightweightPerfCounters::Snapshot start;</span>
+<span id="L367"><span class="lineNum">     367</span>              : </span>
+<span id="L368"><span class="lineNum">     368</span>              :     PCMScopedCounters(int cpu)</span>
+<span id="L369"><span class="lineNum">     369</span>              :         : affinity(cpu), cpu_counters(get_perf_counters(cpu)) {</span>
+<span id="L370"><span class="lineNum">     370</span>              :         start = cpu_counters.second.read();</span>
+<span id="L371"><span class="lineNum">     371</span>              :     }</span>
+<span id="L372"><span class="lineNum">     372</span>              :     ThreadPerfCounters &amp;get() override { return get_thread_perf_counters(); }</span>
+<span id="L373"><span class="lineNum">     373</span>              :     ThreadPerfCounters &amp;stop() override {</span>
+<span id="L374"><span class="lineNum">     374</span>              :         auto after            = cpu_counters.second.read();</span>
+<span id="L375"><span class="lineNum">     375</span>              :         auto &amp;thread_counters = get_thread_perf_counters();</span>
+<span id="L376"><span class="lineNum">     376</span>              :         LightweightPerfCounters::accumulate(thread_counters, start, after);</span>
+<span id="L377"><span class="lineNum">     377</span>              :         return thread_counters;</span>
+<span id="L378"><span class="lineNum">     378</span>              :     }</span>
+<span id="L379"><span class="lineNum">     379</span>              : };</span>
+<span id="L380"><span class="lineNum">     380</span>              : </span>
+<span id="L381"><span class="lineNum">     381</span>              : } // namespace</span>
+<span id="L382"><span class="lineNum">     382</span>              : } // namespace detail</span>
+<span id="L383"><span class="lineNum">     383</span>              : </span>
+<span id="L384"><span class="lineNum">     384</span>              : GUANAQO_EXPORT std::atomic_bool &amp;get_counters_enabled_flag() {</span>
+<span id="L385"><span class="lineNum">     385</span>              :     static std::atomic_bool enabled{false};</span>
+<span id="L386"><span class="lineNum">     386</span>              :     return enabled;</span>
+<span id="L387"><span class="lineNum">     387</span>              : }</span>
+<span id="L388"><span class="lineNum">     388</span>              : </span>
+<span id="L389"><span class="lineNum">     389</span>              : void disable_counters() {</span>
+<span id="L390"><span class="lineNum">     390</span>              :     if (get_counters_enabled_flag().exchange(false, std::memory_order_relaxed))</span>
+<span id="L391"><span class="lineNum">     391</span>              :         stop_all_perf_counters();</span>
+<span id="L392"><span class="lineNum">     392</span>              : }</span>
+<span id="L393"><span class="lineNum">     393</span>              : </span>
+<span id="L394"><span class="lineNum">     394</span>              : void enable_counters() {</span>
+<span id="L395"><span class="lineNum">     395</span>              :     get_counters_enabled_flag().store(true, std::memory_order_relaxed);</span>
+<span id="L396"><span class="lineNum">     396</span>              : }</span>
+<span id="L397"><span class="lineNum">     397</span>              : </span>
+<span id="L398"><span class="lineNum">     398</span>              : std::unique_ptr&lt;detail::ScopedCounters&gt; start_counters() {</span>
+<span id="L399"><span class="lineNum">     399</span>              :     if (get_counters_enabled_flag().load(std::memory_order_relaxed))</span>
+<span id="L400"><span class="lineNum">     400</span>              :         return std::make_unique&lt;detail::PCMScopedCounters&gt;(get_cpu());</span>
+<span id="L401"><span class="lineNum">     401</span>              :     return {};</span>
+<span id="L402"><span class="lineNum">     402</span>              : }</span>
+<span id="L403"><span class="lineNum">     403</span>              : </span>
+<span id="L404"><span class="lineNum">     404</span>              : } // namespace guanaqo::pcm</span>
+<span id="L405"><span class="lineNum">     405</span>              : </span>
+<span id="L406"><span class="lineNum">     406</span>              : #else // Fallback implementation when PCM is not available</span>
+<span id="L407"><span class="lineNum">     407</span>              : </span>
+<span id="L408"><span class="lineNum">     408</span>              : namespace guanaqo::pcm {</span>
+<span id="L409"><span class="lineNum">     409</span>              : </span>
+<span id="L410"><span class="lineNum">     410</span> <span class="tlaUNC">           0 : std::unique_ptr&lt;detail::ScopedCounters&gt; start_counters() { return {}; }</span></span>
+<span id="L411"><span class="lineNum">     411</span>              : void disable_counters();</span>
+<span id="L412"><span class="lineNum">     412</span>              : void enable_counters();</span>
+<span id="L413"><span class="lineNum">     413</span>              : </span>
+<span id="L414"><span class="lineNum">     414</span>              : } // namespace guanaqo::pcm</span>
+<span id="L415"><span class="lineNum">     415</span>              : </span>
+<span id="L416"><span class="lineNum">     416</span>              : #endif</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.4-0</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

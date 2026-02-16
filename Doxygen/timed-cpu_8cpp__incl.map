@@ -1,0 +1,19 @@
+<map id="src/timed&#45;cpu.cpp" name="src/timed&#45;cpu.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="320,5,459,31"/>
+<area shape="rect" id="Node000002" href="$timed-cpu_8hpp.html" title="CPU and wall&#45;time measurements with RAII helper." alt="" coords="152,79,328,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="366,33,278,75,276,70,364,28"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="352,79,427,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="392,31,392,65,387,65,387,31"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="451,79,509,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="406,29,456,68,453,72,402,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,141,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,106,114,149,112,144,212,102"/>
+<area shape="rect" id="Node000004" href="$timed_8hpp.html" title="RAII timing helper." alt="" coords="166,152,314,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="243,104,243,138,237,138,237,104"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="339,152,403,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="262,102,339,143,336,148,260,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="156,225,223,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,179,208,216,203,213,229,176"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="247,225,334,251"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="251,176,277,213,272,216,246,179"/>
+</map>

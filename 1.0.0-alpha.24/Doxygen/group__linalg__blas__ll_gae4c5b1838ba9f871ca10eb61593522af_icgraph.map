@@ -1,0 +1,13 @@
+<map id="guanaqo::blas::xgemv" name="guanaqo::blas::xgemv">
+<area shape="rect" id="Node000001" title=" " alt="" coords="236,119,403,145"/>
+<area shape="rect" id="Node000002" href="$group__linalg__blas__ll.html#ga7f4ee2a98766873c31729ff571896337" title=" " alt="" coords="13,5,180,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,114,239,87,187,60,158,48,160,43,189,55,242,82,288,110"/>
+<area shape="rect" id="Node000003" href="$group__linalg__blas__hl.html#gaccc9fb68863497d4cc452d36057781bf" title=" " alt="" coords="5,70,188,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,119,154,98,155,93,249,114"/>
+<area shape="rect" id="Node000004" href="$group__linalg__blas__hl.html#ga20e6d564d8ff625de4e8f66d1fdc0db3" title=" " alt="" coords="5,119,188,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,135,188,135,188,129,222,129"/>
+<area shape="rect" id="Node000005" href="$group__linalg__blas__hl.html#gaed74d5df153a525f319dd183aee84622" title=" " alt="" coords="6,169,187,194"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="249,150,155,171,154,166,248,145"/>
+<area shape="rect" id="Node000006" href="$group__linalg__blas__hl.html#gac6882ada2f20d23a9b82db537e7a1e4a" title=" " alt="" coords="6,218,187,243"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="289,154,243,182,189,208,152,220,151,215,187,203,240,177,286,150"/>
+</map>

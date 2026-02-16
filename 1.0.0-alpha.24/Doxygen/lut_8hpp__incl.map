@@ -1,0 +1,9 @@
+<map id="include/guanaqo/lut.hpp" name="include/guanaqo/lut.hpp">
+<area shape="rect" id="Node000001" title="Compile&#45;time lookup table generators." alt="" coords="43,5,221,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,61,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,33,62,73,59,68,115,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="86,79,178,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,31,135,65,129,65,129,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="202,79,262,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="150,29,206,68,203,73,147,33"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,99,124,125"/>
+<area shape="rect" id="Node000001" href="$classguanaqo_1_1bad__type__erased__constness.html" title=" " alt="" coords="190,5,387,45"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="98,90,171,55,206,43,207,48,173,60,101,95"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1bad__type__erased__type.html" title=" " alt="" coords="172,70,405,95"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="137,100,191,93,192,98,138,105"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1linalg_1_1sparsity_1_1unsupported__conversion.html" title="The requested conversion between sparsity structures could not be performed (most likely because cert..." alt="" coords="194,120,383,160"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="138,118,194,125,193,131,137,124"/>
+<area shape="rect" id="Node000004" href="$structguanaqo_1_1not__implemented__error.html" title=" " alt="" coords="188,184,389,224"/>
+<area shape="poly" id="edge9_Node000000_Node000004" title=" " alt="" coords="98,130,134,150,173,170,206,181,204,186,171,174,131,155,96,135"/>
+</map>

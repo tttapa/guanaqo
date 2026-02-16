@@ -1,0 +1,6 @@
+<map id="Linear Algebra" name="Linear Algebra">
+<area shape="rect" id="Node000001" title="Linear algebra utilities, including dense and matrix views, conversions, BLAS wrappers,..." alt="" coords="5,55,121,80"/>
+<area shape="rect" id="Node000004" href="$group__linalg__blas.html" title="Convenience wrappers around BLAS and LAPACK functions." alt="" coords="187,5,310,31"/>
+<area shape="rect" id="Node000003" href="$group__linalg__sparsity.html" title="Sparse matrix data structures." alt="" coords="185,55,312,80"/>
+<area shape="rect" id="Node000002" href="$group__linalg__views.html" title="Dense matrix views and Eigen interop adapters." alt="" coords="169,104,328,129"/>
+</map>

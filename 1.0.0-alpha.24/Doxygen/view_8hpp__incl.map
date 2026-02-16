@@ -1,0 +1,20 @@
+<map id="include/guanaqo/eigen/view.hpp" name="include/guanaqo/eigen/view.hpp">
+<area shape="rect" id="Node000001" title="Conversions between Eigen expressions, maps and refs, and guanaqo::MatrixView." alt="" coords="417,5,586,45"/>
+<area shape="rect" id="Node000002" href="$mat-view_8hpp.html" title="Non&#45;owning matrix view." alt="" coords="263,93,433,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,48,384,89,381,85,463,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="486,167,578,192"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="508,45,530,152,524,154,503,46"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="539,93,631,119"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="523,44,565,82,561,86,520,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,121,105,167,103,162,299,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="115,167,184,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="317,121,196,164,194,159,315,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="208,167,288,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="333,121,277,161,274,156,330,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="313,167,383,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="351,119,351,153,345,153,345,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="408,167,461,192"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="364,117,412,156,408,160,360,121"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="379,116,490,159,488,164,377,121"/>
+</map>

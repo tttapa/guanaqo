@@ -1,0 +1,10 @@
+<map id="guanaqo::linalg::detail::sort_triplets_impl" name="guanaqo::linalg::detail::sort_triplets_impl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="528,37,695,77"/>
+<area shape="rect" id="Node000002" href="$group__linalg__sparsity__utils.html#ga07e0486dd1a80f7b9ba6123d02332a6d" title="Sort the (row, column, value) triplets, by column index first, then row." alt="" coords="325,5,480,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="514,45,480,40,481,35,515,40"/>
+<area shape="rect" id="Node000004" href="$group__linalg__sparsity__utils.html#gad80eb9b83d13f637495b3066bff61471" title="Sort the (row, column, value) triplets by column index." alt="" coords="325,69,480,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="515,75,481,80,480,75,514,70"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01S67b6f2c0f3c4edbe7a0b5208ada2b096.html#aa3da87c3a25b16cae86dd4bcf03d9dfd" title=" " alt="" coords="5,23,277,92"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,39,278,43,277,38,311,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="311,81,277,77,278,71,312,76"/>
+</map>

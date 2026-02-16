@@ -1,0 +1,15 @@
+<map id="guanaqo::pcm::get_counters_enabled_flag" name="guanaqo::pcm::get_counters_enabled_flag">
+<area shape="rect" id="Node000001" title=" " alt="" coords="772,69,979,109"/>
+<area shape="rect" id="Node000002" href="$group__trace__pcm.html#ga5cca616f50e728c841ede162a60f1773" title="Disables performance counters globally. Blocks until all active counters have stopped." alt="" coords="555,5,724,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="787,68,713,48,714,43,789,63"/>
+<area shape="rect" id="Node000003" href="$group__trace__pcm.html#gafa4a8da9b42741ee911b51807b32dbe9" title="Enables performance counters globally." alt="" coords="556,69,723,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="758,92,723,92,723,87,758,87"/>
+<area shape="rect" id="Node000004" href="$group__trace__pcm.html#ga9c090e29ee057a1c150360045787dca5" title="May return null if PCM is not available." alt="" coords="563,133,715,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="789,116,714,136,713,131,787,110"/>
+<area shape="rect" id="Node000005" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#a5266af25504e9d63f861dd151abd67de" title=" " alt="" coords="280,133,507,173"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="549,156,507,156,507,151,549,151"/>
+<area shape="rect" id="Node000006" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#a0716b44940cefdf6f99d27e0a476a29c" title=" " alt="" coords="5,101,232,141"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="266,141,232,137,233,132,267,136"/>
+<area shape="rect" id="Node000007" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#afcb8492fefc1fc5ab19cc5e8f3e40647" title=" " alt="" coords="5,165,232,205"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="267,171,233,175,232,169,266,165"/>
+</map>

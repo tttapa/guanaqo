@@ -1,0 +1,16 @@
+var structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4 =
+[
+    [ "from_sparsity_t", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a4c1f01f25d7899813d2d01b71b4c005f", null ],
+    [ "to_sparsity_t", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a456c10202e50eb85974d88d04bca1b70", null ],
+    [ "Request", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a6d46f209bb33a6be5a6781082ecae802", null ],
+    [ "SparsityConverter", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a4a0544f929b0e2ef0e2870d42ed625ec", null ],
+    [ "convert_sparsity", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a1ce58c1365b5ec4309e7467b70c6fae8", null ],
+    [ "operator const to_sparsity_t &", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a64e38d20f8225f13d3b21b71e73cd234", null ],
+    [ "get_sparsity", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#abdb8b6da7245c4ee71fbbdc21177d26f", null ],
+    [ "work_size", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#ab59c89a8c806ab641dead907a0168f8e", null ],
+    [ "nnz_from", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a47da3418b2e096836c6348fab3f8066c", null ],
+    [ "convert_values", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a1dc7d44eef9bd93749abe49e6907e472", null ],
+    [ "row_indices", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#a4f5409f4469c08d8afd83ee2fe52ecbf", null ],
+    [ "col_indices", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#af53606f521cd7ff0001fc76e1f7b72dc", null ],
+    [ "sparsity", "structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01IndexFrom_01_4_00_01SparseCOO_3_01IndexTo_01_4_01_4.html#ad271e9e809f035e6db0deb625ecab40a", null ]
+];

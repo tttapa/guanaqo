@@ -1,0 +1,11 @@
+<map id="guanaqo::TypeErased::deallocate" name="guanaqo::TypeErased::deallocate">
+<area shape="rect" id="Node000001" title="Deallocate the memory without invoking the destructor." alt="" coords="421,69,581,109"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#ad922828914ba7d9a631f9538a31b7b38" title="Destroy the type&#45;erased object (if not empty), and deallocate the memory if necessary." alt="" coords="213,69,373,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,92,374,92,374,87,408,87"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a7037b452c2188fe5a496df955edb9227" title="Destructor." alt="" coords="5,5,165,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,68,150,48,152,43,216,63"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a200f8ff694b5ae333d19578655c51b29" title="Copy assignment." alt="" coords="5,69,165,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,92,166,92,166,87,200,87"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#afdb83d79e0f8a75cf16a166a3888eab9" title="Move assignment." alt="" coords="5,133,165,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="216,116,152,136,150,131,214,111"/>
+</map>

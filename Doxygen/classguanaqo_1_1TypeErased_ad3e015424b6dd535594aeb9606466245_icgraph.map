@@ -1,0 +1,18 @@
+<map id="guanaqo::TypeErased::owns_referenced_object" name="guanaqo::TypeErased::owns_referenced_object">
+<area shape="rect" id="Node000001" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="421,133,609,173"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#ad922828914ba7d9a631f9538a31b7b38" title="Destroy the type&#45;erased object (if not empty), and deallocate the memory if necessary." alt="" coords="213,85,373,125"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,133,373,125,374,120,409,128"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#a9a9a3fb15c4b0c9ee907e0c790175ee7" title=" " alt="" coords="213,165,373,205"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="408,171,374,176,373,171,407,166"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a7037b452c2188fe5a496df955edb9227" title="Destructor." alt="" coords="5,5,165,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,83,137,48,139,43,229,78"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a200f8ff694b5ae333d19578655c51b29" title="Copy assignment." alt="" coords="5,133,165,173"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,129,166,137,165,132,199,124"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#afdb83d79e0f8a75cf16a166a3888eab9" title="Move assignment." alt="" coords="5,69,165,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="200,101,165,98,166,93,200,95"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="199,174,165,168,166,163,200,168"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a36693eaff4f3d29737ef091995b3631f" title="Copy constructor." alt="" coords="5,197,165,237"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="200,202,166,208,165,202,199,197"/>
+<area shape="rect" id="Node000008" href="$classguanaqo_1_1TypeErased.html#aeb0fa9e489bf394bab8a112990184133" title="Copy constructor (allocator aware)." alt="" coords="5,261,165,301"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="243,214,166,252,139,264,137,259,164,247,241,209"/>
+</map>

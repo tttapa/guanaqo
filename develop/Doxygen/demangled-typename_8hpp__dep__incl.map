@@ -1,0 +1,13 @@
+<map id="include/guanaqo/demangled&#45;typename.hpp" name="include/guanaqo/demangled&#45;typename.hpp">
+<area shape="rect" id="Node000001" title="Pretty&#45;print type names." alt="" coords="194,5,401,45"/>
+<area shape="rect" id="Node000002" href="$duration-parse_8hpp.html" title="Duration parsing helpers." alt="" coords="5,93,192,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,53,143,96,141,91,240,48"/>
+<area shape="rect" id="Node000003" href="$type-erasure_8hpp.html" title="Flexible type erasure utilities." alt="" coords="216,93,379,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="300,59,300,93,295,93,295,59"/>
+<area shape="rect" id="Node000006" href="$demangled-typename_8cpp.html" title=" " alt="" coords="403,101,619,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="358,48,483,98,481,103,356,53"/>
+<area shape="rect" id="Node000004" href="$required-method_8hpp.html" title="Macros to populate type&#45;erased vtables from member functions in guanaqo::TypeErased." alt="" coords="107,181,293,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,144,223,183,220,179,264,140"/>
+<area shape="rect" id="Node000005" href="$type-erasure_8cpp.html" title=" " alt="" coords="317,189,472,214"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="331,141,383,186,379,190,328,145"/>
+</map>

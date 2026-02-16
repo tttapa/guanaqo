@@ -1,0 +1,5 @@
+<map id="Core Utilities" name="Core Utilities">
+<area shape="rect" id="Node000001" title="Core helpers such as lookup tables, chunked loops, and assertion/assumption macros." alt="" coords="5,31,112,56"/>
+<area shape="rect" id="Node000003" href="$group__macros.html" title="Public&#45;facing preprocessor utilities." alt="" coords="160,5,335,31"/>
+<area shape="rect" id="Node000002" href="$group__strings.html" title="String utilities and portable parsing helpers." alt="" coords="181,55,313,80"/>
+</map>

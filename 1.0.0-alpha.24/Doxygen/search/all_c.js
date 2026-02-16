@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['macros_20build_20helpers_0',['Macros &amp;amp; Build Helpers',['../group__macros.html',1,'']]],
+  ['make_1',['make',['../structguanaqo_1_1detail_1_1lut_3_01N_00_01Ns_8_8_8_01_4.html#a59537f4fe36d2841af0dac13562bfe4b',1,'guanaqo::detail::lut&lt; N, Ns... &gt;::make()'],['../structguanaqo_1_1detail_1_1lut_3_01Arr_00_01Ns_8_8_8_01_4.html#a31591cfd049c201e62f3a3b3c495ba9a',1,'guanaqo::detail::lut&lt; Arr, Ns... &gt;::make()'],['../structguanaqo_1_1detail_1_1lut_3_4.html#a59ef2939ba643ec102e4edecf53d2807',1,'guanaqo::detail::lut&lt;&gt;::make()'],['../classguanaqo_1_1TypeErased.html#a5eb797761113ac4c73a8cfd672a15ab5',1,'guanaqo::TypeErased::make(std::allocator_arg_t tag, const Alloc &amp;alloc, Args &amp;&amp;...args)'],['../classguanaqo_1_1TypeErased.html#a075258e6739c3bd2adc82bfce512e311',1,'guanaqo::TypeErased::make(Args &amp;&amp;...args)']]],
+  ['make_5f1d_5flut_2',['make_1d_lut',['../group__core.html#ga25263b3f2d66d569fe7bff68f626f679',1,'guanaqo']]],
+  ['make_5f2d_5flut_3',['make_2d_lut',['../group__core.html#ga2c5258d91a8f99e3881957ef0f7865e8',1,'guanaqo']]],
+  ['make_5flut_4',['make_lut',['../group__core.html#gaf7f8cd543f230a33b9bb7667b62d2cd2',1,'guanaqo']]],
+  ['mat_2dview_2ehpp_5',['mat-view.hpp',['../mat-view_8hpp.html',1,'']]],
+  ['matrices_6',['Sparse matrices',['../group__linalg__sparsity.html',1,'']]],
+  ['matrix_2dview_2ehpp_7',['matrix-view.hpp',['../linalg_2matrix-view_8hpp.html',1,'(Global Namespace)'],['../nanobind_2matrix-view_8hpp.html',1,'(Global Namespace)']]],
+  ['matrixview_8',['MatrixView',['../structguanaqo_1_1linalg_1_1MatrixView.html',1,'guanaqo::linalg::MatrixView&lt; T &gt;'],['../structguanaqo_1_1MatrixView.html',1,'guanaqo::MatrixView&lt; T, I, S, O &gt;'],['../structnanobind_1_1detail_1_1type__caster_3_01guanaqo_1_1MatrixView_3_01T_00_01I_00_01S_00_01O_01_4_01_4.html#abd7d69c4175eeff74fc18429851019c8',1,'nanobind::detail::type_caster&lt; guanaqo::MatrixView&lt; T, I, S, O &gt; &gt;::MatrixView'],['../structguanaqo_1_1linalg_1_1MatrixView.html#a75ede5f8b4577937b72439d594dc5db8',1,'guanaqo::linalg::MatrixView::MatrixView()'],['../structguanaqo_1_1linalg_1_1MatrixView.html#ac554f7d7fc58cde0e03e3366e9ed9358',1,'guanaqo::linalg::MatrixView::MatrixView(std::span&lt; const T &gt; values, Sparsity sparsity)'],['../structguanaqo_1_1linalg_1_1MatrixView.html#a5abbe37a42b906f40e8e9e881598a6c3',1,'guanaqo::linalg::MatrixView::MatrixView(std::span&lt; const T &gt; values, length_t rows, length_t cols, sparsity::Symmetry symmetry=sparsity::Symmetry::Unsymmetric)'],['../structguanaqo_1_1MatrixView.html#a0f9e472a54bcb03d47de02091f483e55',1,'guanaqo::MatrixView::MatrixView(PlainMatrixView p)'],['../structguanaqo_1_1MatrixView.html#aedebce245d290d6e67659f07571ab2c0',1,'guanaqo::MatrixView::MatrixView(const MatrixView &amp;)=default']]],
+  ['matrixview_3c_20t_2c_20i_2c_20s_2c_20o_20_3e_9',['MatrixView&lt; T, I, S, O &gt;',['../structguanaqo_1_1MatrixView.html',1,'guanaqo']]],
+  ['matrixview_3c_20t_2c_20i_2c_20s_2c_20storageorder_3a_3arowmajor_20_3e_10',['MatrixView&lt; T, I, S, StorageOrder::RowMajor &gt;',['../structguanaqo_1_1MatrixView.html',1,'guanaqo']]],
+  ['matrixview_3c_20t_2c_20index_5ftype_2c_20index_5ftype_2c_20storageorder_3a_3acolmajor_20_3e_11',['MatrixView&lt; T, index_type, index_type, StorageOrder::ColMajor &gt;',['../structguanaqo_1_1MatrixView.html',1,'guanaqo']]],
+  ['matrixviewrm_12',['MatrixViewRM',['../group__linalg__views.html#ga7e3b8b5a07e1d1f3580ed996d2b274cd',1,'guanaqo']]],
+  ['max_13',['max',['../structguanaqo_1_1CircularIndexIterator.html#a45b43ba5535b37196e4900fba4ce871c',1,'guanaqo::CircularIndexIterator::max'],['../classguanaqo_1_1CircularRange.html#a19cbcfd0f1a6b5e539a1e70443526f27',1,'guanaqo::CircularRange::max'],['../classguanaqo_1_1MaxHistory.html#a8e358649710180dac4e4446c7f00cc10',1,'guanaqo::MaxHistory::max()']]],
+  ['max_2dhistory_2ehpp_14',['max-history.hpp',['../max-history_8hpp.html',1,'']]],
+  ['max_5f_15',['max_',['../classguanaqo_1_1MaxHistory.html#a58215a13cc7ca831cf64835abcb1203c',1,'guanaqo::MaxHistory']]],
+  ['maxhistory_16',['MaxHistory',['../classguanaqo_1_1MaxHistory.html',1,'guanaqo::MaxHistory&lt; T &gt;'],['../classguanaqo_1_1MaxHistory.html#aa2971a0710c07b83a5c25c503542444f',1,'guanaqo::MaxHistory::MaxHistory()']]],
+  ['mem_5fbound_5fslots_17',['mem_bound_slots',['../group__trace__pcm.html#aba670e29e78dbdebcafbc52931415fa2',1,'guanaqo::pcm::ThreadPerfCounters']]],
+  ['memory_20pointer_20helpers_18',['Memory &amp;amp; Pointer Helpers',['../group__memory.html',1,'']]],
+  ['message_19',['message',['../classguanaqo_1_1bad__type__erased__type.html#aab52dead16e1bc9a00e11efee7896beb',1,'guanaqo::bad_type_erased_type']]],
+  ['middle_5fcols_20',['middle_cols',['../structguanaqo_1_1MatrixView.html#a1c2cbf48feb55d98d7664b8f520c1436',1,'guanaqo::MatrixView']]],
+  ['middle_5frows_21',['middle_rows',['../structguanaqo_1_1MatrixView.html#a5d27780e4d8f292e4516eff7b3a64567',1,'guanaqo::MatrixView']]],
+  ['move_22',['move',['../group__type__erasure.html#a0866bd353382ccdf8684c74981c46209',1,'guanaqo::CopyMoveDestroyVTable::move'],['../structguanaqo_1_1BasicVTable.html#ae50e4225a3b0303e72150c46272c6d45',1,'guanaqo::BasicVTable::move()']]],
+  ['mut_5fref_5fsize_23',['mut_ref_size',['../classguanaqo_1_1TypeErased.html#a01d8e36736825649bbed85d3e4820d92',1,'guanaqo::TypeErased']]]
+];

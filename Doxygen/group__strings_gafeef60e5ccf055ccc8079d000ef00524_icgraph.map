@@ -1,0 +1,5 @@
+<map id="guanaqo::parse_single_duration" name="guanaqo::parse_single_duration">
+<area shape="rect" id="Node000001" title="Adds the first duration in the string s to the duration t." alt="" coords="236,5,404,45"/>
+<area shape="rect" id="Node000002" href="$group__strings.html#gae70b4a2ff169e254460bdf80b955e2a2" title="Adds the sum of the durations in the string s to the duration t." alt="" coords="5,13,188,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,28,188,28,188,23,222,23"/>
+</map>

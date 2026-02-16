@@ -1,0 +1,17 @@
+<map id="guanaqo::TypeErased::size_indicates_const" name="guanaqo::TypeErased::size_indicates_const">
+<area shape="rect" id="Node000001" title=" " alt="" coords="444,137,608,177"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a945d86b78f949e2ed115f18d6ebf003e" title="Check if the wrapped object is const." alt="" coords="236,129,396,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="431,159,396,159,396,154,431,154"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a76d38077f25a709e11586e428960d0bf" title="Convert the type&#45;erased object to the given type." alt="" coords="5,5,188,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="280,121,238,80,187,44,160,33,162,28,189,40,241,76,284,117"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a8cd33df7102e3cd6b6afa3b100f156a9" title="Convert the type&#45;erased object to the given type." alt="" coords="5,55,188,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="252,125,187,95,149,83,151,78,189,90,255,120"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#aa7dcaa28e1f3df80fefa3352c8295d1e" title="Call the vtable function f with the given arguments args, implicitly passing the self pointer and vta..." alt="" coords="17,105,177,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="222,146,176,139,177,134,223,140"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#a39659c6221038a56b71ffa6137b58487" title="Call the vtable function f with the given arguments args, implicitly passing the self pointer and vta..." alt="" coords="17,169,177,209"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="223,173,177,180,176,174,222,168"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a712331016934495b89dbb141d6da2783" title="Call the vtable function f with the given arguments args, implicitly passing the self pointer and vta..." alt="" coords="17,233,177,273"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="253,193,189,223,159,235,157,230,187,218,251,188"/>
+<area shape="rect" id="Node000008" href="$classguanaqo_1_1TypeErased.html#abdfe8d28d119ca43f89a695cfc82bbf6" title="Get a type&#45;erased pointer to the wrapped object." alt="" coords="17,297,177,337"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="287,197,244,243,189,287,167,299,164,294,187,282,240,239,283,193"/>
+</map>

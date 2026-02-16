@@ -1,0 +1,10 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;::convert_values" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;::convert_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,237,100"/>
+<area shape="rect" id="Node000002" href="$namespaceguanaqo_1_1linalg_1_1sparsity.html#af32001896a23ba0b0d0237c9046f4315" title=" " alt="" coords="565,56,748,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,28,285,16,350,7,402,3,453,5,518,16,564,29,607,47,605,52,563,35,517,21,453,11,402,8,351,12,286,21,228,33"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCSC_3_01Index_00_01StorageIndex_01_4_00_01Dense_01_4.html#aa9ccae64f59610baab8587291dba5549" title=" " alt="" coords="285,31,517,100"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,63,272,63,272,68,237,68"/>
+<area shape="rect" id="Node000004" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCSC_3_01Index_00_01StorageIndex_01_4_00_01Dense_01_4.html#aa89f788d2245d80271d3ce7d18df395c" title=" " alt="" coords="285,124,517,193"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="227,98,284,117,283,122,225,103"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="508,121,580,98,582,103,510,126"/>
+</map>

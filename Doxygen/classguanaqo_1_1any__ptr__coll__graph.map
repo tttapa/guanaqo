@@ -1,0 +1,3 @@
+<map id="guanaqo::any_ptr" name="guanaqo::any_ptr">
+<area shape="rect" id="Node000001" title="Like std::any, but storing just the pointer, without any dynamic allocation." alt="" coords="5,5,133,211"/>
+</map>

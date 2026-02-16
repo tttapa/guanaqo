@@ -1,0 +1,7 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; Index &gt;, Dense &gt;" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; Index &gt;, Dense &gt;">
+<area shape="rect" id="Node000001" title="Conversion from COO to dense format." alt="" coords="78,276,305,505"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparseCOO.html" title=" " alt="" coords="5,5,180,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,205,149,259,144,261,125,206"/>
+<area shape="rect" id="Node000003" href="$group__linalg__sparsity.html#structguanaqo_1_1linalg_1_1sparsity_1_1Dense" title="Dense matrix structure." alt="" coords="204,45,379,165"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,166,259,253,256,262,251,260,254,251,278,165"/>
+</map>

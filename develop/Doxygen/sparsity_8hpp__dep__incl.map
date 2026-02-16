@@ -1,0 +1,9 @@
+<map id="include/guanaqo/linalg/sparsity.hpp" name="include/guanaqo/linalg/sparsity.hpp">
+<area shape="rect" id="Node000001" title="Sparse and dense sparsity descriptors." alt="" coords="199,5,368,45"/>
+<area shape="rect" id="Node000002" href="$sparse_8hpp.html" title="Eigen interop for sparse matrices." alt="" coords="5,93,175,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,53,133,96,131,91,227,49"/>
+<area shape="rect" id="Node000003" href="$linalg_2matrix-view_8hpp.html" title="Non&#45;owning view over values plus sparsity description." alt="" coords="199,93,368,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="286,59,286,93,281,93,281,59"/>
+<area shape="rect" id="Node000004" href="$sparsity-conversions_8hpp.html" title="Convert between dense and sparse sparsity descriptors." alt="" coords="393,93,582,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="342,48,444,91,442,96,340,53"/>
+</map>

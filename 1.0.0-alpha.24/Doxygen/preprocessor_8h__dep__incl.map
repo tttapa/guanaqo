@@ -1,0 +1,18 @@
+<map id="include/guanaqo/preprocessor.h" name="include/guanaqo/preprocessor.h">
+<area shape="rect" id="Node000001" title="Token concatenation and argument&#45;counting helpers." alt="" coords="185,5,413,31"/>
+<area shape="rect" id="Node000002" href="$openmp_8h.html" title="OpenMP helpers." alt="" coords="44,86,243,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,39,167,88,165,84,263,34"/>
+<area shape="rect" id="Node000004" href="$perfetto_2trace_8hpp.html" title="Perfetto tracing macros and session helpers." alt="" coords="337,79,523,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="332,36,400,76,397,81,329,40"/>
+<area shape="rect" id="Node000005" href="$trace_8hpp.html" title="Tracing logger and macros (ITT, Perfetto, or fallback)." alt="" coords="223,167,418,192"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="305,44,322,166,316,167,300,45"/>
+<area shape="rect" id="Node000003" href="$blas-interface_8cpp.html" title=" " alt="" coords="5,167,199,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,125,110,168,106,165,129,122"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="394,129,339,168,336,164,391,125"/>
+<area shape="rect" id="Node000008" href="$perfetto_2trace_8cpp.html" title=" " alt="" coords="443,167,604,192"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="465,126,511,164,508,168,461,130"/>
+<area shape="rect" id="Node000006" href="$hl-blas-interface_8hpp.html" title="This file provides simple overloaded wrappers around standard BLAS functions." alt="" coords="138,240,330,280"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="299,203,257,242,253,238,296,199"/>
+<area shape="rect" id="Node000007" href="$trace_8cpp.html" title=" " alt="" coords="355,247,460,273"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="346,199,396,245,393,249,342,203"/>
+</map>

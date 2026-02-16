@@ -1,0 +1,15 @@
+<map id="include/guanaqo/pcm/counters.hpp" name="include/guanaqo/pcm/counters.hpp">
+<area shape="rect" id="Node000001" title="Performance counter snapshots and scoped collectors." alt="" coords="307,5,469,45"/>
+<area shape="rect" id="Node000002" href="$perfetto_2trace_8hpp.html" title="Perfetto tracing macros and session helpers." alt="" coords="197,93,382,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="358,56,313,95,309,91,354,52"/>
+<area shape="rect" id="Node000007" href="$counters_8cpp.html" title=" " alt="" coords="407,101,567,126"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="422,53,475,98,471,102,419,57"/>
+<area shape="rect" id="Node000003" href="$trace_8hpp.html" title="Tracing logger and macros (ITT, Perfetto, or fallback)." alt="" coords="91,181,285,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,144,205,183,202,179,252,140"/>
+<area shape="rect" id="Node000006" href="$perfetto_2trace_8cpp.html" title=" " alt="" coords="310,181,471,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="326,140,377,179,374,183,323,144"/>
+<area shape="rect" id="Node000004" href="$hl-blas-interface_8hpp.html" title="This file provides simple overloaded wrappers around standard BLAS functions." alt="" coords="5,255,197,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="167,218,124,256,120,253,163,214"/>
+<area shape="rect" id="Node000005" href="$trace_8cpp.html" title=" " alt="" coords="222,262,327,287"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="213,214,264,260,260,264,209,218"/>
+</map>

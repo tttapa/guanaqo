@@ -1,0 +1,10 @@
+<map id="guanaqo::TypeErased::cleanup" name="guanaqo::TypeErased::cleanup">
+<area shape="rect" id="Node000001" title="Destroy the type&#45;erased object (if not empty), and deallocate the memory if necessary." alt="" coords="5,37,165,77"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a61bea2c086b48e820f203d3248872eaf" title="Deallocate the memory without invoking the destructor." alt="" coords="227,5,387,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,43,214,36,214,41,166,48"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#ad3e015424b6dd535594aeb9606466245" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="213,69,401,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,66,200,71,199,76,165,72"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#ac8f39b0ccb2a310de00de9637f6aaf97" title=" " alt="" coords="449,37,645,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="388,33,436,40,435,45,387,39"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="401,74,435,70,436,75,402,79"/>
+</map>

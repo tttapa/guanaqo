@@ -1,0 +1,14 @@
+<map id="guanaqo::TypeErased::operator=" name="guanaqo::TypeErased::operator=">
+<area shape="rect" id="Node000001" title="Move assignment." alt="" coords="5,37,165,77"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a32b0f63d3c9a366264d6c3365db9ace6" title="Default constructor." alt="" coords="213,5,373,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,42,199,37,200,42,166,48"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#ad922828914ba7d9a631f9538a31b7b38" title="Destroy the type&#45;erased object (if not empty), and deallocate the memory if necessary." alt="" coords="213,69,373,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,67,200,72,199,78,165,72"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a61bea2c086b48e820f203d3248872eaf" title="Deallocate the memory without invoking the destructor." alt="" coords="435,37,595,77"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="373,75,422,68,422,73,374,80"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#ad3e015424b6dd535594aeb9606466245" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="421,101,609,141"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="374,98,408,103,407,108,373,104"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#ac8f39b0ccb2a310de00de9637f6aaf97" title=" " alt="" coords="657,69,853,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="596,65,644,72,643,77,595,71"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="609,106,643,102,644,107,610,111"/>
+</map>

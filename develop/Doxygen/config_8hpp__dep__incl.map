@@ -1,0 +1,13 @@
+<map id="include/guanaqo/linalg/config.hpp" name="include/guanaqo/linalg/config.hpp">
+<area shape="rect" id="Node000001" title="Common linear algebra index types." alt="" coords="199,5,368,45"/>
+<area shape="rect" id="Node000002" href="$linalg_2matrix-view_8hpp.html" title="Non&#45;owning view over values plus sparsity description." alt="" coords="5,181,175,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,55,188,95,142,141,107,183,103,179,138,137,184,91,239,51"/>
+<area shape="rect" id="Node000003" href="$sparsity-conversions_8hpp.html" title="Convert between dense and sparse sparsity descriptors." alt="" coords="393,181,582,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="327,51,382,91,433,138,472,179,469,183,429,141,379,95,324,55"/>
+<area shape="rect" id="Node000004" href="$sparsity_8hpp.html" title="Sparse and dense sparsity descriptors." alt="" coords="199,93,368,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="286,59,286,93,281,93,281,59"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="229,141,133,184,131,179,227,137"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="342,136,444,179,442,184,340,141"/>
+<area shape="rect" id="Node000005" href="$sparse_8hpp.html" title="Eigen interop for sparse matrices." alt="" coords="199,181,368,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="286,147,286,181,281,181,281,147"/>
+</map>

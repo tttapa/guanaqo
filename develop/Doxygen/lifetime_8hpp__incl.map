@@ -1,0 +1,11 @@
+<map id="include/guanaqo/lifetime.hpp" name="include/guanaqo/lifetime.hpp">
+<area shape="rect" id="Node000001" title="Fallback implementations for std::start_lifetime_as." alt="" coords="75,5,287,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,83,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,33,80,75,77,70,158,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,79,173,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,32,156,68,151,65,172,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="198,79,247,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="190,30,211,65,207,68,186,32"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="271,79,363,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="204,28,284,70,282,75,202,33"/>
+</map>

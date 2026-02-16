@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::MatrixView&lt; T &gt;" name="guanaqo::linalg::MatrixView&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Non&#45;owning view of dense and various formats of sparse matrix." alt="" coords="5,156,240,261"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1linalg_1_1sparsity_1_1Sparsity.html" title="Stores any of the supported sparsity patterns." alt="" coords="35,5,210,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,86,125,139,120,139,120,86"/>
+</map>

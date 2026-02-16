@@ -1,0 +1,9 @@
+<map id="guanaqo::TypeErased::TypeErased" name="guanaqo::TypeErased::TypeErased">
+<area shape="rect" id="Node000001" title="Main constructor that type&#45;erases the given argument." alt="" coords="5,5,165,45"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a4525c3ab83229736d301a3c54b97b2c4" title="Ensure storage and construct the type&#45;erased object of type T in&#45;place." alt="" coords="213,5,373,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,23,199,23,199,28,165,28"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a1539cdfc24389b1a988bf335a89fbccd" title="Ensure that storage is available, either by using the small buffer if it is large enough,..." alt="" coords="421,5,581,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="373,23,407,23,407,28,373,28"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#ac8f39b0ccb2a310de00de9637f6aaf97" title=" " alt="" coords="629,5,825,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="581,23,616,23,616,28,581,28"/>
+</map>
