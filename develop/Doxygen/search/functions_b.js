@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['make_0',['make',['../structguanaqo_1_1detail_1_1lut_3_01N_00_01Ns_8_8_8_01_4.html#a59537f4fe36d2841af0dac13562bfe4b',1,'guanaqo::detail::lut&lt; N, Ns... &gt;::make()'],['../structguanaqo_1_1detail_1_1lut_3_01Arr_00_01Ns_8_8_8_01_4.html#a31591cfd049c201e62f3a3b3c495ba9a',1,'guanaqo::detail::lut&lt; Arr, Ns... &gt;::make()'],['../structguanaqo_1_1detail_1_1lut_3_4.html#a59ef2939ba643ec102e4edecf53d2807',1,'guanaqo::detail::lut&lt;&gt;::make()'],['../classguanaqo_1_1TypeErased.html#a5eb797761113ac4c73a8cfd672a15ab5',1,'guanaqo::TypeErased::make(std::allocator_arg_t tag, const Alloc &amp;alloc, Args &amp;&amp;...args)'],['../classguanaqo_1_1TypeErased.html#a075258e6739c3bd2adc82bfce512e311',1,'guanaqo::TypeErased::make(Args &amp;&amp;...args)']]],
+  ['make_5f1d_5flut_1',['make_1d_lut',['../group__core.html#ga25263b3f2d66d569fe7bff68f626f679',1,'guanaqo']]],
+  ['make_5f2d_5flut_2',['make_2d_lut',['../group__core.html#ga2c5258d91a8f99e3881957ef0f7865e8',1,'guanaqo']]],
+  ['make_5flut_3',['make_lut',['../group__core.html#gaf7f8cd543f230a33b9bb7667b62d2cd2',1,'guanaqo']]],
+  ['matrixview_4',['MatrixView',['../structguanaqo_1_1linalg_1_1MatrixView.html#a75ede5f8b4577937b72439d594dc5db8',1,'guanaqo::linalg::MatrixView::MatrixView()'],['../structguanaqo_1_1linalg_1_1MatrixView.html#ac554f7d7fc58cde0e03e3366e9ed9358',1,'guanaqo::linalg::MatrixView::MatrixView(std::span&lt; const T &gt; values, Sparsity sparsity)'],['../structguanaqo_1_1linalg_1_1MatrixView.html#a5abbe37a42b906f40e8e9e881598a6c3',1,'guanaqo::linalg::MatrixView::MatrixView(std::span&lt; const T &gt; values, length_t rows, length_t cols, sparsity::Symmetry symmetry=sparsity::Symmetry::Unsymmetric)'],['../structguanaqo_1_1MatrixView.html#a0f9e472a54bcb03d47de02091f483e55',1,'guanaqo::MatrixView::MatrixView(PlainMatrixView p)'],['../structguanaqo_1_1MatrixView.html#aedebce245d290d6e67659f07571ab2c0',1,'guanaqo::MatrixView::MatrixView(const MatrixView &amp;)=default']]],
+  ['max_5',['max',['../classguanaqo_1_1MaxHistory.html#a8e358649710180dac4e4446c7f00cc10',1,'guanaqo::MaxHistory']]],
+  ['maxhistory_6',['MaxHistory',['../classguanaqo_1_1MaxHistory.html#aa2971a0710c07b83a5c25c503542444f',1,'guanaqo::MaxHistory']]],
+  ['middle_5fcols_7',['middle_cols',['../structguanaqo_1_1MatrixView.html#a1c2cbf48feb55d98d7664b8f520c1436',1,'guanaqo::MatrixView']]],
+  ['middle_5frows_8',['middle_rows',['../structguanaqo_1_1MatrixView.html#a5d27780e4d8f292e4516eff7b3a64567',1,'guanaqo::MatrixView']]],
+  ['move_9',['move',['../structguanaqo_1_1BasicVTable.html#ae50e4225a3b0303e72150c46272c6d45',1,'guanaqo::BasicVTable']]]
+];

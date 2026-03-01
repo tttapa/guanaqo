@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;">
+<area shape="rect" id="Node000001" title="Conversion from CSC to dense format." alt="" coords="5,196,244,425"/>
+<area shape="rect" id="Node000002" href="$group__linalg__sparsity.html#structguanaqo_1_1linalg_1_1sparsity_1_1Dense" title="Dense matrix structure." alt="" coords="37,5,212,125"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,125,127,179,122,179,122,125"/>
+</map>

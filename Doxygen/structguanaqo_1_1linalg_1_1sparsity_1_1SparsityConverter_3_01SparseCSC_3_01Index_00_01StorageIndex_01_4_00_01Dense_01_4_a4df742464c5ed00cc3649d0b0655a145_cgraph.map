@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;::convert_sparsity" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCSC&lt; Index, StorageIndex &gt;, Dense &gt;::convert_sparsity">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,237,75"/>
+<area shape="rect" id="Node000002" href="$group__linalg__sparsity__utils.html#ga1a33b7d7c784150d8527dcb0197983ae" title="Check that no two entries with the same row and column index exist in the given sparse compressed&#45;col..." alt="" coords="285,20,453,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,37,272,37,272,43,237,43"/>
+</map>

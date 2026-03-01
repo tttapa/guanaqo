@@ -1,0 +1,13 @@
+<map id="include/guanaqo/timed&#45;cpu.hpp" name="include/guanaqo/timed&#45;cpu.hpp">
+<area shape="rect" id="Node000001" title="CPU and wall&#45;time measurements with RAII helper." alt="" coords="155,5,325,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,141,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,48,111,90,109,85,199,43"/>
+<area shape="rect" id="Node000003" href="$timed_8hpp.html" title="RAII timing helper." alt="" coords="166,93,314,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,46,243,79,237,79,237,46"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="339,93,403,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="273,43,341,84,338,88,270,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="156,167,223,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="234,121,208,157,203,154,229,117"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="247,167,334,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="251,117,277,154,272,157,246,121"/>
+</map>

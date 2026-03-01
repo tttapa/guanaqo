@@ -1,0 +1,67 @@
+var group__io =
+[
+    [ "callback-streambuf.hpp", "callback-streambuf_8hpp.html", null ],
+    [ "csv.hpp", "csv_8hpp.html", null ],
+    [ "print.hpp", "print_8hpp.html", null ],
+    [ "guanaqo::callback_streambuf", "classguanaqo_1_1callback__streambuf.html", [
+      [ "write_func_t", "classguanaqo_1_1callback__streambuf.html#ac1a4430f785323969611516377175a8e", null ],
+      [ "callback_streambuf", "classguanaqo_1_1callback__streambuf.html#a224c480cee643860868108f50beb1046", null ],
+      [ "~callback_streambuf", "classguanaqo_1_1callback__streambuf.html#a67895c1bd3d8400f22a4d0a972ff5cd7", null ],
+      [ "utf8_remainder", "classguanaqo_1_1callback__streambuf.html#afa17ec769eab4c439d29de1dbd9dc505", null ],
+      [ "sync", "classguanaqo_1_1callback__streambuf.html#aaf51af51eda0701bcc6f136d7063b079", null ],
+      [ "overflow", "classguanaqo_1_1callback__streambuf.html#ada4b40f3172178cac739d9227b385912", null ],
+      [ "write_func", "classguanaqo_1_1callback__streambuf.html#ac6e7501c34bed02acfd10b507a84c84d", null ],
+      [ "buffer", "classguanaqo_1_1callback__streambuf.html#a6b4486d4ec740abbf98de17b0e8bde2a", null ]
+    ] ],
+    [ "guanaqo::scoped_ostream_redirect", "classguanaqo_1_1scoped__ostream__redirect.html", [
+      [ "scoped_ostream_redirect", "classguanaqo_1_1scoped__ostream__redirect.html#a5b34927692b47bf7958d326b195dadb8", null ],
+      [ "~scoped_ostream_redirect", "classguanaqo_1_1scoped__ostream__redirect.html#a740f0db37dae1ef0679b71251ee53d95", null ],
+      [ "scoped_ostream_redirect", "classguanaqo_1_1scoped__ostream__redirect.html#a942351f545a7d1b13762121e0af77479", null ],
+      [ "scoped_ostream_redirect", "classguanaqo_1_1scoped__ostream__redirect.html#adb12d6aab97590d761ec46db93e1df00", null ],
+      [ "operator=", "classguanaqo_1_1scoped__ostream__redirect.html#aed107591c2028389986c19f198a4a50d", null ],
+      [ "operator=", "classguanaqo_1_1scoped__ostream__redirect.html#a77e53a8dad222f55299678b687596d76", null ],
+      [ "os", "classguanaqo_1_1scoped__ostream__redirect.html#af3030b40064f1ba7a17e12686e2939d6", null ],
+      [ "old_buf", "classguanaqo_1_1scoped__ostream__redirect.html#aaaeaee343171828dcfa195a334726b23", null ]
+    ] ],
+    [ "guanaqo::io::csv_read_error", "structguanaqo_1_1io_1_1csv__read__error.html", null ],
+    [ "guanaqo::PrintMatrixView&lt; T &gt;", "classguanaqo_1_1PrintMatrixView.html", [
+      [ "value_type", "classguanaqo_1_1PrintMatrixView.html#ad71ab3053bf7beda6e08eed2a952742e", null ],
+      [ "index_type", "classguanaqo_1_1PrintMatrixView.html#a36ae2e42c9b52f9f1183cb8cef3f02fc", null ],
+      [ "inner_stride_type", "classguanaqo_1_1PrintMatrixView.html#a6b53cb7b0f39538fe2d30be76a0bd0ef", null ],
+      [ "PrintMatrixView", "classguanaqo_1_1PrintMatrixView.html#a9196584c5b887fe6ed80a80a3aa64fed", null ],
+      [ "PrintMatrixView", "classguanaqo_1_1PrintMatrixView.html#a12e03d70f6cd90e0c398ed96856ea506", null ],
+      [ "PrintMatrixView", "classguanaqo_1_1PrintMatrixView.html#a755c773e88741127e896b28ed07a2774", null ],
+      [ "PrintMatrixView", "classguanaqo_1_1PrintMatrixView.html#a46f5ce24c0882afeb8ce08b9ea91ed0a", null ],
+      [ "PrintMatrixView", "classguanaqo_1_1PrintMatrixView.html#aa372c663c11294c471b6800bdd0e60f6", null ],
+      [ "rows", "classguanaqo_1_1PrintMatrixView.html#a73243fba975ee1f16278da79f418010b", null ],
+      [ "cols", "classguanaqo_1_1PrintMatrixView.html#a63eea1dde756aae14cfc43178cb57f8e", null ],
+      [ "operator()", "classguanaqo_1_1PrintMatrixView.html#a40574d22e1e376963a995a29b7c418c4", null ],
+      [ "view", "classguanaqo_1_1PrintMatrixView.html#a33fa11300a8b6297703160134b40c750", null ],
+      [ "transposed", "classguanaqo_1_1PrintMatrixView.html#aaccb22c712d999b3e6b2036020e486fa", null ]
+    ] ],
+    [ "guanaqo::PrintOpts", "group__io.html#structguanaqo_1_1PrintOpts", [
+      [ "precision", "group__io.html#a41c4870060a99d1d82bc3632e2dd4500", null ],
+      [ "delimiter", "group__io.html#a708b91685d5f8273dc4f966244125518", null ],
+      [ "line_start", "group__io.html#a163d03f624a2e052bf2c62b8e39e435a", null ],
+      [ "line_end", "group__io.html#a4cb17726db12718c3a6bcec9ff5c39e5", null ],
+      [ "start", "group__io.html#a08cf62a7d178ec40438aaa2599b5054a", null ],
+      [ "end", "group__io.html#ae19950928b259f61a936ea7fbf2c4e45", null ],
+      [ "indent", "group__io.html#a569282df8068ca8dc5920a5b0142fa86", null ],
+      [ "indent_char", "group__io.html#aa74818382adccfe74e1b42ce99b8484e", null ],
+      [ "column_vector_as_1d", "group__io.html#af325cc96ece1489274cb902d20d2db80", null ],
+      [ "row_vector_as_1d", "group__io.html#a8e1aaf274915da1567f46e3c989378ae", null ]
+    ] ],
+    [ "guanaqo::io::csv_read_row", "group__io.html#ga087c9290a0520b3f1b02b6787c921604", null ],
+    [ "guanaqo::io::csv_read_row", "group__io.html#ga96150e75b0b710f811a29db34a2ceee2", null ],
+    [ "guanaqo::io::csv_read", "group__io.html#ga7b55c259788953b68dc075f6c3f3859a", null ],
+    [ "guanaqo::io::csv_read", "group__io.html#ga6bbbe06b5fadeadd6d20822460efa6a1", null ],
+    [ "guanaqo::io::csv_read_row_std_vector", "group__io.html#ga373fb78c94722a8266ff76164178ee3e", null ],
+    [ "guanaqo::float_to_str_vw", "group__io.html#ga6ea0e178e6ff254e03b167069a441c38", null ],
+    [ "guanaqo::float_to_str", "group__io.html#gaad039ddbace5b0948cececedd1a7973c", null ],
+    [ "guanaqo::print_csv", "group__io.html#ga263de9ad112a4d30efc4809183d1c5ea", null ],
+    [ "guanaqo::print_csv", "group__io.html#ga9569dd6cda3d4feaa01b594fef06acf2", null ],
+    [ "guanaqo::print_matlab", "group__io.html#ga89b21ad0321c9a7125cf0cae57987307", null ],
+    [ "guanaqo::print_matlab", "group__io.html#ga706189963835322b0638082bb4ee4394", null ],
+    [ "guanaqo::print_python", "group__io.html#ga756d1c6bfac4b93da66e64e5f9c2b463", null ],
+    [ "guanaqo::print_python", "group__io.html#gaf6fcae141f820494c73f5d2d58a6daf1", null ]
+];

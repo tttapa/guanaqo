@@ -1,0 +1,3 @@
+<map id="guanaqo::TraceLogger" name="guanaqo::TraceLogger">
+<area shape="rect" id="Node000001" title="Class for recording trace logs, used when ITT or Perfetto tracing is not enabled." alt="" coords="5,5,199,191"/>
+</map>

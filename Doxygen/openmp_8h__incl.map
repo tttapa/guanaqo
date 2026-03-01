@@ -1,0 +1,7 @@
+<map id="include/guanaqo/openmp.h" name="include/guanaqo/openmp.h">
+<area shape="rect" id="Node000001" title="OpenMP helpers." alt="" coords="87,5,285,31"/>
+<area shape="rect" id="Node000002" href="$preprocessor_8h.html" title="Token concatenation and argument&#45;counting helpers." alt="" coords="5,79,183,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,33,121,72,118,68,170,29"/>
+<area shape="rect" id="Node000003" href="$stringify_8h.html" title="Stringify and token concatenation helpers." alt="" coords="207,79,352,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,29,255,68,252,72,199,33"/>
+</map>

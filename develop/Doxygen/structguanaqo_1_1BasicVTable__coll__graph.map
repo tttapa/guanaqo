@@ -1,0 +1,5 @@
+<map id="guanaqo::BasicVTable" name="guanaqo::BasicVTable">
+<area shape="rect" id="Node000001" title="Struct that stores pointers to functions to copy, move or destroy a polymorphic object." alt="" coords="27,216,183,361"/>
+<area shape="rect" id="Node000002" href="$group__type__erasure.html#structguanaqo_1_1CopyMoveDestroyVTable" title=" " alt="" coords="5,5,204,125"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,126,107,200,102,200,102,126"/>
+</map>

@@ -1,0 +1,40 @@
+<map id="guanaqo::TypeErased::size_indicates_ownership" name="guanaqo::TypeErased::size_indicates_ownership">
+<area shape="rect" id="Node000001" title=" " alt="" coords="865,421,1061,461"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a1539cdfc24389b1a988bf335a89fbccd" title="Ensure that storage is available, either by using the small buffer if it is large enough,..." alt="" coords="643,357,803,397"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="874,420,798,400,800,395,875,415"/>
+<area shape="rect" id="Node000014" href="$classguanaqo_1_1TypeErased.html#a61bea2c086b48e820f203d3248872eaf" title="Deallocate the memory without invoking the destructor." alt="" coords="643,485,803,525"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="875,468,800,488,798,483,874,462"/>
+<area shape="rect" id="Node000018" href="$classguanaqo_1_1TypeErased.html#ad3e015424b6dd535594aeb9606466245" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="629,421,817,461"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="852,444,817,444,817,439,852,439"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a4525c3ab83229736d301a3c54b97b2c4" title="Ensure storage and construct the type&#45;erased object of type T in&#45;place." alt="" coords="421,165,581,205"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="687,350,524,208,528,204,691,346"/>
+<area shape="rect" id="Node000010" href="$classguanaqo_1_1TypeErased.html#a9a9a3fb15c4b0c9ee907e0c790175ee7" title=" " alt="" coords="421,389,581,429"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="630,393,582,400,581,395,629,388"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a8b9a7cab5f7c8f0c57ee7917a386e2c4" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,5,373,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="474,156,429,107,372,60,351,48,353,43,375,55,433,104,478,153"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#ab9f728690fae172bde88c42e794b55be" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,69,373,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="449,161,372,124,345,112,347,107,374,119,451,156"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#aba36293b9b8f6622eaf9f5cb7e24251f" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,133,373,173"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="407,174,373,168,374,163,408,168"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a79ee52fc9756b24c66a20376095cac84" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,197,373,237"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="408,202,374,208,373,202,407,197"/>
+<area shape="rect" id="Node000008" href="$classguanaqo_1_1TypeErased.html#a5eb797761113ac4c73a8cfd672a15ab5" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="213,261,373,301"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="451,214,374,252,347,264,345,259,372,247,449,209"/>
+<area shape="rect" id="Node000009" href="$classguanaqo_1_1TypeErased.html#a075258e6739c3bd2adc82bfce512e311" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="5,261,165,301"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="200,284,166,284,166,279,200,279"/>
+<area shape="rect" id="Node000011" href="$classguanaqo_1_1TypeErased.html#a36693eaff4f3d29737ef091995b3631f" title="Copy constructor." alt="" coords="213,325,373,365"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="422,388,358,368,360,363,424,383"/>
+<area shape="rect" id="Node000012" href="$classguanaqo_1_1TypeErased.html#aeb0fa9e489bf394bab8a112990184133" title="Copy constructor (allocator aware)." alt="" coords="213,389,373,429"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="408,412,374,412,374,407,408,407"/>
+<area shape="rect" id="Node000013" href="$classguanaqo_1_1TypeErased.html#a200f8ff694b5ae333d19578655c51b29" title="Copy assignment." alt="" coords="213,453,373,493"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="424,436,360,456,358,451,422,431"/>
+<area shape="rect" id="Node000015" href="$classguanaqo_1_1TypeErased.html#ad922828914ba7d9a631f9538a31b7b38" title="Destroy the type&#45;erased object (if not empty), and deallocate the memory if necessary." alt="" coords="421,485,581,525"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="629,508,581,508,581,503,629,503"/>
+<area shape="poly" id="edge16_Node000015_Node000013" title=" " alt="" coords="407,494,373,488,374,483,408,488"/>
+<area shape="rect" id="Node000016" href="$classguanaqo_1_1TypeErased.html#a7037b452c2188fe5a496df955edb9227" title="Destructor." alt="" coords="213,517,373,557"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="408,522,374,528,373,522,407,517"/>
+<area shape="rect" id="Node000017" href="$classguanaqo_1_1TypeErased.html#afdb83d79e0f8a75cf16a166a3888eab9" title="Move assignment." alt="" coords="213,581,373,621"/>
+<area shape="poly" id="edge17_Node000015_Node000017" title=" " alt="" coords="451,534,374,572,347,584,345,579,372,567,449,529"/>
+<area shape="poly" id="edge20_Node000018_Node000010" title=" " alt="" coords="615,428,581,423,582,418,616,423"/>
+<area shape="poly" id="edge19_Node000018_Node000015" title=" " alt="" coords="641,468,572,488,570,483,639,463"/>
+</map>

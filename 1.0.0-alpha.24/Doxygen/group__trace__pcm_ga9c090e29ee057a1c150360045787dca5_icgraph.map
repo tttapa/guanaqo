@@ -1,0 +1,9 @@
+<map id="guanaqo::pcm::start_counters" name="guanaqo::pcm::start_counters">
+<area shape="rect" id="Node000001" title="May return null if PCM is not available." alt="" coords="555,37,707,77"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#a5266af25504e9d63f861dd151abd67de" title=" " alt="" coords="280,37,507,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="541,60,507,60,507,55,541,55"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#a0716b44940cefdf6f99d27e0a476a29c" title=" " alt="" coords="5,5,232,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="266,45,232,41,233,36,267,40"/>
+<area shape="rect" id="Node000004" href="$structguanaqo_1_1pcm_1_1ScopedCounters.html#afcb8492fefc1fc5ab19cc5e8f3e40647" title=" " alt="" coords="5,69,232,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="267,75,233,79,232,73,266,69"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="guanaqo::pcm::disable_counters" name="guanaqo::pcm::disable_counters">
+<area shape="rect" id="Node000001" title="Disables performance counters globally. Blocks until all active counters have stopped." alt="" coords="5,5,175,45"/>
+<area shape="rect" id="Node000002" href="$namespaceguanaqo_1_1pcm.html#a8ba89cb2ed664e9017288710c622d3f8" title=" " alt="" coords="223,5,429,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,23,209,23,209,28,175,28"/>
+</map>

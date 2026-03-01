@@ -1,0 +1,15 @@
+<map id="guanaqo::TypeErased::TypeErased" name="guanaqo::TypeErased::TypeErased">
+<area shape="rect" id="Node000001" title="Copy constructor (allocator aware)." alt="" coords="5,39,165,79"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a32b0f63d3c9a366264d6c3365db9ace6" title="Default constructor." alt="" coords="435,5,595,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,50,422,30,422,35,166,55"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a9a9a3fb15c4b0c9ee907e0c790175ee7" title=" " alt="" coords="213,67,373,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,67,200,71,199,77,165,72"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="366,64,428,47,430,52,367,69"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a1539cdfc24389b1a988bf335a89fbccd" title="Ensure that storage is available, either by using the small buffer if it is large enough,..." alt="" coords="435,69,595,109"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="374,85,422,86,421,91,374,90"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#ad3e015424b6dd535594aeb9606466245" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="421,133,609,173"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="361,104,436,127,434,132,360,109"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#ac8f39b0ccb2a310de00de9637f6aaf97" title=" " alt="" coords="657,101,853,141"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="596,97,644,104,643,109,595,103"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="609,138,643,134,644,139,610,143"/>
+</map>

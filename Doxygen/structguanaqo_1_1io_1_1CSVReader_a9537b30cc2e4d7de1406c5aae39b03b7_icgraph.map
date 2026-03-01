@@ -1,0 +1,20 @@
+<map id="guanaqo::io::CSVReader::read_chunk" name="guanaqo::io::CSVReader::read_chunk">
+<area shape="rect" id="Node000001" title=" " alt="" coords="717,51,896,91"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1io_1_1CSVReader.html#ac6ff711471364524ec918facf8059bc4" title=" " alt="" coords="491,19,669,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="703,59,669,55,670,49,704,54"/>
+<area shape="rect" id="Node000008" href="$structguanaqo_1_1io_1_1CSVReader.html#a1ec0f1dda005a6206400f818159cf09f" title=" " alt="" coords="491,83,669,123"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="704,89,670,93,669,88,703,83"/>
+<area shape="rect" id="Node000003" href="$group__io.html#ga7b55c259788953b68dc075f6c3f3859a" title=" " alt="" coords="263,5,427,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="476,33,427,28,428,23,477,27"/>
+<area shape="rect" id="Node000005" href="$group__io.html#ga087c9290a0520b3f1b02b6787c921604" title=" " alt="" coords="248,55,443,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="477,54,443,58,443,53,476,49"/>
+<area shape="rect" id="Node000007" href="$group__io.html#ga373fb78c94722a8266ff76164178ee3e" title=" " alt="" coords="263,105,427,145"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="510,67,492,74,444,94,407,107,405,102,442,89,490,69,508,62"/>
+<area shape="rect" id="Node000004" href="$group__io.html#ga6bbbe06b5fadeadd6d20822460efa6a1" title=" " alt="" coords="21,5,185,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,21,185,21,185,15,249,15"/>
+<area shape="rect" id="Node000006" href="$group__io.html#ga96150e75b0b710f811a29db34a2ceee2" title=" " alt="" coords="5,55,200,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="234,70,200,70,200,65,234,65"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="504,80,489,74,465,58,442,44,409,33,410,28,444,40,468,54,492,69,507,76"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="476,90,428,83,429,77,477,85"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="477,115,428,120,427,115,476,110"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="guanaqo::TypeErased::owns_referenced_object" name="guanaqo::TypeErased::owns_referenced_object">
+<area shape="rect" id="Node000001" title="Check if this wrapper owns the storage of the wrapped object, or whether it simply stores a reference..." alt="" coords="5,5,193,45"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#ac8f39b0ccb2a310de00de9637f6aaf97" title=" " alt="" coords="241,5,437,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,23,228,23,228,28,193,28"/>
+</map>
