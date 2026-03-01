@@ -190,7 +190,7 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
 #define GUANAQO_TRACE(name, ...)                                               \
     const auto GUANAQO_CAT(trace_log_, __COUNTER__) =                          \
         ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)
-#define GUANAQO_TRACE_INSTANT(category, name, instance)                        \
+#define GUANAQO_TRACE_INSTANT(category, name, ...)                        \
     do {                                                                       \
         ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)->log = nullptr; \
     } while (0)
