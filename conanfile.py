@@ -73,15 +73,22 @@ class GuanaqoRecipe(ConanFile):
             self.requires("perfetto/52.0", transitive_headers=True)
         if self.options.with_pcm:
             self.requires("intel-pcm/tttapa.20260207")
-        if self.options.with_blas and not self.options.with_mkl:
+        if self.options.get_safe("with_blas") and not self.options.get_safe("with_mkl"):
             self.requires("openblas/0.3.30", transitive_headers=True)
-        self.test_requires("gtest/1.17.0")
-        self.test_requires("eigen/3.4.0")
-        if self.conf.get("user.guanaqo:with_python_tests", default=False, check_type=bool):
-            self.test_requires("nanobind/2.10.2")
+        if self.options.get_safe("with_openmp") and self.settings.compiler == "clang":
+            self.requires(
+                f"llvm-openmp/[~{self.settings.compiler.version}]",
+                transitive_headers=True,
+            )
 
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.24 <5]")
+        self.test_requires("gtest/1.17.0")
+        self.test_requires("eigen/[~3.4 || ~5.0]")
+        if self.conf.get(
+            "user.guanaqo:with_python_tests", default=False, check_type=bool
+        ):
+            self.test_requires("nanobind/2.10.2")
 
     def config_options(self):
         if self.settings.get_safe("os") == "Windows":
@@ -114,7 +121,9 @@ class GuanaqoRecipe(ConanFile):
             tc.variables["GUANAQO_BLAS_INDEX_TYPE"] = self.options.get_safe(
                 "blas_index_type", default="int"
             )
-        if self.conf.get("user.guanaqo:with_python_tests", default=False, check_type=bool):
+        if self.conf.get(
+            "user.guanaqo:with_python_tests", default=False, check_type=bool
+        ):
             tc.variables["GUANAQO_WITH_PYTHON_TESTS"] = True
         if can_run(self):
             tc.variables["GUANAQO_FORCE_TEST_DISCOVERY"] = True
