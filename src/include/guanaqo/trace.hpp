@@ -86,6 +86,15 @@ struct TraceLogger {
         return ScopedLog{domain, name, instance};
     }
 
+    void trace_instant(__itt_string_handle *name, int64_t instance) const {
+        if (!domain)
+            return;
+        instance = std::clamp<int64_t>(instance, 0, max_instance_num);
+        auto id =
+            __itt_id_make(nullptr, static_cast<unsigned long long>(instance));
+        __itt_marker(domain, id, name, __itt_scope_task);
+    }
+
     [[nodiscard]] std::span<const Log> get_logs() const { return {}; }
 
     void reset() {}
@@ -99,9 +108,18 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
         __itt_string_handle_create(name);                                      \
     const auto var_name = ::guanaqo::get_trace_logger().trace(                 \
         GUANAQO_CAT(var_name, _name), instance)
+#define GUANAQO_TRACE_INSTANT_IMPL(var_name, name, instance)                   \
+    do {                                                                       \
+        static auto GUANAQO_CAT(var_name, _name) =                             \
+            __itt_string_handle_create(name);                                  \
+        ::guanaqo::get_trace_logger().trace_instant(                           \
+            GUANAQO_CAT(var_name, _name), instance);                           \
+    } while (0)
 #define GUANAQO_TRACE(name, instance, ...)                                     \
     GUANAQO_TRACE_IMPL(GUANAQO_CAT(trace_log_, __COUNTER__), name, instance)
-#define GUANAQO_TRACE_INSTANT(name, instance) GUANAQO_NOOP() /* TODO */
+#define GUANAQO_TRACE_INSTANT(name, instance)                                  \
+    GUANAQO_TRACE_INSTANT_IMPL(GUANAQO_CAT(trace_instant_, __COUNTER__), name, \
+                               instance)
 #define GUANAQO_TRACE_LINALG(name, gflops)                                     \
     GUANAQO_TRACE(name, 0) /* TODO: record gflops? */
 #define GUANAQO_TRACE_REGION(name, instance) GUANAQO_TRACE(name, instance)
@@ -176,6 +194,12 @@ struct TraceLogger {
         return ScopedLog{&log, t1};
     }
 
+    void trace_instant(const char *name, int64_t instance,
+                       int64_t flop_count = -1) {
+        auto instant_log = trace(name, instance, flop_count);
+        instant_log.log  = nullptr;
+    }
+
     [[nodiscard]] std::span<const Log> get_logs() const {
         auto n = std::min(logs.size(), count.load(std::memory_order_relaxed));
         return std::span{logs}.first(n);
@@ -201,9 +225,7 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
         ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)
 #define GUANAQO_TRACE_INSTANT(name, instance)                                  \
     do {                                                                       \
-        auto instant_log =                                                     \
-            ::guanaqo::get_trace_logger().trace(name, instance);               \
-        instant_log.log = nullptr;                                             \
+        ::guanaqo::get_trace_logger().trace_instant(name, instance);           \
     } while (0)
 #define GUANAQO_TRACE_LINALG(name, gflops) GUANAQO_TRACE(name, 0, gflops)
 #define GUANAQO_TRACE_REGION(name, instance) GUANAQO_TRACE(name, instance)
