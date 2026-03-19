@@ -92,13 +92,21 @@ struct TraceLogger {
 };
 
 GUANAQO_EXPORT TraceLogger &get_trace_logger();
+
+#if !GUANAQO_WITH_PERFETTO
 #define GUANAQO_TRACE_IMPL(var_name, name, instance)                           \
     static auto GUANAQO_CAT(var_name, _name) =                                 \
         __itt_string_handle_create(name);                                      \
     const auto var_name = ::guanaqo::get_trace_logger().trace(                 \
         GUANAQO_CAT(var_name, _name), instance)
-#define GUANAQO_TRACE(name, instance)                                          \
+#define GUANAQO_TRACE(name, instance, ...)                                     \
     GUANAQO_TRACE_IMPL(GUANAQO_CAT(trace_log_, __COUNTER__), name, instance)
+#define GUANAQO_TRACE_INSTANT(name, instance) GUANAQO_NOOP() /* TODO */
+#define GUANAQO_TRACE_LINALG(name, gflops)                                     \
+    GUANAQO_TRACE(name, 0) /* TODO: record gflops? */
+#define GUANAQO_TRACE_REGION(name, instance) GUANAQO_TRACE(name, instance)
+#define GUANAQO_TRACE_STATIC_STR(s) s
+#endif
 
 #else
 
@@ -186,25 +194,27 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
 
 #endif
 
-#if GUANAQO_WITH_TRACING && !GUANAQO_WITH_PERFETTO
+#if !GUANAQO_WITH_PERFETTO && !GUANAQO_WITH_ITT
+#if GUANAQO_WITH_TRACING
 #define GUANAQO_TRACE(name, ...)                                               \
     const auto GUANAQO_CAT(trace_log_, __COUNTER__) =                          \
         ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)
-#define GUANAQO_TRACE_INSTANT(category, name, ...)                        \
+#define GUANAQO_TRACE_INSTANT(name, instance)                                  \
     do {                                                                       \
-        ::guanaqo::get_trace_logger().trace(name, __VA_ARGS__)->log = nullptr; \
+        auto instant_log =                                                     \
+            ::guanaqo::get_trace_logger().trace(name, instance);               \
+        instant_log.log = nullptr;                                             \
     } while (0)
 #define GUANAQO_TRACE_LINALG(name, gflops) GUANAQO_TRACE(name, 0, gflops)
 #define GUANAQO_TRACE_REGION(name, instance) GUANAQO_TRACE(name, instance)
 #define GUANAQO_TRACE_STATIC_STR(s) s
-#endif
-
-#if !GUANAQO_WITH_TRACING && !GUANAQO_WITH_ITT && !GUANAQO_WITH_PERFETTO
-#define GUANAQO_TRACE(...) GUANAQO_NOOP()
-#define GUANAQO_TRACE_INSTANT(...) GUANAQO_NOOP()
-#define GUANAQO_TRACE_LINALG(...) GUANAQO_NOOP()
-#define GUANAQO_TRACE_REGION(...) GUANAQO_NOOP()
+#else
+#define GUANAQO_TRACE(name, ...) GUANAQO_NOOP()
+#define GUANAQO_TRACE_INSTANT(name, instance) GUANAQO_NOOP()
+#define GUANAQO_TRACE_LINALG(name, gflops) GUANAQO_NOOP()
+#define GUANAQO_TRACE_REGION(name, instance) GUANAQO_NOOP()
 #define GUANAQO_TRACE_STATIC_STR(s) s
+#endif
 #endif
 
 #if GUANAQO_WITH_ITT
