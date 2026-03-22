@@ -46,18 +46,16 @@ void stop_tracing(std::unique_ptr<::perfetto::TracingSession> tracing_session,
     if (!output)
         throw std::runtime_error(std::format("Failed to open output file: {}",
                                              output_path.string()));
+    if (!tracing_session->FlushBlocking())
+        return;
+    tracing_session->StopBlocking();
     std::promise<void> done;
-    tracing_session->FlushBlocking();
     tracing_session->ReadTrace(
         [&](::perfetto::TracingSession::ReadTraceCallbackArgs args) {
             output.write(args.data, std::streamsize(args.size));
             if (!args.has_more)
                 done.set_value();
         });
-    std::this_thread::sleep_for(
-        std::chrono::seconds(10)); // TODO: this is a hack
-    tracing_session->FlushBlocking();
-    tracing_session->Stop();
     done.get_future().wait();
     tracing_session.reset();
 }
