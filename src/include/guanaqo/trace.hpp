@@ -9,21 +9,22 @@
 #include <guanaqo/preprocessor.h>
 #include <guanaqo/stringify.h>
 
-#include <algorithm>
+#include <concepts>
+#include <functional>
+#include <memory>
 #include <span>
 #include <utility>
 
 #if GUANAQO_WITH_ITT
 #include <ittnotify.h>
+#include <algorithm>
 #include <iosfwd>
 #else
-#include <atomic>
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <iomanip>
 #include <ostream>
-#include <thread>
 #endif
 
 namespace guanaqo {
@@ -128,6 +129,8 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger();
 
 #else
 
+GUANAQO_EXPORT std::size_t get_thread_id();
+
 /// Class for recording trace logs, used when ITT or Perfetto tracing is not enabled.
 /// @ingroup trace_core
 struct TraceLogger {
@@ -153,9 +156,8 @@ struct TraceLogger {
 
     using clock = std::chrono::steady_clock;
 
-    clock::time_point t0 = clock::now();
+    static clock::time_point t0;
     std::vector<Log> logs;
-    std::atomic_size_t count{0};
 
     struct ScopedLog {
         Log *log = nullptr;
@@ -176,22 +178,20 @@ struct TraceLogger {
         }
     };
 
-    TraceLogger(size_t capacity) { logs.resize(capacity); }
+    TraceLogger(size_t capacity) { logs.reserve(capacity); }
 
     [[nodiscard]] ScopedLog trace(const char *name, int64_t instance,
                                   int64_t flop_count = -1) {
-        size_t index = count.fetch_add(1, std::memory_order_relaxed);
-        if (index >= logs.size())
+        if (logs.size() == logs.capacity())
             return ScopedLog{nullptr, {}};
-        static constexpr std::hash<std::thread::id> hasher;
-        auto &log      = logs[index];
+        auto &log      = logs.emplace_back();
         auto t1        = clock::now();
         log.name       = name;
         log.instance   = instance;
         log.flop_count = flop_count;
         log.start_time = t1 - t0;
-        log.thread_id  = hasher(std::this_thread::get_id());
-        return ScopedLog{&log, t1};
+        log.thread_id  = get_thread_id();
+        return ScopedLog{&log, t1}; // Note: assumes stable reference to log
     }
 
     void trace_instant(const char *name, int64_t instance,
@@ -201,19 +201,36 @@ struct TraceLogger {
     }
 
     [[nodiscard]] std::span<const Log> get_logs() const {
-        auto n = std::min(logs.size(), count.load(std::memory_order_relaxed));
-        return std::span{logs}.first(n);
+        return std::span{logs};
     }
 
-    void reset() { count.store(0, std::memory_order_relaxed); }
+    /// Set the maximum number of logs that can be recorded. Additional logs are discarded.
+    void reserve(size_t capacity) { logs.reserve(capacity); }
+    /// Clear all recorded logs, but keep the reserved capacity.
+    void reset() { logs.clear(); } // does not change capacity
+    /// Clear all recorded logs and set capacity to 0 (essentially disabling the logger).
+    void clear() { logs = {}; } // set capacity to 0
 };
 
 #if GUANAQO_WITH_TRACING
-/// Get a reference to the global trace logger instance.
-/// @note Tracing is thread-safe, but for performance reasons, it may be desirable to use a separate
-///       logger for each thread.
+/// Get a reference to the global (but thread-local) trace logger instance.
 /// @ingroup trace_core
 GUANAQO_EXPORT TraceLogger &get_trace_logger();
+/// Set the default capacity for trace loggers created by get_trace_logger().
+GUANAQO_EXPORT size_t trace_logger_set_default_size(size_t size);
+/// Call @p callback for each trace logger instance.
+/// Note that the TraceLogger API is not thread-safe, so this function should not be called while
+/// other threads are still logging to their trace loggers. Use a barrier or a critical section to
+/// ensure this is the case.
+GUANAQO_EXPORT void
+for_each_trace_logger(const std::function<void(TraceLogger &)> &callback);
+/// Like @ref for_each_trace_logger, but also forgets about all loggers. Threads that are still
+/// running will still be able to log to their loggers, but they are no longer accessible through
+/// @ref foreach_trace_logger. Loggers for threads that no longer exist will be cleaned up,
+/// unless the callback takes ownership of them.
+GUANAQO_EXPORT void drop_trace_loggers(
+    const std::function<void(std::shared_ptr<TraceLogger>)> &callback =
+        nullptr);
 #endif
 
 #endif

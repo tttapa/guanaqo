@@ -81,6 +81,7 @@ add_library(guanaqo
     "src/dl.cpp"
     "src/dl-flags.cpp"
     "src/print.cpp"
+    "src/trace.cpp"
     "src/type-erasure.cpp"
     "src/timed-cpu.cpp"
     "src/io/csv.cpp"
@@ -159,9 +160,6 @@ if (GUANAQO_WITH_PERFETTO)
 endif()
 if (GUANAQO_WITH_PCM)
     target_link_libraries(guanaqo PUBLIC pcm::pcm-static-silent)
-endif()
-if (GUANAQO_WITH_TRACING OR GUANAQO_WITH_ITT)
-    target_sources(guanaqo PRIVATE "src/trace.cpp")
 endif()
 if (GUANAQO_WITH_OPENMP)
     find_package(OpenMP REQUIRED COMPONENTS CXX)
