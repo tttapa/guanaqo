@@ -1,0 +1,6 @@
+<map id="Sparse matrices" name="Sparse matrices">
+<area shape="rect" id="Node000002" href="$group__linalg.html" title="Linear algebra utilities, including dense and matrix views, conversions, BLAS wrappers,..." alt="" coords="5,31,121,56"/>
+<area shape="rect" id="Node000001" title="Sparse matrix data structures." alt="" coords="169,31,296,56"/>
+<area shape="rect" id="Node000003" href="$group__linalg__sparsity__conv.html" title="Sparse matrix conversions." alt="" coords="344,5,503,31"/>
+<area shape="rect" id="Node000004" href="$group__linalg__sparsity__utils.html" title="Sparse matrix utilities for sorting indices, checking uniqueness, etc." alt="" coords="358,55,489,80"/>
+</map>

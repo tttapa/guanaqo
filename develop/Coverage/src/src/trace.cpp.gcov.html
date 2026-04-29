@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - d0671c2ba3ff3b01253964d1eedb8c93dc6a1bcc - src/src/trace.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src/src">src/src</a> - trace.cpp</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">d0671c2ba3ff3b01253964d1eedb8c93dc6a1bcc</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">34</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-04-28 14:17:13</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:&nbsp&nbsp&nbsp&nbsp
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : #include &lt;guanaqo/trace.hpp&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &lt;list&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>              : #include &lt;mutex&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &lt;thread&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : #ifdef _POSIX_THREADS</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &lt;pthread.h&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #endif</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span>              : #if GUANAQO_WITH_ITT</span>
+<span id="L11"><span class="lineNum">      11</span>              : namespace guanaqo {</span>
+<span id="L12"><span class="lineNum">      12</span>              : GUANAQO_EXPORT TraceLogger &amp;get_trace_logger() {</span>
+<span id="L13"><span class="lineNum">      13</span>              :     static TraceLogger instance;</span>
+<span id="L14"><span class="lineNum">      14</span>              :     return instance;</span>
+<span id="L15"><span class="lineNum">      15</span>              : }</span>
+<span id="L16"><span class="lineNum">      16</span>              : } // namespace guanaqo</span>
+<span id="L17"><span class="lineNum">      17</span>              : </span>
+<span id="L18"><span class="lineNum">      18</span>              : #else</span>
+<span id="L19"><span class="lineNum">      19</span>              : namespace guanaqo {</span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span>              : #ifdef _POSIX_THREADS</span>
+<span id="L22"><span class="lineNum">      22</span>              : template &lt;class T&gt;</span>
+<span id="L23"><span class="lineNum">      23</span>              : concept pthread_self_converts_to = requires { T{::pthread_self()}; };</span>
+<span id="L24"><span class="lineNum">      24</span>              : #else</span>
+<span id="L25"><span class="lineNum">      25</span>              : template &lt;class&gt;</span>
+<span id="L26"><span class="lineNum">      26</span>              : concept pthread_self_converts_to = false;</span>
+<span id="L27"><span class="lineNum">      27</span>              : #endif</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC">           0 : GUANAQO_EXPORT std::size_t get_thread_id() {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaUNC">           0 :     return []&lt;class S = std::size_t&gt;() {</span></span>
+<span id="L31"><span class="lineNum">      31</span>              :         // we need template instantiation to discard the non-selected branch</span>
+<span id="L32"><span class="lineNum">      32</span>              :         if constexpr (pthread_self_converts_to&lt;S&gt;) {</span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :             static thread_local S self{::pthread_self()};</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :             return self;</span></span>
+<span id="L35"><span class="lineNum">      35</span>              :         } else {</span>
+<span id="L36"><span class="lineNum">      36</span>              :             static constexpr std::hash&lt;std::thread::id&gt; hasher;</span>
+<span id="L37"><span class="lineNum">      37</span>              :             return hasher(std::this_thread::get_id());</span>
+<span id="L38"><span class="lineNum">      38</span>              :         }</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :     }();</span></span>
+<span id="L40"><span class="lineNum">      40</span>              : }</span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span>              : TraceLogger::clock::time_point TraceLogger::t0 = clock::now();</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span>              : static std::mutex trace_loggers_mutex;</span>
+<span id="L45"><span class="lineNum">      45</span>              : static std::list&lt;std::shared_ptr&lt;TraceLogger&gt;&gt; trace_loggers;</span>
+<span id="L46"><span class="lineNum">      46</span>              : static std::atomic&lt;size_t&gt; default_trace_logger_size = 16'384;</span>
+<span id="L47"><span class="lineNum">      47</span>              : </span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 : static auto new_trace_logger(size_t size) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :     auto logger = std::make_shared&lt;TraceLogger&gt;(size);</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :     std::lock_guard lock(trace_loggers_mutex);</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :     trace_loggers.push_back(logger);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :     return logger;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L54"><span class="lineNum">      54</span>              : </span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaUNC">           0 : GUANAQO_EXPORT size_t trace_logger_set_default_size(size_t size) {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC">           0 :     return default_trace_logger_size.exchange(size, std::memory_order_relaxed);</span></span>
+<span id="L57"><span class="lineNum">      57</span>              : }</span>
+<span id="L58"><span class="lineNum">      58</span>              : </span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaUNC">           0 : GUANAQO_EXPORT TraceLogger &amp;get_trace_logger() {</span></span>
+<span id="L60"><span class="lineNum">      60</span>              :     static thread_local auto instance = new_trace_logger(</span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC">           0 :         default_trace_logger_size.load(std::memory_order_relaxed));</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :     return *instance;</span></span>
+<span id="L63"><span class="lineNum">      63</span>              : }</span>
+<span id="L64"><span class="lineNum">      64</span>              : </span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaUNC">           0 : GUANAQO_EXPORT void drop_trace_loggers(</span></span>
+<span id="L66"><span class="lineNum">      66</span>              :     const std::function&lt;void(std::shared_ptr&lt;TraceLogger&gt;)&gt; &amp;callback) {</span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC">           0 :     if (callback) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC">           0 :         auto old_loggers = [&amp;] {</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaUNC">           0 :             std::lock_guard lock(trace_loggers_mutex);</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC">           0 :             return std::exchange(trace_loggers, {});</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaUNC">           0 :         }();</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaUNC">           0 :         for (auto &amp;logger : old_loggers)</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaUNC">           0 :             callback(std::move(logger));</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC">           0 :     } else {</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaUNC">           0 :         std::lock_guard lock(trace_loggers_mutex);</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaUNC">           0 :         trace_loggers.clear();</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L79"><span class="lineNum">      79</span>              : </span>
+<span id="L80"><span class="lineNum">      80</span>              : GUANAQO_EXPORT void</span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC">           0 : for_each_trace_logger(const std::function&lt;void(TraceLogger &amp;)&gt; &amp;callback) {</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC">           0 :     std::lock_guard lock(trace_loggers_mutex);</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaUNC">           0 :     for (const auto &amp;logger : trace_loggers)</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaUNC">           0 :         callback(*logger);</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L86"><span class="lineNum">      86</span>              : </span>
+<span id="L87"><span class="lineNum">      87</span>              : } // namespace guanaqo</span>
+<span id="L88"><span class="lineNum">      88</span>              : #endif</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.4-0</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

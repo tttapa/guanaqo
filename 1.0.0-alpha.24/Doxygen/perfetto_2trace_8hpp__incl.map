@@ -1,0 +1,20 @@
+<map id="include/guanaqo/perfetto/trace.hpp" name="include/guanaqo/perfetto/trace.hpp">
+<area shape="rect" id="Node000001" title="Perfetto tracing macros and session helpers." alt="" coords="261,5,446,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,141,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,36,196,44,130,57,75,73,55,84,42,95,36,109,38,124,56,155,51,158,33,126,31,108,38,92,52,79,73,68,129,51,195,39,260,31"/>
+<area shape="rect" id="Node000003" href="$preprocessor_8h.html" title="Token concatenation and argument&#45;counting helpers." alt="" coords="53,93,230,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="303,48,186,91,185,86,302,43"/>
+<area shape="rect" id="Node000004" href="$counters_8hpp.html" title="Performance counter snapshots and scoped collectors." alt="" coords="254,93,453,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="356,46,356,79,351,79,351,46"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="477,93,563,119"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="394,43,484,85,482,90,392,48"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="588,93,679,119"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="421,43,580,87,578,92,420,48"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="309,121,132,166,131,161,308,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="224,167,291,192"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="339,121,286,160,283,156,336,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="315,167,392,192"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="356,119,356,153,351,153,351,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="417,167,477,192"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="370,117,422,156,419,160,367,121"/>
+</map>

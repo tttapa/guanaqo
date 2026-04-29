@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; Dense, Dense &gt;" name="guanaqo::linalg::sparsity::SparsityConverter&lt; Dense, Dense &gt;">
+<area shape="rect" id="Node000001" title="Conversion from dense to dense is trivial." alt="" coords="5,196,204,405"/>
+<area shape="rect" id="Node000002" href="$group__linalg__sparsity.html#structguanaqo_1_1linalg_1_1sparsity_1_1Dense" title="Dense matrix structure." alt="" coords="17,5,192,125"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,125,107,179,102,179,102,125"/>
+</map>

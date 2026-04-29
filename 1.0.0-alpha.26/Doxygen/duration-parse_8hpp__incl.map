@@ -1,0 +1,23 @@
+<map id="include/guanaqo/duration&#45;parse.hpp" name="include/guanaqo/duration&#45;parse.hpp">
+<area shape="rect" id="Node000001" title="Duration parsing helpers." alt="" coords="452,5,639,45"/>
+<area shape="rect" id="Node000002" href="$demangled-typename_8hpp.html" title="Pretty&#45;print type names." alt="" coords="103,101,358,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="477,48,286,100,285,94,476,43"/>
+<area shape="rect" id="Node000006" href="$from__chars-wrapper_8hpp.html" title="Portable wrapper around std::from_chars for integers and floats." alt="" coords="401,93,556,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="533,47,504,84,500,81,528,44"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="580,101,647,126"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="563,44,598,88,594,91,558,47"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="671,101,769,126"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="585,43,686,92,683,97,582,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,141,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="209,128,110,178,107,173,207,124"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="165,181,224,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="228,127,208,170,203,168,223,125"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="249,181,325,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="241,125,273,169,268,172,237,128"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="349,181,430,207"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="459,136,415,174,411,170,455,132"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="454,181,541,207"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="486,133,494,167,489,168,481,134"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="565,181,673,207"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="513,131,587,172,585,177,511,136"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="guanaqo::blas::lapack_throw_on_err" name="guanaqo::blas::lapack_throw_on_err">
+<area shape="rect" id="Node000001" title=" " alt="" coords="237,85,401,125"/>
+<area shape="rect" id="Node000002" href="$group__linalg__blas__hl.html#gafc39d257b7d68f7d9ee64c3329c80429" title=" " alt="" coords="5,5,189,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,81,188,46,149,33,151,28,190,41,269,76"/>
+<area shape="rect" id="Node000003" href="$group__linalg__blas__ll.html#ga4c0f8d91597c94e7dd628055758e46e1" title=" " alt="" coords="17,55,177,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,95,177,89,178,83,224,89"/>
+<area shape="rect" id="Node000004" href="$group__linalg__blas__hl.html#ga5c1c9f54a74fb21671b35ce863f441ea" title=" " alt="" coords="10,120,185,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,119,185,124,185,119,223,114"/>
+<area shape="rect" id="Node000005" href="$group__linalg__blas__hl.html#ga5a3709e97992131be83a447b9b5cad11" title=" " alt="" coords="9,169,186,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="261,132,190,159,149,172,147,167,188,154,259,127"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; IndexFrom &gt;, SparseCSC&lt; IndexTo, StorageIndexTo &gt; &gt;" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; IndexFrom &gt;, SparseCSC&lt; IndexTo, StorageIndexTo &gt; &gt;">
+<area shape="rect" id="Node000001" title="Conversion from COO to CSC format." alt="" coords="15,256,275,540"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparseCSC.html" title=" " alt="" coords="5,5,285,185"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,185,148,239,143,239,143,185"/>
+</map>

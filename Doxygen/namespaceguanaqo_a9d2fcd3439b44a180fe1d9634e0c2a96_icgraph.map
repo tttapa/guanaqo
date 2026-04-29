@@ -1,0 +1,17 @@
+<map id="guanaqo::print_elem" name="guanaqo::print_elem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="641,80,797,105"/>
+<area shape="rect" id="Node000002" href="$namespaceguanaqo_1_1detail.html#a88c9fe1314e5663d4c70ce10355c6e56" title=" " alt="" coords="432,73,593,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="627,95,594,95,594,90,627,90"/>
+<area shape="rect" id="Node000003" href="$namespaceguanaqo_1_1detail.html#a8c302199bfdbe4134d5a49129ee1aaf4" title=" " alt="" coords="223,41,384,81"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,81,384,76,384,70,419,76"/>
+<area shape="rect" id="Node000006" href="$namespaceguanaqo_1_1detail.html#ace413852839567e1ea2455dfddde9c73" title=" " alt="" coords="223,105,384,145"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="419,110,384,115,384,110,418,104"/>
+<area shape="rect" id="Node000004" href="$group__io.html#ga706189963835322b0638082bb4ee4394" title=" " alt="" coords="5,5,175,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="208,44,153,33,155,28,209,39"/>
+<area shape="rect" id="Node000005" href="$group__io.html#ga89b21ad0321c9a7125cf0cae57987307" title=" " alt="" coords="5,55,175,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="209,66,175,67,175,62,209,61"/>
+<area shape="rect" id="Node000007" href="$group__io.html#gaf6fcae141f820494c73f5d2d58a6daf1" title=" " alt="" coords="6,108,174,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="209,126,174,125,174,120,209,120"/>
+<area shape="rect" id="Node000008" href="$group__io.html#ga756d1c6bfac4b93da66e64e5f9c2b463" title=" " alt="" coords="6,157,174,183"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="209,147,151,160,150,155,208,142"/>
+</map>

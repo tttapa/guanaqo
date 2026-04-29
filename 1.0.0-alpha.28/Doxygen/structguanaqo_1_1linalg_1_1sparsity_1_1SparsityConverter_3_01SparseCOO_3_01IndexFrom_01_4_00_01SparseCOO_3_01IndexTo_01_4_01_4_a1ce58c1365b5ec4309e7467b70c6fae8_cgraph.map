@@ -1,0 +1,7 @@
+<map id="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; IndexFrom &gt;, SparseCOO&lt; IndexTo &gt; &gt;::convert_sparsity" name="guanaqo::linalg::sparsity::SparsityConverter&lt; SparseCOO&lt; IndexFrom &gt;, SparseCOO&lt; IndexTo &gt; &gt;::convert_sparsity">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,272,92"/>
+<area shape="rect" id="Node000002" href="$namespaceguanaqo_1_1linalg_1_1sparsity.html#af32001896a23ba0b0d0237c9046f4315" title=" " alt="" coords="320,5,503,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,39,306,35,307,40,273,44"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparseCOO.html#a4ec91439376d7a76189918cd4d5b95e5" title="Get the number of structurally nonzero elements." alt="" coords="320,69,503,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="273,70,307,74,306,80,272,76"/>
+</map>

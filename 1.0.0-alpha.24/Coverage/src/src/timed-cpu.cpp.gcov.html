@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - d64458590aaefaee80a06891532d460019fc0040 - src/src/timed-cpu.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src/src">src/src</a> - timed-cpu.cpp</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">d64458590aaefaee80a06891532d460019fc0040</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-02-16 16:38:14</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:&nbsp&nbsp&nbsp&nbsp
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+</td>
+            <td></td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : #include &lt;guanaqo/timed-cpu.hpp&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &lt;iomanip&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span>              : #ifdef _WIN32</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &lt;Windows.h&gt;</span>
+<span id="L6"><span class="lineNum">       6</span>              : #else</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &lt;ctime&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #endif</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span>              : namespace {</span>
+<span id="L11"><span class="lineNum">      11</span>              : </span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC">           0 : int64_t getProcessCpuTime() {</span></span>
+<span id="L13"><span class="lineNum">      13</span>              : #ifdef _WIN32</span>
+<span id="L14"><span class="lineNum">      14</span>              :     FILETIME creation_time, exit_time, kernel_time, user_time;</span>
+<span id="L15"><span class="lineNum">      15</span>              :     GetProcessTimes(GetCurrentProcess(), &amp;creation_time, &amp;exit_time,</span>
+<span id="L16"><span class="lineNum">      16</span>              :                     &amp;kernel_time, &amp;user_time);</span>
+<span id="L17"><span class="lineNum">      17</span>              :     return static_cast&lt;int64_t&gt;(user_time.dwHighDateTime) &lt;&lt; 32 |</span>
+<span id="L18"><span class="lineNum">      18</span>              :            user_time.dwLowDateTime;</span>
+<span id="L19"><span class="lineNum">      19</span>              : #else</span>
+<span id="L20"><span class="lineNum">      20</span>              :     struct timespec cpu_time;</span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &amp;cpu_time);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :     return static_cast&lt;int64_t&gt;(cpu_time.tv_sec) * 1'000'000'000 +</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :            cpu_time.tv_nsec;</span></span>
+<span id="L24"><span class="lineNum">      24</span>              : #endif</span>
+<span id="L25"><span class="lineNum">      25</span>              : }</span>
+<span id="L26"><span class="lineNum">      26</span>              : </span>
+<span id="L27"><span class="lineNum">      27</span>              : } // namespace</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : namespace guanaqo {</span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 : std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, TimingsCPU t) {</span></span>
+<span id="L32"><span class="lineNum">      32</span>              :     using millis_f64 = std::chrono::duration&lt;double, std::milli&gt;;</span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :     auto wall_ms     = millis_f64(t.wall_time).count();</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :     auto cpu_ms      = millis_f64(t.cpu_time).count();</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :     auto cpu_pct     = 100 * cpu_ms / wall_ms;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :     auto prec        = os.precision(6);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :     os &lt;&lt; std::setw(8) &lt;&lt; wall_ms &lt;&lt; &quot; ms (wall) ─ &quot; //</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :        &lt;&lt; std::setw(8) &lt;&lt; cpu_ms &lt;&lt; &quot; ms (CPU) ─ &quot;   //</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :        &lt;&lt; std::setprecision(5) &lt;&lt; std::setw(7) &lt;&lt; cpu_pct &lt;&lt; &quot;%&quot;;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 :     os.precision(prec);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :     return os;</span></span>
+<span id="L42"><span class="lineNum">      42</span>              : }</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 : Timed&lt;TimingsCPU&gt;::Timed(TimingsCPU &amp;time) : time(time) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :     wall_start_time = clock::now();</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :     cpu_start_time  = getProcessCpuTime();</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L48"><span class="lineNum">      48</span>              : </span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 : Timed&lt;TimingsCPU&gt;::~Timed() {</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :     auto wall_end_time = clock::now();</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :     auto cpu_end_time  = getProcessCpuTime();</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :     ++time.num_invocations;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :     time.wall_time += wall_end_time - wall_start_time;</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :     time.cpu_time += std::chrono::nanoseconds{cpu_end_time - cpu_start_time};</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L56"><span class="lineNum">      56</span>              : </span>
+<span id="L57"><span class="lineNum">      57</span>              : } // namespace guanaqo</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.4-0</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

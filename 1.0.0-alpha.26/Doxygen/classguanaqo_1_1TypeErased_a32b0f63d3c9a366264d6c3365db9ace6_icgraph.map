@@ -1,0 +1,36 @@
+<map id="guanaqo::TypeErased::TypeErased" name="guanaqo::TypeErased::TypeErased">
+<area shape="rect" id="Node000001" title="Default constructor." alt="" coords="477,447,637,487"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1TypeErased_1_1Deallocator.html#a4ff3e80530b41634ed9da9e4389ee2b3" title=" " alt="" coords="241,133,429,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="541,435,498,337,465,280,427,227,398,199,368,176,371,171,402,195,431,224,470,277,502,334,546,432"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a36693eaff4f3d29737ef091995b3631f" title="Copy constructor." alt="" coords="19,261,179,301"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="541,435,524,399,499,360,467,322,428,293,398,280,367,270,302,261,237,261,180,267,179,262,237,256,302,256,368,265,400,275,431,288,471,318,503,356,528,397,546,432"/>
+<area shape="rect" id="Node000008" href="$classguanaqo_1_1TypeErased.html#aeb0fa9e489bf394bab8a112990184133" title="Copy constructor (allocator aware)." alt="" coords="19,325,179,365"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="537,436,519,406,494,374,464,345,428,322,394,310,359,303,285,302,216,312,157,328,156,323,215,307,285,297,359,298,396,305,431,318,467,341,498,371,523,403,542,433"/>
+<area shape="rect" id="Node000009" href="$classguanaqo_1_1TypeErased.html#ad5326e4943d30d90342fb241d4ba372d" title="Default constructor (allocator aware)." alt="" coords="255,447,415,487"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="463,469,415,469,415,464,463,464"/>
+<area shape="rect" id="Node000010" href="$classguanaqo_1_1TypeErased.html#aaf7f9da50fe2e295f4b90942a84d68a9" title="Copy constructor (allocator aware)." alt="" coords="255,511,415,551"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="475,493,406,513,404,508,473,488"/>
+<area shape="rect" id="Node000011" href="$classguanaqo_1_1TypeErased.html#af134b69ebaee85a223add022382de1ec" title="Move constructor (allocator aware)." alt="" coords="255,575,415,615"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="525,498,482,532,431,565,404,577,402,572,428,560,479,528,522,494"/>
+<area shape="rect" id="Node000012" href="$classguanaqo_1_1TypeErased.html#a9405414319ef51988ce9e83a5a9c9814" title="Move constructor." alt="" coords="255,639,415,679"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="541,500,496,565,466,599,431,629,410,641,407,636,428,624,462,595,492,562,536,497"/>
+<area shape="rect" id="Node000013" href="$classguanaqo_1_1TypeErased.html#a4cc7e95c25a2450ab9ab37b1abd1bd28" title="Move constructor (allocator aware)." alt="" coords="255,703,415,743"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="548,501,531,545,507,596,473,648,431,693,413,705,410,700,428,689,469,644,502,593,527,542,543,499"/>
+<area shape="rect" id="Node000014" href="$classguanaqo_1_1TypeErased.html#a9a9a3fb15c4b0c9ee907e0c790175ee7" title=" " alt="" coords="255,332,415,372"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="513,442,428,393,388,375,390,370,431,388,516,437"/>
+<area shape="rect" id="Node000015" href="$classguanaqo_1_1TypeErased.html#a200f8ff694b5ae333d19578655c51b29" title="Copy assignment." alt="" coords="19,389,179,429"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="472,446,429,437,297,422,179,414,180,409,298,416,430,432,473,441"/>
+<area shape="rect" id="Node000016" href="$classguanaqo_1_1TypeErased.html#afdb83d79e0f8a75cf16a166a3888eab9" title="Move assignment." alt="" coords="255,767,415,807"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="553,501,540,556,516,625,481,695,458,728,431,757,414,769,411,764,428,753,454,724,476,692,511,622,535,555,548,500"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1TypeErased_1_1Deallocator.html#a3521af77343bff13033d5d594d60379c" title=" " alt="" coords="5,69,193,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="247,132,173,112,174,107,249,127"/>
+<area shape="rect" id="Node000004" href="$structguanaqo_1_1TypeErased_1_1Deallocator.html#a3fe2afce7c95dab44fb2f3da30f87fde" title=" " alt="" coords="5,133,193,173"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="227,156,194,156,194,151,227,151"/>
+<area shape="rect" id="Node000005" href="$structguanaqo_1_1TypeErased_1_1Deallocator.html#a64f75f9631d8dbf5f9a1a0deb1314d47" title=" " alt="" coords="10,197,189,237"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="249,180,174,200,173,195,247,174"/>
+<area shape="rect" id="Node000006" href="$structguanaqo_1_1TypeErased_1_1Deallocator.html#a489fc6895dc3ac41139ac1be3626f769" title=" " alt="" coords="10,5,189,45"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="297,127,248,93,192,60,165,48,167,43,195,55,251,88,300,123"/>
+<area shape="poly" id="edge14_Node000014_Node000007" title=" " alt="" coords="254,331,166,304,168,299,256,325"/>
+<area shape="poly" id="edge15_Node000014_Node000008" title=" " alt="" coords="241,352,180,350,180,345,241,347"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="242,377,180,393,179,387,241,372"/>
+</map>
