@@ -1,0 +1,5 @@
+<map id="guanaqo::new_trace_logger" name="guanaqo::new_trace_logger">
+<area shape="rect" id="Node000001" title=" " alt="" coords="200,5,353,45"/>
+<area shape="rect" id="Node000002" href="$group__trace__core.html#ga99edb92dd5f1d1ad161ea583391903ed" title="Get a reference to the global (but thread&#45;local) trace logger instance." alt="" coords="5,5,152,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,28,152,28,152,23,186,23"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="include/guanaqo/callback&#45;streambuf.hpp" name="include/guanaqo/callback&#45;streambuf.hpp">
+<area shape="rect" id="Node000001" title="Stream buffer and redirector for capturing ostream output." alt="" coords="196,5,383,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,72,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,48,86,93,84,88,229,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,93,183,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="255,48,176,89,173,84,252,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="207,93,283,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,47,261,83,256,80,276,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="308,93,361,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="303,44,323,80,319,83,298,47"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="386,93,475,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="324,43,399,84,396,89,322,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="499,93,562,119"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="348,43,487,88,485,93,346,48"/>
+</map>

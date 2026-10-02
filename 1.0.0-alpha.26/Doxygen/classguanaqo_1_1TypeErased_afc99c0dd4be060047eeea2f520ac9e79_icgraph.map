@@ -1,0 +1,9 @@
+<map id="guanaqo::TypeErased::type" name="guanaqo::TypeErased::type">
+<area shape="rect" id="Node000001" title="Query the contained type." alt="" coords="236,47,396,87"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a76d38077f25a709e11586e428960d0bf" title="Convert the type&#45;erased object to the given type." alt="" coords="5,5,188,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,49,153,33,155,28,223,44"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a8cd33df7102e3cd6b6afa3b100f156a9" title="Convert the type&#45;erased object to the given type." alt="" coords="5,55,188,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,70,188,70,188,65,222,65"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#a119a10d23b1d37b3389c8290756dd692" title="Convert the type&#45;erased object to the given type." alt="" coords="5,104,188,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,91,155,107,153,101,222,86"/>
+</map>

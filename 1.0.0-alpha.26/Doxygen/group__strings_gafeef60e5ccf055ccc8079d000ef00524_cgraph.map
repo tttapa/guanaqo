@@ -1,0 +1,7 @@
+<map id="guanaqo::parse_single_duration" name="guanaqo::parse_single_duration">
+<area shape="rect" id="Node000001" title="Adds the first duration in the string s to the duration t." alt="" coords="5,35,173,75"/>
+<area shape="rect" id="Node000002" href="$group__core.html#ga3dbbcc4bb287795cbcb17edf483c6b76" title="Get the pretty name of the given type as a string." alt="" coords="221,5,380,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,40,208,36,208,41,174,46"/>
+<area shape="rect" id="Node000003" href="$group__strings.html#ga85c86fd57aa27be53fdc482aee131ebf" title=" " alt="" coords="221,70,380,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,63,208,68,208,73,173,68"/>
+</map>

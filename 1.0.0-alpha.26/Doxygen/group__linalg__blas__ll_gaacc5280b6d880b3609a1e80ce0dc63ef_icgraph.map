@@ -1,0 +1,9 @@
+<map id="guanaqo::blas::xsyrk" name="guanaqo::blas::xsyrk">
+<area shape="rect" id="Node000001" title=" " alt="" coords="235,70,392,95"/>
+<area shape="rect" id="Node000002" href="$group__linalg__blas__ll.html#ga6ea65befb448749024e71e96d0522874" title=" " alt="" coords="17,5,175,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,69,172,48,173,43,252,64"/>
+<area shape="rect" id="Node000003" href="$group__linalg__blas__hl.html#ga7428194867449b2ee9c6d92e5cc3bc53" title=" " alt="" coords="5,70,187,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,85,187,85,187,80,221,80"/>
+<area shape="rect" id="Node000004" href="$group__linalg__blas__hl.html#gacc1c13a5e5fcb6c1ba7c4dba1c635c9b" title=" " alt="" coords="7,119,185,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,101,153,122,152,117,243,96"/>
+</map>

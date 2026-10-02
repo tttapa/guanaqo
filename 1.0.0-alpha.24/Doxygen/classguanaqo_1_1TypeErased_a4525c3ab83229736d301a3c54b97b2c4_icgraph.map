@@ -1,0 +1,15 @@
+<map id="guanaqo::TypeErased::construct_inplace" name="guanaqo::TypeErased::construct_inplace">
+<area shape="rect" id="Node000001" title="Ensure storage and construct the type&#45;erased object of type T in&#45;place." alt="" coords="421,133,581,173"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a8b9a7cab5f7c8f0c57ee7917a386e2c4" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,5,373,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="465,126,422,93,372,60,348,48,350,43,375,55,425,88,468,122"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#ab9f728690fae172bde88c42e794b55be" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,69,373,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="422,132,358,112,360,107,424,127"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#aba36293b9b8f6622eaf9f5cb7e24251f" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,133,373,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="408,156,374,156,374,151,408,151"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#a79ee52fc9756b24c66a20376095cac84" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,197,373,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="424,180,360,200,358,195,422,175"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#a5eb797761113ac4c73a8cfd672a15ab5" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="213,261,373,301"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="468,184,425,218,375,252,350,264,348,259,372,247,422,214,465,180"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a075258e6739c3bd2adc82bfce512e311" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="5,261,165,301"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="200,284,166,284,166,279,200,279"/>
+</map>

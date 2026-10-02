@@ -1,0 +1,18 @@
+<map id="guanaqo::PrintMatrixView::rows" name="guanaqo::PrintMatrixView::rows">
+<area shape="rect" id="Node000001" title=" " alt="" coords="641,79,832,119"/>
+<area shape="rect" id="Node000002" href="$namespaceguanaqo_1_1detail.html#a88c9fe1314e5663d4c70ce10355c6e56" title=" " alt="" coords="432,50,593,90"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="627,88,593,83,594,78,628,82"/>
+<area shape="rect" id="Node000006" href="$namespaceguanaqo_1_1detail.html#ace413852839567e1ea2455dfddde9c73" title=" " alt="" coords="223,107,384,147"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="628,109,384,125,384,120,627,104"/>
+<area shape="rect" id="Node000003" href="$namespaceguanaqo_1_1detail.html#a8c302199bfdbe4134d5a49129ee1aaf4" title=" " alt="" coords="223,43,384,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,70,384,69,384,63,418,64"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="427,96,378,110,376,105,425,91"/>
+<area shape="rect" id="Node000004" href="$group__io.html#ga706189963835322b0638082bb4ee4394" title=" " alt="" coords="5,5,175,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="208,46,150,33,151,28,209,41"/>
+<area shape="rect" id="Node000005" href="$group__io.html#ga89b21ad0321c9a7125cf0cae57987307" title=" " alt="" coords="5,55,175,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="209,68,175,68,175,63,209,62"/>
+<area shape="rect" id="Node000007" href="$group__io.html#gaf6fcae141f820494c73f5d2d58a6daf1" title=" " alt="" coords="6,111,174,136"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="209,128,174,128,174,122,209,123"/>
+<area shape="rect" id="Node000008" href="$group__io.html#ga756d1c6bfac4b93da66e64e5f9c2b463" title=" " alt="" coords="6,160,174,185"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="209,150,151,162,150,157,208,145"/>
+</map>

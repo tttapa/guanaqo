@@ -1,0 +1,18 @@
+<map id="include/guanaqo/linalg/matrix&#45;view.hpp" name="include/guanaqo/linalg/matrix&#45;view.hpp">
+<area shape="rect" id="Node000001" title="Non&#45;owning view over values plus sparsity description." alt="" coords="137,5,306,45"/>
+<area shape="rect" id="Node000002" href="$config_8hpp.html" title="Common linear algebra index types." alt="" coords="5,167,195,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,48,120,158,116,154,204,44"/>
+<area shape="rect" id="Node000004" href="$sparsity_8hpp.html" title="Sparse and dense sparsity descriptors." alt="" coords="199,93,399,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="242,44,280,82,276,85,238,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="65,240,135,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,192,103,226,97,226,97,192"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="268,121,146,164,145,159,266,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="219,167,288,192"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="293,120,270,157,266,154,289,118"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="312,167,379,192"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="309,118,332,154,328,157,304,120"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="403,167,456,192"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="321,116,397,158,395,162,318,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="481,167,549,192"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="334,116,468,160,467,165,333,121"/>
+</map>

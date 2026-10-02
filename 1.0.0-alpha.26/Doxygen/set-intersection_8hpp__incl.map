@@ -1,0 +1,11 @@
+<map id="include/guanaqo/set&#45;intersection.hpp" name="include/guanaqo/set&#45;intersection.hpp">
+<area shape="rect" id="Node000001" title="View for iterating the intersection of two sorted ranges." alt="" coords="133,5,286,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,91,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,48,85,90,83,85,170,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="115,93,202,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,47,176,83,171,80,195,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="226,93,297,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,44,248,80,244,83,220,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="321,93,388,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="245,43,323,84,320,89,243,48"/>
+</map>

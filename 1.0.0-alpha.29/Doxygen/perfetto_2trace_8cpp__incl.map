@@ -1,0 +1,28 @@
+<map id="src/perfetto/trace.cpp" name="src/perfetto/trace.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="478,5,639,31"/>
+<area shape="rect" id="Node000002" href="$perfetto_2trace_8hpp.html" title="Perfetto tracing macros and session helpers." alt="" coords="254,79,453,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="527,33,400,77,399,72,525,28"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="477,79,550,104"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="553,32,530,69,526,66,549,30"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="575,79,636,104"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="569,30,592,66,588,69,564,32"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="661,79,747,104"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="583,28,669,70,667,75,581,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,141,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,101,190,107,127,118,74,133,55,143,42,154,36,167,38,183,56,213,51,216,33,184,31,167,38,150,52,138,72,128,126,113,190,102,254,95"/>
+<area shape="rect" id="Node000004" href="$preprocessor_8h.html" title="Token concatenation and argument&#45;counting helpers." alt="" coords="53,152,230,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="320,107,189,150,188,145,318,101"/>
+<area shape="rect" id="Node000005" href="$counters_8hpp.html" title="Performance counter snapshots and scoped collectors." alt="" coords="254,152,453,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="356,104,356,138,351,138,351,104"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="477,152,563,177"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="381,102,481,144,479,149,379,106"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="588,152,679,177"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="399,101,575,146,574,151,398,107"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="309,180,132,224,131,219,308,175"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="224,225,291,251"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="339,180,286,219,283,215,336,175"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="315,225,392,251"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="356,178,356,212,351,212,351,178"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="417,225,477,251"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="370,175,422,215,419,219,367,179"/>
+</map>

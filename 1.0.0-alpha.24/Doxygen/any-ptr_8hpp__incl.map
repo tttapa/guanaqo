@@ -1,0 +1,11 @@
+<map id="include/guanaqo/any&#45;ptr.hpp" name="include/guanaqo/any&#45;ptr.hpp">
+<area shape="rect" id="Node000001" title="Non&#45;owning and shared pointer wrappers with type tagging." alt="" coords="91,5,249,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,52,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,48,63,89,61,84,135,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="77,93,154,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,47,133,84,129,80,155,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="179,93,271,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,44,211,80,207,84,181,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="295,93,371,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="210,43,297,85,295,90,208,48"/>
+</map>

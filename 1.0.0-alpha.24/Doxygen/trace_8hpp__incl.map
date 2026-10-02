@@ -1,0 +1,44 @@
+<map id="include/guanaqo/trace.hpp" name="include/guanaqo/trace.hpp">
+<area shape="rect" id="Node000001" title="Tracing logger and macros (ITT, Perfetto, or fallback)." alt="" coords="1025,5,1220,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,225,141,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1025,22,886,26,710,35,515,53,320,81,245,89,183,92,156,98,130,108,105,126,80,154,72,167,69,181,70,212,65,212,64,181,67,165,75,150,101,122,128,104,155,93,183,87,245,84,320,76,514,47,709,30,886,21,1025,17"/>
+<area shape="rect" id="Node000003" href="$perfetto_2trace_8hpp.html" title="Perfetto tracing macros and session helpers." alt="" coords="333,79,531,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1025,32,546,81,545,76,1025,27"/>
+<area shape="rect" id="Node000004" href="$preprocessor_8h.html" title="Token concatenation and argument&#45;counting helpers." alt="" coords="559,152,737,177"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="1025,25,963,30,895,41,824,57,757,81,709,111,670,144,667,140,705,106,755,76,823,52,894,35,963,25,1025,19"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="488,225,555,251"/>
+<area shape="poly" id="edge20_Node000001_Node000006" title=" " alt="" coords="1025,24,976,30,924,40,872,57,824,81,810,92,800,104,787,129,775,155,750,179,705,203,657,220,610,230,569,236,568,231,609,225,655,215,703,198,746,175,770,152,783,126,796,101,806,88,821,76,870,52,923,35,975,24,1025,18"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="687,225,747,251"/>
+<area shape="poly" id="edge16_Node000001_Node000008" title=" " alt="" coords="1025,25,982,31,937,42,893,58,854,81,832,103,822,126,813,151,795,179,773,201,749,219,745,215,769,197,791,176,809,149,817,124,828,100,850,77,891,53,936,36,981,26,1024,19"/>
+<area shape="rect" id="Node000011" href="$stringify_8h.html" title="Stringify and token concatenation helpers." alt="" coords="863,79,1009,104"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="1094,33,980,76,978,71,1092,28"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1033,79,1119,104"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="1117,32,1093,69,1089,66,1113,30"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1143,79,1196,104"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="1133,30,1156,66,1152,69,1128,32"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1220,79,1287,104"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="1145,28,1221,70,1219,74,1142,33"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1311,79,1377,104"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="1159,28,1298,73,1297,78,1157,33"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1402,79,1473,104"/>
+<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="1175,28,1389,76,1388,81,1174,33"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1497,79,1572,104"/>
+<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="1202,28,1484,76,1483,81,1201,33"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1597,79,1673,104"/>
+<area shape="poly" id="edge22_Node000001_Node000018" title=" " alt="" coords="1221,27,1386,46,1584,76,1583,81,1385,52,1220,32"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="1697,79,1761,104"/>
+<area shape="poly" id="edge23_Node000001_Node000019" title=" " alt="" coords="1221,23,1430,41,1556,56,1684,76,1684,81,1555,61,1429,46,1220,28"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="333,101,264,109,196,119,137,134,115,144,99,154,89,166,83,181,76,212,71,211,77,179,85,163,96,150,112,139,135,129,195,114,264,103,332,96"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="468,101,601,145,599,150,466,107"/>
+<area shape="rect" id="Node000005" href="$counters_8hpp.html" title="Performance counter snapshots and scoped collectors." alt="" coords="110,152,309,177"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="397,107,259,150,257,145,395,101"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="333,152,419,177"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="425,106,396,143,391,140,421,103"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="444,152,535,177"/>
+<area shape="poly" id="edge11_Node000003_Node000010" title=" " alt="" coords="444,103,473,139,469,143,439,106"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="189,180,109,221,106,217,186,175"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="260,175,475,223,474,229,259,180"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="171,225,248,251"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="212,178,212,212,207,212,207,178"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="291,175,674,228,673,233,291,180"/>
+</map>

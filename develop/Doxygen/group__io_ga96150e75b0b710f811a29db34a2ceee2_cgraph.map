@@ -1,0 +1,19 @@
+<map id="guanaqo::io::csv_read_row" name="guanaqo::io::csv_read_row">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,70,200,95"/>
+<area shape="rect" id="Node000002" href="$group__io.html#ga087c9290a0520b3f1b02b6787c921604" title=" " alt="" coords="248,70,443,95"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,80,234,80,234,85,200,85"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1io_1_1CSVReader.html#adc16a0a06c51a6a60fb65d04eed44fcd" title=" " alt="" coords="717,5,896,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="396,67,490,48,600,35,703,27,704,33,601,40,491,53,397,72"/>
+<area shape="rect" id="Node000004" href="$structguanaqo_1_1io_1_1CSVReader.html#ac6ff711471364524ec918facf8059bc4" title=" " alt="" coords="491,127,669,167"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="394,93,493,120,492,126,392,98"/>
+<area shape="rect" id="Node000008" href="$structguanaqo_1_1io_1_1CSVReader.html#a1ec0f1dda005a6206400f818159cf09f" title=" " alt="" coords="491,63,669,103"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="443,80,477,80,477,85,443,85"/>
+<area shape="rect" id="Node000005" href="$structguanaqo_1_1io_1_1CSVReader.html#a9537b30cc2e4d7de1406c5aae39b03b7" title=" " alt="" coords="717,69,896,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="659,124,713,110,715,115,660,129"/>
+<area shape="rect" id="Node000006" href="$structguanaqo_1_1io_1_1CSVReader.html#a23247665597068315987a44467d4459a" title=" " alt="" coords="717,133,896,173"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="670,147,704,148,703,153,670,152"/>
+<area shape="rect" id="Node000007" href="$structguanaqo_1_1io_1_1CSVReader.html#a91ad1ccf57750d7bec9b5c830961665a" title=" " alt="" coords="944,133,1123,173"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="897,151,930,151,930,156,897,156"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="659,60,713,46,715,51,660,65"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="670,83,704,84,703,89,670,88"/>
+</map>

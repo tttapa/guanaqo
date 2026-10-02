@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::check_uniqueness_triplets" name="guanaqo::linalg::check_uniqueness_triplets">
+<area shape="rect" id="Node000001" title="Check that no two entries with the same row and column index exist in the given sparse coordinate lis..." alt="" coords="288,20,456,60"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCOO_3_01Index_01_4_00_01Dense_01_4.html#aaaaf7b95a6529ea8b1daf6b91e62e836" title=" " alt="" coords="5,5,240,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="274,43,240,43,240,37,274,37"/>
+</map>

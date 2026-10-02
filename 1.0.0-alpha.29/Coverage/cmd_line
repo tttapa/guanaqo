@@ -1,0 +1,1 @@
+genhtml --prefix /home/runner/work/guanaqo/guanaqo /home/runner/work/guanaqo/guanaqo/build/docs/build/Debug/coverage/coverage_total.info --output-directory=/home/runner/work/guanaqo/guanaqo/docs/Coverage --legend --title 1c28aacb24bc3a4d7091173d6a9dc63e524df402 --rc branch_coverage=0 -s --demangle-cpp /usr/bin/c++filt --no-function-coverage

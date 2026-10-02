@@ -1,0 +1,9 @@
+<map id="guanaqo::trace::ScopedLinalgCounters::ScopedLinalgCounters" name="guanaqo::trace::ScopedLinalgCounters::ScopedLinalgCounters">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,237,45"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1trace_1_1ScopedLinalgCounters.html#a1d25682e49364156effdb5822c2f6b6f" title=" " alt="" coords="285,5,517,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,23,272,23,272,28,237,28"/>
+<area shape="rect" id="Node000003" href="$structguanaqo_1_1trace_1_1ScopedLinalgCounters.html#acf667acbef370dcc59261cc2a5e1a272" title=" " alt="" coords="565,5,779,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="517,23,551,23,551,28,517,28"/>
+<area shape="rect" id="Node000004" href="$group__trace__perfetto.html#gad629e9eef1020af73740bc4ce4e84b9a" title="Get a reference to the thread&#45;local GFLOP counter." alt="" coords="827,5,980,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="779,23,813,23,813,28,779,28"/>
+</map>

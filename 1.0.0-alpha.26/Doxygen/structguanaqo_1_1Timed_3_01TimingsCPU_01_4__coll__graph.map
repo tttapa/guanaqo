@@ -1,0 +1,5 @@
+<map id="guanaqo::Timed&lt; TimingsCPU &gt;" name="guanaqo::Timed&lt; TimingsCPU &gt;">
+<area shape="rect" id="Node000001" title="RAII class for measuring wall and CPU time." alt="" coords="5,181,233,327"/>
+<area shape="rect" id="Node000002" href="$group__timing.html#structguanaqo_1_1TimingsCPU" title="Measures the number of invocations of a specific piece of code and its run time." alt="" coords="41,5,198,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,111,122,165,117,165,117,111"/>
+</map>

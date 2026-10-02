@@ -1,0 +1,7 @@
+<map id="include/guanaqo/assume.hpp" name="include/guanaqo/assume.hpp">
+<area shape="rect" id="Node000001" title="Assertion and assumption macros with debug/release semantics." alt="" coords="41,5,253,31"/>
+<area shape="rect" id="Node000002" href="$stringify_8h.html" title="Stringify and token concatenation helpers." alt="" coords="5,79,151,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,33,101,71,97,67,134,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="175,79,261,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,29,199,67,195,71,157,33"/>
+</map>

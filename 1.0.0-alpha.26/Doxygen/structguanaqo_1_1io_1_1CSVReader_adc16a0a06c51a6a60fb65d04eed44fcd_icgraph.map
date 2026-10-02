@@ -1,0 +1,18 @@
+<map id="guanaqo::io::CSVReader::next_line" name="guanaqo::io::CSVReader::next_line">
+<area shape="rect" id="Node000001" title=" " alt="" coords="717,58,896,98"/>
+<area shape="rect" id="Node000002" href="$group__io.html#ga7b55c259788953b68dc075f6c3f3859a" title=" " alt="" coords="263,12,427,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="758,54,716,34,669,20,606,11,543,8,428,15,427,10,543,3,607,5,670,14,718,29,761,49"/>
+<area shape="rect" id="Node000004" href="$group__io.html#ga087c9290a0520b3f1b02b6787c921604" title=" " alt="" coords="248,62,443,87"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="704,83,669,84,491,84,443,82,443,77,491,78,669,78,704,78"/>
+<area shape="rect" id="Node000006" href="$group__io.html#ga373fb78c94722a8266ff76164178ee3e" title=" " alt="" coords="263,112,427,152"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="704,93,428,125,427,120,703,88"/>
+<area shape="rect" id="Node000007" href="$structguanaqo_1_1io_1_1CSVReader.html#a1ec0f1dda005a6206400f818159cf09f" title=" " alt="" coords="491,29,669,69"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="703,68,669,63,670,58,704,62"/>
+<area shape="rect" id="Node000003" href="$group__io.html#ga6bbbe06b5fadeadd6d20822460efa6a1" title=" " alt="" coords="21,12,185,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,28,185,28,185,22,249,22"/>
+<area shape="rect" id="Node000005" href="$group__io.html#ga96150e75b0b710f811a29db34a2ceee2" title=" " alt="" coords="5,62,200,87"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,77,200,77,200,72,234,72"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="476,41,427,36,428,31,477,36"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="477,63,443,66,443,61,476,57"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="512,76,444,101,406,114,404,109,442,96,510,71"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="guanaqo::TypeErased&lt; VTable, Allocator, SmallBufferSize &gt;" name="guanaqo::TypeErased&lt; VTable, Allocator, SmallBufferSize &gt;">
+<area shape="rect" id="Node000001" title="Class for polymorphism through type erasure." alt="" coords="5,432,211,1481"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1BasicVTable.html" title="Struct that stores pointers to functions to copy, move or destroy a polymorphic object." alt="" coords="30,216,186,361"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,362,111,415,105,415,105,362"/>
+<area shape="rect" id="Node000003" href="$group__type__erasure.html#structguanaqo_1_1CopyMoveDestroyVTable" title=" " alt="" coords="9,5,207,125"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,126,111,200,105,200,105,126"/>
+</map>

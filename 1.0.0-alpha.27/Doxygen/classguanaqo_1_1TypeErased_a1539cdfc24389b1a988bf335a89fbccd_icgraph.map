@@ -1,0 +1,25 @@
+<map id="guanaqo::TypeErased::allocate" name="guanaqo::TypeErased::allocate">
+<area shape="rect" id="Node000001" title="Ensure that storage is available, either by using the small buffer if it is large enough,..." alt="" coords="629,293,789,333"/>
+<area shape="rect" id="Node000002" href="$classguanaqo_1_1TypeErased.html#a4525c3ab83229736d301a3c54b97b2c4" title="Ensure storage and construct the type&#45;erased object of type T in&#45;place." alt="" coords="421,165,581,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="663,288,533,208,536,203,666,284"/>
+<area shape="rect" id="Node000009" href="$classguanaqo_1_1TypeErased.html#a9a9a3fb15c4b0c9ee907e0c790175ee7" title=" " alt="" coords="421,357,581,397"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="632,340,568,360,566,355,630,335"/>
+<area shape="rect" id="Node000003" href="$classguanaqo_1_1TypeErased.html#a8b9a7cab5f7c8f0c57ee7917a386e2c4" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,5,373,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="474,156,429,107,372,60,351,48,353,43,375,55,433,104,478,153"/>
+<area shape="rect" id="Node000004" href="$classguanaqo_1_1TypeErased.html#ab9f728690fae172bde88c42e794b55be" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,69,373,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="449,161,372,124,345,112,347,107,374,119,451,156"/>
+<area shape="rect" id="Node000005" href="$classguanaqo_1_1TypeErased.html#aba36293b9b8f6622eaf9f5cb7e24251f" title="Main constructor that type&#45;erases the object constructed from the given argument." alt="" coords="213,133,373,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="407,174,373,168,374,163,408,168"/>
+<area shape="rect" id="Node000006" href="$classguanaqo_1_1TypeErased.html#a79ee52fc9756b24c66a20376095cac84" title="Main constructor that type&#45;erases the given argument." alt="" coords="213,197,373,237"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="408,202,374,208,373,202,407,197"/>
+<area shape="rect" id="Node000007" href="$classguanaqo_1_1TypeErased.html#a5eb797761113ac4c73a8cfd672a15ab5" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="213,261,373,301"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="451,214,374,252,347,264,345,259,372,247,449,209"/>
+<area shape="rect" id="Node000008" href="$classguanaqo_1_1TypeErased.html#a075258e6739c3bd2adc82bfce512e311" title="Construct a type&#45;erased wrapper of type Ret for an object of type T, initialized in&#45;place with the gi..." alt="" coords="5,261,165,301"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="200,284,166,284,166,279,200,279"/>
+<area shape="rect" id="Node000010" href="$classguanaqo_1_1TypeErased.html#a36693eaff4f3d29737ef091995b3631f" title="Copy constructor." alt="" coords="213,325,373,365"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="407,366,373,360,374,355,408,360"/>
+<area shape="rect" id="Node000011" href="$classguanaqo_1_1TypeErased.html#aeb0fa9e489bf394bab8a112990184133" title="Copy constructor (allocator aware)." alt="" coords="213,389,373,429"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="408,394,374,400,373,394,407,389"/>
+<area shape="rect" id="Node000012" href="$classguanaqo_1_1TypeErased.html#a200f8ff694b5ae333d19578655c51b29" title="Copy assignment." alt="" coords="213,453,373,493"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="451,406,374,444,347,456,345,451,372,439,449,401"/>
+</map>

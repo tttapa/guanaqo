@@ -1,0 +1,15 @@
+<map id="guanaqo::io::CSVReader::read_single" name="guanaqo::io::CSVReader::read_single">
+<area shape="rect" id="Node000001" title=" " alt="" coords="717,47,896,87"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1io_1_1CSVReader.html#ac6ff711471364524ec918facf8059bc4" title=" " alt="" coords="491,47,669,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="703,70,670,70,670,65,703,65"/>
+<area shape="rect" id="Node000003" href="$group__io.html#ga7b55c259788953b68dc075f6c3f3859a" title=" " alt="" coords="263,5,427,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="476,48,406,33,407,28,478,43"/>
+<area shape="rect" id="Node000005" href="$group__io.html#ga087c9290a0520b3f1b02b6787c921604" title=" " alt="" coords="248,55,443,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="477,70,443,70,443,65,477,65"/>
+<area shape="rect" id="Node000007" href="$group__io.html#ga373fb78c94722a8266ff76164178ee3e" title=" " alt="" coords="263,105,427,145"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="485,93,428,107,427,102,484,88"/>
+<area shape="rect" id="Node000004" href="$group__io.html#ga6bbbe06b5fadeadd6d20822460efa6a1" title=" " alt="" coords="21,5,185,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,21,185,21,185,15,249,15"/>
+<area shape="rect" id="Node000006" href="$group__io.html#ga96150e75b0b710f811a29db34a2ceee2" title=" " alt="" coords="5,55,200,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="234,70,200,70,200,65,234,65"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="guanaqo::linalg::sort_rows_csc" name="guanaqo::linalg::sort_rows_csc">
+<area shape="rect" id="Node000001" title="Given a sparse compressed&#45;column storage matrix, sort all row indices within each column." alt="" coords="341,27,496,67"/>
+<area shape="rect" id="Node000002" href="$structguanaqo_1_1linalg_1_1sparsity_1_1SparsityConverter_3_01SparseCSC_3_01IndexFrom_00_01Storag482666d5a5943ffa42fa943282e59db2.html#a42ef93f02469f49cea56cda014882c0f" title=" " alt="" coords="5,5,293,89"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,50,293,50,293,45,328,45"/>
+</map>

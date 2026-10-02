@@ -1,0 +1,4 @@
+<map id="Perfetto Tracing" name="Perfetto Tracing">
+<area shape="rect" id="Node000002" href="$group__trace__core.html" title="Core tracing utilities and macros (ITT, Perfetto or fallback logger)." alt="" coords="5,5,73,31"/>
+<area shape="rect" id="Node000001" title="Perfetto track events, tracing sessions, and FLOP counting." alt="" coords="121,5,245,31"/>
+</map>
