@@ -1,26 +1,33 @@
 #include <guanaqo/timed-cpu.hpp>
+#include <ctime>
 #include <iomanip>
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #include <Windows.h>
-#else
-#include <ctime>
+#elif __has_include(<unistd.h>)
+#include <unistd.h>
 #endif
 
 namespace {
 
 int64_t getProcessCpuTime() {
-#ifdef _WIN32
+#if defined(_WIN32)
     FILETIME creation_time, exit_time, kernel_time, user_time;
     GetProcessTimes(GetCurrentProcess(), &creation_time, &exit_time,
                     &kernel_time, &user_time);
     return static_cast<int64_t>(user_time.dwHighDateTime) << 32 |
            user_time.dwLowDateTime;
-#else
+#elif defined(_POSIX_CPUTIME) && _POSIX_CPUTIME > 0
     struct timespec cpu_time;
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cpu_time);
     return static_cast<int64_t>(cpu_time.tv_sec) * 1'000'000'000 +
            cpu_time.tv_nsec;
+#else
+    using clock_duration =
+        std::chrono::duration<std::clock_t, std::ratio<1, CLOCKS_PER_SEC>>;
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(
+               clock_duration{std::clock()})
+        .count();
 #endif
 }
 

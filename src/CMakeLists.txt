@@ -139,7 +139,7 @@ target_sources(guanaqo PUBLIC FILE_SET HEADERS
           "include/guanaqo/type-traits.hpp"
 )
 target_link_libraries(guanaqo
-    PRIVATE ${CMAKE_DL_LIBS}
+    PRIVATE $<$<BOOL:${GUANAQO_HAVE_DLFCN}>:${CMAKE_DL_LIBS}>
     PUBLIC $<$<BOOL:${GUANAQO_WITH_QUAD_PRECISION}>:quadmath>
 )
 target_compile_definitions(guanaqo PUBLIC
@@ -150,6 +150,10 @@ target_compile_definitions(guanaqo PUBLIC
     $<$<BOOL:${GUANAQO_WITH_PERFETTO}>:GUANAQO_WITH_PERFETTO>
     $<$<BOOL:${GUANAQO_WITH_PCM}>:GUANAQO_WITH_PCM>
     $<$<BOOL:${GUANAQO_WITH_PCM_TRACING}>:GUANAQO_WITH_PCM_TRACING>
+)
+target_compile_definitions(guanaqo PRIVATE
+    $<$<BOOL:${GUANAQO_HAVE_DLFCN}>:GUANAQO_HAVE_DLFCN>
+    $<$<BOOL:${GUANAQO_HAVE_PTHREAD_SELF}>:GUANAQO_HAVE_PTHREAD_SELF>
 )
 guanaqo_configure_library(guanaqo)
 if (GUANAQO_WITH_ITT)

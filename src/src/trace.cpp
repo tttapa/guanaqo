@@ -3,7 +3,7 @@
 #include <mutex>
 #include <thread>
 
-#ifdef _POSIX_THREADS
+#ifdef GUANAQO_HAVE_PTHREAD_SELF
 #include <pthread.h>
 #endif
 
@@ -18,13 +18,9 @@ GUANAQO_EXPORT TraceLogger &get_trace_logger() {
 #else
 namespace guanaqo {
 
-#ifdef _POSIX_THREADS
+#ifdef GUANAQO_HAVE_PTHREAD_SELF
 template <class T>
 concept pthread_self_converts_to = requires { T{::pthread_self()}; };
-#else
-template <class>
-concept pthread_self_converts_to = false;
-#endif
 
 GUANAQO_EXPORT std::size_t get_thread_id() {
     return []<class S = std::size_t>() {
@@ -38,9 +34,16 @@ GUANAQO_EXPORT std::size_t get_thread_id() {
         }
     }();
 }
+#else
+GUANAQO_EXPORT std::size_t get_thread_id() {
+    static constexpr std::hash<std::thread::id> hasher;
+    return hasher(std::this_thread::get_id());
+}
+#endif
 
 TraceLogger::clock::time_point TraceLogger::t0 = clock::now();
 
+#if GUANAQO_WITH_TRACING
 static std::mutex trace_loggers_mutex;
 static std::list<std::shared_ptr<TraceLogger>> trace_loggers;
 static std::atomic<size_t> default_trace_logger_size = 16'384;
@@ -83,6 +86,7 @@ for_each_trace_logger(const std::function<void(TraceLogger &)> &callback) {
     for (const auto &logger : trace_loggers)
         callback(*logger);
 }
+#endif
 
 } // namespace guanaqo
 #endif

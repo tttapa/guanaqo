@@ -1,8 +1,8 @@
 #include <guanaqo/dl.hpp>
 
-#if _WIN32
+#if defined(_WIN32)
 #include <windows.h>
-#else
+#elif defined(GUANAQO_HAVE_DLFCN)
 #include <dlfcn.h>
 #endif
 
@@ -10,7 +10,7 @@
 
 namespace guanaqo {
 
-#if _WIN32
+#if defined(_WIN32)
 std::shared_ptr<char> get_last_error_msg() {
     char *err = nullptr;
     auto opt  = FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -44,7 +44,7 @@ void *load_func(void *handle, const std::string &name) {
                                  "': " + get_last_error_msg().get());
     return reinterpret_cast<void *>(h);
 }
-#else
+#elif defined(GUANAQO_HAVE_DLFCN)
 std::shared_ptr<void> load_lib(const std::filesystem::path &so_filename,
                                DynamicLoadFlags dl_flags) {
     assert(!so_filename.empty());
@@ -63,6 +63,21 @@ void *load_func(void *handle, const std::string &name) {
         throw dynamic_load_error("Unable to load function '" + name +
                                  "': " + err);
     return h;
+}
+#else
+std::shared_ptr<void>
+load_lib([[maybe_unused]] const std::filesystem::path &so_filename,
+         [[maybe_unused]] DynamicLoadFlags flags) {
+    assert(!so_filename.empty());
+    throw dynamic_load_error("Dynamic library loading is not supported on this "
+                             "platform");
+}
+
+void *load_func([[maybe_unused]] void *handle,
+                [[maybe_unused]] const std::string &name) {
+    assert(handle);
+    throw dynamic_load_error("Dynamic symbol lookup is not supported on this "
+                             "platform");
 }
 #endif
 
